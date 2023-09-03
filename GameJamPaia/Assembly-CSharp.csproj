@@ -59,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\IA\Main nodes\BTConditionalSequence.cs" />
+    <Compile Include="Assets\Scripts\Sound\General\SoundRequest.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Base\Audio\AudioConfig.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\EnemysOnMap.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\LoadLevelData.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTWaitForSeconds.cs" />
@@ -73,14 +76,20 @@
     <Compile Include="Assets\Scripts\HardCoded\Map.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Alarm.cs" />
     <Compile Include="Assets\Scripts\Input\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Base\Audio\AudioChannel.cs" />
     <Compile Include="Assets\Input\InputController.cs" />
+    <Compile Include="Assets\Scripts\Abstract\ManagerBase.cs" />
+    <Compile Include="Assets\Scripts\Sound\General\SoundEmitter.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\IA\FollowAI.cs" />
+    <Compile Include="Assets\Scripts\Sound\General\SoundsSettings.cs" />
     <Compile Include="Assets\Scripts\Abstract\BTnode.cs" />
     <Compile Include="Assets\Scripts\InputArea2D.cs" />
+    <Compile Include="Assets\Scripts\Sound\General\VolumeSlider.cs" />
     <Compile Include="Assets\Scripts\SceneLoadManager.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTFollowTarget.cs" />
     <Compile Include="Assets\Scripts\LoadingScene.cs" />
+    <Compile Include="Assets\Scripts\Sound\ButtonsSound.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTSelector.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTInverter.cs" />
     <Compile Include="Assets\Scripts\GenericScoreVisual.cs" />
@@ -88,6 +97,8 @@
     <Compile Include="Assets\Scripts\Interface\IHasActiveState.cs" />
     <Compile Include="Assets\Scripts\OnTriggerEnter2DSignal.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameAction.cs" />
+    <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
+    <Compile Include="Assets\Scripts\Sound\General\SoundsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

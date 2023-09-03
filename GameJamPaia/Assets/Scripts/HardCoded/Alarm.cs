@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class Alarm : MonoBehaviour
 {
     [SerializeField] private InputArea2D inputArea;
-    [SerializeField] private SpriteRenderer sprite;
+    //[SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Animator anim;
 
     [Header("Progress Bar")]
     [SerializeField] private float holdTime;
@@ -21,10 +22,12 @@ public class Alarm : MonoBehaviour
     [SerializeField] private int onCompleteScoreValue;
 
     [Header("On Enable")]
-    [SerializeField] private Color onEnableColor;
+    //[SerializeField] private Color onEnableColor;
+    [SerializeField] private string onEnableAnimation;
 
     [Header("On Disable")]
-    [SerializeField]private Color onDisableColor;
+    //[SerializeField]private Color onDisableColor;
+    [SerializeField] private string onDisableAnimation;
 
     public Action<Alarm> AlarmInputCompleted;
 
@@ -98,18 +101,22 @@ public class Alarm : MonoBehaviour
     public void EnableAlarm()
     {
         OnAlarmEnabled?.Invoke(this,true) ;
-        sprite.color = onEnableColor;
+        //sprite.color = onEnableColor;
         inputArea.Enable();
         holding = false;
+
+        anim.Play(onEnableAnimation, 0, 0);
     }
 
     public void DisableAlarm()
     {
         OnAlarmEnabled?.Invoke(this,false);
-        sprite.color = onDisableColor;   
+        //sprite.color = onDisableColor;   
         inputArea.Disable();
         progressCnavas.enabled = false;
         holding = false;
+
+        anim.Play(onDisableAnimation, 0, 0);
     }
 
 }
