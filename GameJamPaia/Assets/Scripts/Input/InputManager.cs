@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     private InputController inputActions;
     public Action<Vector2> OnMoveInput;
     public Action<bool> OnInteract;
+    public Action<bool> OnSprint;
 
     private void Awake()
     {
@@ -23,11 +24,22 @@ public class InputManager : MonoBehaviour
         inputActions.Gameplay.Move.performed += ctx => MovementInput(ctx.ReadValue<Vector2>());
         inputActions.Gameplay.Move.canceled += ctx => MovementInput(ctx.ReadValue<Vector2>());
 
-        inputActions.Gameplay.Interact.performed += ctx => Interact_performed(ctx.ReadValue<float>());
-        inputActions.Gameplay.Interact.canceled+=ctx=> Interact_performed(ctx.ReadValue<float>());
+        inputActions.Gameplay.Interact.performed += ctx => InteractInput(ctx.ReadValue<float>());
+        inputActions.Gameplay.Interact.canceled+=ctx=> InteractInput(ctx.ReadValue<float>());
+
+        inputActions.Gameplay.Sprint.performed += ctx => SprintInput(ctx.ReadValue<float>());
+        inputActions.Gameplay.Sprint.canceled+= ctx => SprintInput(ctx.ReadValue<float>());
     }
 
-    private void Interact_performed(float pressed)
+    private void SprintInput(float pressed)
+    {
+        if (pressed > 0)
+            OnSprint?.Invoke(true);
+        else
+            OnSprint?.Invoke(false);
+    }
+
+    private void InteractInput(float pressed)
     {
         if (pressed > 0)
             OnInteract?.Invoke(true);

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float minDelay;
     [SerializeField]private float maxDelay;
   
-    [SerializeField] private Alarms[] alarms;
+    [SerializeField] private Alarm[] alarms;
     [SerializeField]List<int> indexAvailable;
 
     [Header("Game Over")]
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < alarms.Length; i++)
         {
-            alarms[i].AlarmInput += OnAlarmInput;
+            alarms[i].AlarmInputCompleted += OnAlarmInput;
 
             alarms[i].DisableAlarm();
 
@@ -48,11 +48,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void OnAlarmInput(Alarms alarmRef)
+    private void OnAlarmInput(Alarm alarmRef)
     {
         alarmRef.DisableAlarm();
 
         indexAvailable.Add(GetAlarmIndex(alarmRef));
+
+        alarmsOn--;
     }
 
 
@@ -94,7 +96,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private int GetAlarmIndex(Alarms alarmRef)
+    private int GetAlarmIndex(Alarm alarmRef)
     {
         for(int i = 0; i < alarms.Length; i++)
         {

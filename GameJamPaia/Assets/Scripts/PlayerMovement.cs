@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
     [SerializeField] private float speed;
 
     private Vector2 inputDirection;
+    private float defaultSpeed;
 
     private void Awake()
     {
@@ -18,6 +19,8 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
             rb = GetComponent<Rigidbody2D>();
 
         input.OnMoveInput += Input_OnMoveInput;
+
+        defaultSpeed = speed;
     }
 
 
@@ -38,6 +41,16 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
     private void Move()
     {
        rb.velocity = inputDirection * (speed * Time.deltaTime);
+    }
+
+    public void SetDefaultSpeed()
+    {
+        speed = defaultSpeed;
+    }
+
+    public void SetNewSpeed(float newSpeed)
+    {
+        speed = newSpeed;
     }
 
     public void Disable()

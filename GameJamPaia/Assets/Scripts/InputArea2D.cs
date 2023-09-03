@@ -11,7 +11,7 @@ public class InputArea2D : MonoBehaviour, IHasActiveState
     private bool targetInArea;
     private bool interacting;
 
-    public Action OnInputPerformed;
+    public Action<bool> OnInputPerformed;
 
     private void Awake()
     {
@@ -38,6 +38,7 @@ public class InputArea2D : MonoBehaviour, IHasActiveState
         {
             targetInArea = false;
             interacting = false;
+            OnInputPerformed?.Invoke(false);
         }
     }
 
@@ -51,7 +52,11 @@ public class InputArea2D : MonoBehaviour, IHasActiveState
 
         if (interacting)
         {
-            OnInputPerformed?.Invoke();
+            OnInputPerformed?.Invoke(true);
+        }
+        else
+        {
+            OnInputPerformed?.Invoke(false);
         }
         
     }
