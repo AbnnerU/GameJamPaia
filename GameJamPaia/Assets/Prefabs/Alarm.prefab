@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 6754309065054679823}
   - component: {fileID: 4737475454170923014}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: Alarm - Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -377,7 +377,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!114 &6754309065054679823
 MonoBehaviour:
