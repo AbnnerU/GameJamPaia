@@ -234,7 +234,7 @@ MonoBehaviour:
   scoreRef: {fileID: 0}
   findScoreByTag: 1
   scoreTag: Score
-  onCompleteScoreValue: 150
+  onCompleteScoreValue: 100
   onEnableAnimation: Clock_Alarm
   onEnableSoundId: 1
   onDisableAnimation: Clock_TurnOff01

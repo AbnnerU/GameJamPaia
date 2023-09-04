@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class FollowAI : MonoBehaviour, IAgentMovementState
 {
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private bool playOnStart;
     [Header("BT")]
     [SerializeField] private BehaviorTree behaviorTree;
     [SerializeField] private GameObject spriteObj;
@@ -24,10 +25,11 @@ public class FollowAI : MonoBehaviour, IAgentMovementState
     {
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        StartBehaviourTree();
+        if(playOnStart)
+            StartBehaviourTree();
     }
 
-    private void StartBehaviourTree()
+    public void StartBehaviourTree()
     { 
         BTFollowTarget bTFollowTarget = new BTFollowTarget(target, agent, this, minDistance, followTargetUpdateTime);
         BTWaitForSeconds bTWaitForSeconds = new BTWaitForSeconds(1);

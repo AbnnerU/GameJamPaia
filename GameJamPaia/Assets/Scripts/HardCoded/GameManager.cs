@@ -12,21 +12,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private bool playOnStart;
     [Header("Alarms")]
-    [SerializeField] private float minAlarmDelay;
-    [SerializeField]private float maxAlarmDelay;  
     [SerializeField] private Alarm[] alarms;
     List<int> alarmsIndexAvailable;
-    [Header("Doors")]
-    [SerializeField] private float startLockingDoorsOnReachScore;
-    [SerializeField] private Door2D[] doors;
-    [SerializeField] private float maxLockedDoors;
-    [SerializeField] private float minLockedDoorDelay;
-    [SerializeField] private float maxLockedDoorDelay;
+    [Header("Doors")]   
+    [SerializeField] private Door2D[] doors;   
     List<int> doorsIndexAvailable;
     [Header("Game Over")]
     [SerializeField] private int maxAlarmsOn=4;
     [SerializeField] private Canvas gameOverCanvas;
     [SerializeField] private bool disablePlayerMovement;
+    [Header("Balance")]
+    [SerializeField] private float minAlarmDelay;
+    [SerializeField] private float maxAlarmDelay;
+    [SerializeField] private float minLockNewDoorDelay;
+    [SerializeField] private float maxLockNewDoorDelay;
+    [SerializeField] private int startLockingDoorsOnReachScore;
+    [SerializeField] private int maxLockedDoorsAmount;
+    [SerializeField] private EnemySpawn[] enemySpawnConfig;
+    [SerializeField] private MaxDoorsLockedConfig[] doorsLockedConfigs;
+    [SerializeField] private AlarmsDelayConfig[] alarmsDelayProgression;
 
     private int currentDoorsLockedValue = 0;
     private int alarmsOn=0;
@@ -36,6 +40,12 @@ public class GameManager : MonoBehaviour
     {
         alarmsIndexAvailable = new List<int>(alarms.Length);
         doorsIndexAvailable = new List<int>(doors.Length);
+
+        for(int i=0; i < enemySpawnConfig.Length; i++)
+        {
+            enemySpawnConfig[i].enemyRef.gameObject.SetActive(false);
+        }
+
 
         if(playerMovement == null)
             playerMovement = FindObjectOfType<PlayerMovement>();    
@@ -85,14 +95,19 @@ public class GameManager : MonoBehaviour
 
     private void GameScore_OnScoreChange(int newValue)
     {
-        if (startLockingDoors) return;
+        TrySpawnEnemy(newValue);
 
-        if (newValue >= startLockingDoorsOnReachScore)
+        TryChangeDoorsConfig(newValue);
+
+        TryApplyNewAlarmProgression(newValue);
+
+        if (!startLockingDoors && newValue >= startLockingDoorsOnReachScore)
         {
             StartCoroutine(DoorsLockedGameplayLoop());
             startLockingDoors = true;
         }
     }
+
 
     IEnumerator DoorsLockedGameplayLoop()
     {
@@ -100,9 +115,9 @@ public class GameManager : MonoBehaviour
 
         while (active)
         {
-            yield return new WaitForSeconds(Random.Range(minLockedDoorDelay, maxLockedDoorDelay));
+            yield return new WaitForSeconds(Random.Range(minLockNewDoorDelay, maxLockNewDoorDelay));
 
-            if (currentDoorsLockedValue < maxLockedDoors)
+            if (currentDoorsLockedValue < maxLockedDoorsAmount)
             {
                 if (doorsIndexAvailable.Count > 0)
                 {
@@ -148,6 +163,48 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void TrySpawnEnemy(int scoreValue)
+    {
+        for(int i = 0; i < enemySpawnConfig.Length; i++)
+        {
+            if (enemySpawnConfig[i].applied==false && scoreValue>= enemySpawnConfig[i].spawnOnReachScore)
+            {
+                enemySpawnConfig[i].applied = true;
+                enemySpawnConfig[i].enemyRef.gameObject.SetActive(true);
+                enemySpawnConfig[i].enemyRef.StartBehaviourTree();
+            }
+        }
+    }
+
+    private void TryChangeDoorsConfig(int scoreValue)
+    {
+        for(int i = 0; i < doorsLockedConfigs.Length; i++)
+        {
+            if (doorsLockedConfigs[i].applied ==false && scoreValue >= doorsLockedConfigs[i].onReachScore)
+            {
+                doorsLockedConfigs[i].applied = true;
+                maxLockedDoorsAmount = doorsLockedConfigs[i].newMaxValue;
+
+                minLockNewDoorDelay = doorsLockedConfigs[i].minDelay;
+                maxLockNewDoorDelay = doorsLockedConfigs[i].maxDelay;
+            }
+        }
+    }
+
+    private void TryApplyNewAlarmProgression(int scoreValue)
+    {
+        for(int i = 0; i < alarmsDelayProgression.Length; i++)
+        {
+            if (alarmsDelayProgression[i].applied==false && scoreValue >= alarmsDelayProgression[i].onReachScore)
+            {
+                alarmsDelayProgression[i].applied =true;
+
+                minAlarmDelay = alarmsDelayProgression[i].minDelay;
+                maxAlarmDelay = alarmsDelayProgression[i].maxDelay;
+            }
+        }
+    }
+
     private void GameOver()
     {
         gameOverCanvas.enabled = true;
@@ -156,7 +213,6 @@ public class GameManager : MonoBehaviour
             playerMovement.Disable();
         
     }
-
 
     private int GetAlarmIndex(Alarm alarmRef)
     {
@@ -169,16 +225,16 @@ public class GameManager : MonoBehaviour
         return -1;
     }
 
-    private int GetDoorIndex(Door2D doorRef)
-    {
-        for(int i = 0; i < doors.Length; i++)
-        {
-            if (doors[i] == doorRef)
-                return i;
-        }
+    //private int GetDoorIndex(Door2D doorRef)
+    //{
+    //    for(int i = 0; i < doors.Length; i++)
+    //    {
+    //        if (doors[i] == doorRef)
+    //            return i;
+    //    }
 
-        return -1;
-    }
+    //    return -1;
+    //}
 
     //[Serializable]
     //private class DoorState
@@ -186,4 +242,33 @@ public class GameManager : MonoBehaviour
     //    public Door2D door;
     //    public bool locked;
     //}
+
+    [Serializable]
+    private class AlarmsDelayConfig
+    {
+        public int onReachScore;
+        [Header("Delay")]
+        public float minDelay;
+        public float maxDelay;
+        public bool applied;
+    }
+
+    [Serializable]
+    private class EnemySpawn
+    {
+        public FollowAI enemyRef;
+        public int spawnOnReachScore;
+        public bool applied=false;
+    }
+
+    [Serializable]
+    private class MaxDoorsLockedConfig
+    {
+        public int onReachScore;
+        public int newMaxValue;
+        [Header("Delay")]
+        public float minDelay;
+        public float maxDelay;
+        public bool applied;
+    }
 }

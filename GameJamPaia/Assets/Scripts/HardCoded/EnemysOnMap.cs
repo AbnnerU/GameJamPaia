@@ -5,7 +5,7 @@ using UnityEngine.Jobs;
 using Unity.Jobs;
 using Unity.Collections;
 using Unity.Burst;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class EnemysOnMap : MonoBehaviour
 {
@@ -58,6 +58,15 @@ public class EnemysOnMap : MonoBehaviour
 
         for(int i=0; i < agentsCount; i++)
         {
+            if (agents[i].agentRealWordTransform.gameObject.activeSelf == false)
+            {
+                agents[i].agentUIImage.enabled = false;
+                continue;
+            }
+            else           
+                agents[i].agentUIImage.enabled = true;
+            
+
             if (markerParallelJob.resultsIndex[i] >= 0)
             {
                 agents[i].agentRectTransform.anchoredPosition = mapConfig[markerParallelJob.resultsIndex[i]].mapRef.anchoredPosition;
@@ -119,6 +128,7 @@ public class EnemysOnMap : MonoBehaviour
     public struct AgentConfig
     {
         public Transform agentRealWordTransform;
+        public Image agentUIImage;
         public RectTransform agentRectTransform;
     }
 
