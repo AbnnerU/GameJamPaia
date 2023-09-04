@@ -48,8 +48,6 @@ public class InputArea2D : MonoBehaviour, IHasActiveState
 
         interacting = value;
 
-        print("Interacting: " + interacting);
-
         if (interacting)
         {
             OnInputPerformed?.Invoke(true);

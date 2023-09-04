@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\HardCoded\EnemysOnMap.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\LoadLevelData.cs" />
+    <Compile Include="Assets\Scripts\InputAreaAction2D.cs" />
     <Compile Include="Assets\Scripts\Door2D.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTWaitForSeconds.cs" />
     <Compile Include="Assets\Scripts\HardCoded\GameManager.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\Scripts\IA\Main nodes\BehaviorTree.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameScore.cs" />
     <Compile Include="Assets\Scripts\Sound\General\MultiSoundRequest.cs" />
+    <Compile Include="Assets\Scripts\GameActions\Actions\ChangeDoorLockedStateAction.cs" />
     <Compile Include="Assets\Scripts\Movement\PlayerMovement.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\MultiChangeTransformPositionAction.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Assets\Scripts\IA\Main nodes\BTSelector.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTInverter.cs" />
     <Compile Include="Assets\Scripts\GameActions\OnTriggerEnterAction2D.cs" />
+    <Compile Include="Assets\Scripts\GameActions\Actions\ChangeCollider2DActiveStateAction.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeSpriteActiveStateAction.cs" />
     <Compile Include="Assets\Scripts\Interface\IHasActiveState.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\SceneLoadManager.cs" />

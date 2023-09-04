@@ -17,6 +17,8 @@ public class Door2D : MonoBehaviour
     [Header("On Door Unlocked")]
     [SerializeField] private GameAction[] onDoorUnlockedActions;
 
+
+    public Action<Door2D> OnLockDoor;
     public Action<Door2D> OnUnlockDoor;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -55,6 +57,8 @@ public class Door2D : MonoBehaviour
             for (int i = 0; i < onDoorLockedActions.Length; i++)
                 onDoorLockedActions[i].DoAction();
         }
+
+        OnLockDoor?.Invoke(this);
     }
 
     public void UnlockDoor()
