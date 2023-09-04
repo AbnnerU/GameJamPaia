@@ -10,17 +10,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameScore gameScoreRef;
     [SerializeField] private bool active = true;
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private bool playOnStart;
+    [SerializeField] private bool playOnStart=true;
     [Header("Alarms")]
     [SerializeField] private Alarm[] alarms;
     List<int> alarmsIndexAvailable;
     [Header("Doors")]   
-    [SerializeField] private Door2D[] doors;   
+    [SerializeField] private Door2D[] doors;
     List<int> doorsIndexAvailable;
     [Header("Game Over")]
     [SerializeField] private int maxAlarmsOn=4;
     [SerializeField] private Canvas gameOverCanvas;
     [SerializeField] private bool disablePlayerMovement;
+    [Header("Tutorial")]
+    [SerializeField] private Door2D[] doorsStartLocked;
+    [SerializeField] private Alarm alarmStartEnabled;
+
     [Header("Balance")]
     [SerializeField] private float minAlarmDelay;
     [SerializeField] private float maxAlarmDelay;
@@ -72,6 +76,11 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
+        for(int i=0;i<doorsStartLocked.Length;i++)
+            LockDoorAt(GetAvailableDoorIndex(doorsStartLocked[i]));
+
+        EnableAlarmAt(GetAvailableAlarmIndex(alarmStartEnabled));
+
         if (playOnStart)
         {
             StartCoroutine(AlarmsActivationGameplayLoop());
@@ -123,11 +132,7 @@ public class GameManager : MonoBehaviour
                 {
                     chooseIndex = Random.Range(0, doorsIndexAvailable.Count);
 
-                    doors[doorsIndexAvailable[chooseIndex]].LockDoor();
-
-                    doorsIndexAvailable.RemoveAt(chooseIndex);
-
-                    currentDoorsLockedValue++;           
+                    LockDoorAt(chooseIndex);          
                 }
             }
 
@@ -147,11 +152,7 @@ public class GameManager : MonoBehaviour
             {
                 chooseIndex = Random.Range(0, alarmsIndexAvailable.Count);
 
-                alarms[alarmsIndexAvailable[chooseIndex]].EnableAlarm();
-
-                alarmsIndexAvailable.RemoveAt(chooseIndex);
-
-                alarmsOn++;
+                EnableAlarmAt(chooseIndex);
 
                 if (alarmsOn >= maxAlarmsOn)
                 {
@@ -161,6 +162,25 @@ public class GameManager : MonoBehaviour
             }
            
         }
+    }
+
+    private void LockDoorAt(int index)
+    {
+        print("Index:" + doors[doorsIndexAvailable[index]]);
+        doors[doorsIndexAvailable[index]].LockDoor();
+
+        doorsIndexAvailable.RemoveAt(index);
+
+        currentDoorsLockedValue++;
+    }
+
+    private void EnableAlarmAt(int index)
+    {
+        alarms[alarmsIndexAvailable[index]].EnableAlarm();
+
+        alarmsIndexAvailable.RemoveAt(index);
+
+        alarmsOn++;
     }
 
     private void TrySpawnEnemy(int scoreValue)
@@ -217,6 +237,62 @@ public class GameManager : MonoBehaviour
     private int GetAlarmIndex(Alarm alarmRef)
     {
         for(int i = 0; i < alarms.Length; i++)
+        {
+            if (alarms[i] == alarmRef)
+                return i;
+        }
+
+        return -1;
+    }
+
+    private int GetDoorIndex(Door2D doorRef)
+    {
+        for(int i=0; i < doors.Length; i++)
+        {
+            if (doorRef == doors[i])
+                return i;
+        }
+
+        return -1;
+    }
+
+    private int GetAvailableDoorIndex(Door2D doorRef)
+    {
+        int indexRef = GetDoorIndex(doorRef);
+
+        if (indexRef >= 0)
+        {
+            for(int i = 0; i < doorsIndexAvailable.Count; i++)
+            {
+                if (doorsIndexAvailable[i] == indexRef)
+                    return i;
+            }
+            return -1;
+        }
+
+        return -1;
+    }
+
+    private int GetAvailableAlarmIndex(Alarm alarmRef)
+    {
+        int indexRef = GetAlarmId(alarmRef);
+
+        if (indexRef >= 0)
+        {
+            for (int i = 0; i < alarmsIndexAvailable.Count; i++)
+            {
+                if (alarmsIndexAvailable[i] == indexRef)
+                    return i;
+            }
+            return -1;
+        }
+
+        return -1;
+    }
+
+    private int GetAlarmId(Alarm alarmRef)
+    {
+        for(int i=0; i < alarms.Length; i++)
         {
             if (alarms[i] == alarmRef)
                 return i;

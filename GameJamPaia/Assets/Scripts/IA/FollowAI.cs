@@ -15,6 +15,9 @@ public class FollowAI : MonoBehaviour, IAgentMovementState
     [SerializeField] private Transform target;
     [SerializeField] private float followTargetUpdateTime;
     [SerializeField] private float minDistance;
+    [SerializeField] private float passOffMeshLinkDelay;
+    [SerializeField] private Transform particlesTransform;
+    [SerializeField] private ParticleSystem particlesRef;
 
     private BTSelector rootSelector;
 
@@ -54,17 +57,55 @@ public class FollowAI : MonoBehaviour, IAgentMovementState
 
     }
 
+    //private void Update()
+    //{
+    //    if (particles)
+    //    {
+    //        if (agent.isOnOffMeshLink)
+    //            particles.position = agent.nextOffMeshLinkData.endPos;
+    //    }
+    //}
+
     public void AgentIsOnNavMeshLink(bool isOnNavMeshLink)
     {
         if(spriteActive && isOnNavMeshLink)
         {
             spriteObj.SetActive(false);
             spriteActive = false;
+
+            StartCoroutine(PassOffMeshLink());
         }
         else if(!spriteActive && !isOnNavMeshLink)
         {
             spriteObj.SetActive(true);
             spriteActive = true;
+
+            StopAllCoroutines();
+            particlesRef.Stop();
         }
+    }
+
+    IEnumerator PassOffMeshLink()
+    {
+        float currentTime = 0;
+        Vector3 offMeshEndPosition = agent.currentOffMeshLinkData.endPos;
+
+        particlesTransform.position = offMeshEndPosition;
+        particlesRef.Play();
+
+        do
+        {
+            currentTime += Time.deltaTime;
+
+            if (agent.currentOffMeshLinkData.endPos != offMeshEndPosition)
+            {
+                yield break;
+            }
+
+            yield return null;
+
+        } while (currentTime < passOffMeshLinkDelay);
+
+        agent.CompleteOffMeshLink();
     }
 }
