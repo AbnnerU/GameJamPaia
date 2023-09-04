@@ -1,7 +1,6 @@
 
 using UnityEngine;
 using Assets.Scripts.GameAction;
-using static UnityEditor.PlayerSettings;
 
 public class MultiChangeTransformPositionAction : GameAction
 {

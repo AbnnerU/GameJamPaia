@@ -15,5 +15,9 @@ public class AudioConfig : ScriptableObject
     [Range(0, 1)]
     public float SpatialBlend=0;
 
+    public float minDistance;
+
+    public float maxDistance;
+
     public bool loop=false;
 }

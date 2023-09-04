@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 665305276584957936}
   - component: {fileID: 665305276584957943}
   - component: {fileID: 665305276584957937}
+  - component: {fileID: 2213522291905753443}
   m_Layer: 0
   m_Name: Alarm
   m_TagString: Untagged
@@ -226,6 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputArea: {fileID: 665305276584957937}
   anim: {fileID: 2052431950519880564}
+  soundRequest: {fileID: 2213522291905753443}
   holdTime: 1
   progressCnavas: {fileID: 1087729577393196997}
   progressFill: {fileID: 6935339493349432801}
@@ -234,7 +236,9 @@ MonoBehaviour:
   scoreTag: Score
   onCompleteScoreValue: 150
   onEnableAnimation: Clock_Alarm
+  onEnableSoundId: 1
   onDisableAnimation: Clock_TurnOff01
+  onDisableSoundId: 0
 --- !u!114 &665305276584957937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +254,25 @@ MonoBehaviour:
   inputManager: {fileID: 0}
   colliderRef: {fileID: 665305276584957936}
   targetTag: Player
+--- !u!114 &2213522291905753443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665305276584957939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84e90ce958081934d9a172e375e149af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requests:
+  - channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+    audioConfig: {fileID: 11400000, guid: 756fe56df6da00247ab35e339930d87e, type: 2}
+    positionReference: {fileID: 665305276584957938}
+  - channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+    audioConfig: {fileID: 11400000, guid: db7945a149893c8459d6a60e722c6d57, type: 2}
+    positionReference: {fileID: 665305276584957938}
 --- !u!1 &1980438048094401423
 GameObject:
   m_ObjectHideFlags: 0

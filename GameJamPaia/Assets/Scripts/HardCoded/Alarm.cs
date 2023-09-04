@@ -9,6 +9,7 @@ public class Alarm : MonoBehaviour
     [SerializeField] private InputArea2D inputArea;
     //[SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Animator anim;
+    [SerializeField] private MultiSoundRequest soundRequest;
 
     [Header("Progress Bar")]
     [SerializeField] private float holdTime;
@@ -24,10 +25,12 @@ public class Alarm : MonoBehaviour
     [Header("On Enable")]
     //[SerializeField] private Color onEnableColor;
     [SerializeField] private string onEnableAnimation;
+    [SerializeField] private int onEnableSoundId;
 
     [Header("On Disable")]
     //[SerializeField]private Color onDisableColor;
     [SerializeField] private string onDisableAnimation;
+    [SerializeField] private int onDisableSoundId;
 
     public Action<Alarm> AlarmInputCompleted;
 
@@ -103,8 +106,9 @@ public class Alarm : MonoBehaviour
         OnAlarmEnabled?.Invoke(this,true) ;
         //sprite.color = onEnableColor;
         inputArea.Enable();
+        soundRequest.ExecuteRequest(onEnableSoundId);
         holding = false;
-
+       
         anim.Play(onEnableAnimation, 0, 0);
     }
 
@@ -114,9 +118,21 @@ public class Alarm : MonoBehaviour
         //sprite.color = onDisableColor;   
         inputArea.Disable();
         progressCnavas.enabled = false;
+        soundRequest.ExecuteRequest(onDisableSoundId);
+        soundRequest.StopRequest(onEnableSoundId);
         holding = false;
 
+
         anim.Play(onDisableAnimation, 0, 0);
+    }
+
+    public void DisableAlarmWithoutAnimation()
+    {
+        OnAlarmEnabled?.Invoke(this, false);
+        //sprite.color = onDisableColor;   
+        inputArea.Disable();
+        progressCnavas.enabled = false;
+        holding = false;
     }
 
 }

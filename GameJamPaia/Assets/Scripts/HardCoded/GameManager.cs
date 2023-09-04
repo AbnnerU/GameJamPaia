@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         {
             alarms[i].AlarmInputCompleted += OnAlarmInput;
 
-            alarms[i].DisableAlarm();
+            alarms[i].DisableAlarmWithoutAnimation();
 
             indexAvailable.Add(i);
         }

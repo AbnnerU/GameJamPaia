@@ -1,29 +1,19 @@
+using Assets.Scripts.GameAction;
+
 using UnityEngine;
 
-public class SoundRequest : MonoBehaviour
+public class RequestNewSoundAction : GameAction
 {
-    [SerializeField] private bool playOnStart;
-
     [Header("Sound")]
     [SerializeField] private AudioChannel channel;
     [SerializeField] private AudioConfig audioConfig;
     [SerializeField] private Transform positionReference;
 
-
-    private void Start()
-    {
-        if (playOnStart)
-        {
-            ExecuteRequest();
-        }
-    }
-
-    public void ExecuteRequest()
+    public override void DoAction()
     {
         if (positionReference)
             channel.AudioRequest(audioConfig, positionReference.position);
         else
             channel.AudioRequest(audioConfig, Vector3.zero);
     }
-
 }

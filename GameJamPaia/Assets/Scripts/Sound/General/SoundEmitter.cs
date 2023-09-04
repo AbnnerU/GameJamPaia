@@ -54,6 +54,9 @@ public class SoundEmitter : MonoBehaviour
         _audioSource.priority = config.priority;
         _audioSource.spatialBlend = config.SpatialBlend;
         _audioSource.loop = config.loop;
+        _audioSource.minDistance = config.minDistance;
+        _audioSource.maxDistance = config.maxDistance;
+            
     }
 
     public bool IsUsingAudioConfig(AudioConfig audioConfig, Vector3 position)
