@@ -2,14 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameScore gameScoreRef;
+    [SerializeField] private HighScore highScore;
     [SerializeField] private bool active = true;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private TMP_Text currentActiveClocksAmountText;
     [Header("Alarms")]
     [SerializeField] private Alarm[] alarms;
     List<int> alarmsIndexAvailable;
@@ -17,14 +19,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Door2D[] doors;
     List<int> doorsIndexAvailable;
     [Header("Game Over")]
-    [SerializeField] private int maxAlarmsOn=4;
     [SerializeField] private Canvas gameOverCanvas;
-    [SerializeField] private bool disablePlayerMovement;
+    [SerializeField] private Canvas[] othersCanvas;
+    [SerializeField] private EnemysOnMap enemyOnMap;
+
     [Header("Tutorial")]
     [SerializeField] private Door2D[] doorsStartLocked;
     [SerializeField] private Alarm alarmStartEnabled;
 
     [Header("Balance")]
+    [SerializeField] private int maxAlarmsOn = 4;
     [SerializeField] private float minAlarmDelay;
     [SerializeField] private float maxAlarmDelay;
     [SerializeField] private float minLockNewDoorDelay;
@@ -108,6 +112,8 @@ public class GameManager : MonoBehaviour
         alarmsIndexAvailable.Add(GetAlarmIndex(alarmRef));
 
         alarmsOn--;
+
+        currentActiveClocksAmountText.text = alarmsOn.ToString();
     }
 
     private void OnAlarmInputCancel(Alarm alarm)
@@ -211,6 +217,8 @@ public class GameManager : MonoBehaviour
         alarmsIndexAvailable.RemoveAt(index);
 
         alarmsOn++;
+
+        currentActiveClocksAmountText.text = alarmsOn.ToString();
     }
 
     private void TrySpawnEnemy(int scoreValue)
@@ -259,8 +267,17 @@ public class GameManager : MonoBehaviour
     {
         gameOverCanvas.enabled = true;
 
-        if (disablePlayerMovement)
-            playerMovement.Disable();
+        enemyOnMap.Disable();
+
+        for(int i=0;i<othersCanvas.Length;i++)
+            othersCanvas[i].enabled = false;
+
+        playerMovement.gameObject.SetActive(false);
+        playerMovement.Disable();
+
+        active = false;
+
+        highScore.TrySetNewHighScore();
         
     }
 

@@ -32,7 +32,7 @@ namespace Assets.Scripts.BT
         {
             status = BTstatus.RUNNING;
 
-            if (agent == null || target == null)
+            if (agent == null || target == null || target.gameObject.activeSelf == false)
             {
                 status = BTstatus.FAILURE;
 
@@ -115,7 +115,7 @@ namespace Assets.Scripts.BT
 
             float currentUpdateInterval;
 
-            while (target != null && agent != null && agent.enabled == true && agent.isStopped == false)
+            while (target != null && agent != null && agent.enabled == true && agent.isStopped == false || target.gameObject.activeSelf == true)
             {
 
                currentUpdateInterval = 0;

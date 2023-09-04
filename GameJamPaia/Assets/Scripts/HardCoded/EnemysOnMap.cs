@@ -7,7 +7,7 @@ using Unity.Collections;
 using Unity.Burst;
 using UnityEngine.UI;
 
-public class EnemysOnMap : MonoBehaviour
+public class EnemysOnMap : MonoBehaviour, IHasActiveState
 {
     [SerializeField] private bool active = true;
 
@@ -143,5 +143,13 @@ public class EnemysOnMap : MonoBehaviour
         }
     }
 
+    public void Disable()
+    {
+        active = false;
+    }
 
+    public void Enable()
+    {
+        active = true;
+    }
 }

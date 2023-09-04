@@ -70,4 +70,9 @@ public class InputArea2D : MonoBehaviour, IHasActiveState
     {
         colliderRef.enabled = true;
     }
+
+    private void OnDestroy()
+    {
+        inputManager.OnInteract -= Input_OnInteract;
+    }
 }

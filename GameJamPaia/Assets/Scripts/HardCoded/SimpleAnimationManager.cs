@@ -26,4 +26,10 @@ public class SimpleAnimationManager : MonoBehaviour
         else
             anim.Play(walkAnimation, 0, 0);
     }
+
+
+    private void OnDestroy()
+    {
+        inputManager.OnMoveInput -= OnMoveInput;
+    }
 }

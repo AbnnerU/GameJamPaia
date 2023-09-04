@@ -40,9 +40,12 @@ public class InputAreaAction2D : MonoBehaviour
         {
             StopAllCoroutines();
 
+            progressCnavas.enabled = false;
+            progressFill.fillAmount = 0;
+
             for (int i = 0; i < onInputAreaCancel.Length; i++)
             {
-                onInputAreaCancel[i].DoAction();
+                onInputAreaCancel[i].DoAction();    
             }
         }
 
@@ -74,5 +77,10 @@ public class InputAreaAction2D : MonoBehaviour
         {
             onInputAreaPerformed[i].DoAction();
         }
+    }
+
+    private void OnDestroy()
+    {
+        inputArea.OnInputPerformed -= InputArea_OnInputPerformed;
     }
 }

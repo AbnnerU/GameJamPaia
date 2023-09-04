@@ -41,4 +41,9 @@ public class MovementSprint : MonoBehaviour
         
         canUse = true;
     }
+
+    private void OnDestroy()
+    {
+        inputs.OnSprint -= Input_OnSprint;
+    }
 }
