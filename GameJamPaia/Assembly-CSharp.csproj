@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Movement\PlayerMovement.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\MultiChangeTransformPositionAction.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\SimpleAnimationManager.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Map.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Alarm.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\RequestNewSoundAction.cs" />
