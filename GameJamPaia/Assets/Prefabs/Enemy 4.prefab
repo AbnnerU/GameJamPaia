@@ -44,7 +44,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8a8455e9b588d6741aaa393f7a90d834, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -89,7 +89,7 @@ Transform:
   m_Children:
   - {fileID: 5932625375127882161}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5932625376068725819
 SpriteRenderer:
@@ -179,11 +179,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 5932625376068725818}
+  playOnStart: 0
   behaviorTree: {fileID: 5932625376068725816}
+  spriteObj: {fileID: 5932625375127882160}
   executionInterval: 0.1
   target: {fileID: 0}
   followTargetUpdateTime: 0.1
   minDistance: 0.5
+  passOffMeshLinkDelay: 1
+  particlesTransform: {fileID: 0}
+  particlesRef: {fileID: 0}
 --- !u!114 &5932625376068725816
 MonoBehaviour:
   m_ObjectHideFlags: 0

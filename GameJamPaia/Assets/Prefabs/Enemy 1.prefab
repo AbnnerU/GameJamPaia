@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 13849149119026734}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &13849148727128996
 SpriteRenderer:
@@ -101,7 +101,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -126,11 +126,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 13849148727128997}
+  playOnStart: 0
   behaviorTree: {fileID: 13849148727128999}
+  spriteObj: {fileID: 13849149119026735}
   executionInterval: 0.1
   target: {fileID: 0}
   followTargetUpdateTime: 0.1
   minDistance: 0.5
+  passOffMeshLinkDelay: 1
+  particlesTransform: {fileID: 0}
+  particlesRef: {fileID: 0}
 --- !u!114 &13849148727128999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +259,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: de35da504d51bc34ebdbe5352d879af6, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 2
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0

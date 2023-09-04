@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scripts\Abstract\GameAction.cs" />
     <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprint.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\OnTriggerSendToRandomLocation.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsManager.cs" />
   </ItemGroup>
   <ItemGroup>

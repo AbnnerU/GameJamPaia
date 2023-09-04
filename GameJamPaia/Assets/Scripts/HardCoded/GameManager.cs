@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameScore gameScoreRef;
     [SerializeField] private bool active = true;
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private bool playOnStart=true;
     [Header("Alarms")]
     [SerializeField] private Alarm[] alarms;
     List<int> alarmsIndexAvailable;
@@ -39,6 +38,8 @@ public class GameManager : MonoBehaviour
     private int currentDoorsLockedValue = 0;
     private int alarmsOn=0;
     private bool startLockingDoors = false;
+    private bool pauseNextAlarmActivation = false;
+    private bool tutorialEnded = false;
 
     private void Awake()
     {
@@ -56,7 +57,9 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < alarms.Length; i++)
         {
-            alarms[i].AlarmInputCompleted += OnAlarmInput;
+            alarms[i].AlarmInputCompleted += OnAlarmInputCompleted;
+            alarms[i].AlarmInputStarted += OnAlarmInputStarted;
+            alarms[i].AlarmInputCancel += OnAlarmInputCancel;
 
             alarms[i].DisableAlarmWithoutAnimation();
 
@@ -72,8 +75,7 @@ public class GameManager : MonoBehaviour
 
         gameScoreRef.OnScoreChange += GameScore_OnScoreChange;
     }
-
-    
+  
     private void Start()
     {
         for(int i=0;i<doorsStartLocked.Length;i++)
@@ -81,9 +83,15 @@ public class GameManager : MonoBehaviour
 
         EnableAlarmAt(GetAvailableAlarmIndex(alarmStartEnabled));
 
-        if (playOnStart)
+        alarmStartEnabled.AlarmInputCompleted += TutorialEnd;                 
+    }
+
+    private void TutorialEnd(Alarm alarm)
+    {
+        if (!tutorialEnded)
         {
             StartCoroutine(AlarmsActivationGameplayLoop());
+            tutorialEnded = true;
         }
     }
 
@@ -93,13 +101,23 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void OnAlarmInput(Alarm alarmRef)
+    private void OnAlarmInputCompleted(Alarm alarmRef)
     {
         alarmRef.DisableAlarm();
 
         alarmsIndexAvailable.Add(GetAlarmIndex(alarmRef));
 
         alarmsOn--;
+    }
+
+    private void OnAlarmInputCancel(Alarm alarm)
+    {
+        pauseNextAlarmActivation = false;
+    }
+
+    private void OnAlarmInputStarted(Alarm alarm)
+    {
+        pauseNextAlarmActivation = true;
     }
 
     private void GameScore_OnScoreChange(int newValue)
@@ -143,10 +161,22 @@ public class GameManager : MonoBehaviour
     IEnumerator AlarmsActivationGameplayLoop()
     {
         int chooseIndex = 0;
+        float delayTime=0;
+        float currentDelayTime=0;
       
         while (active)
         {
-            yield return new WaitForSeconds(Random.Range(minAlarmDelay, maxAlarmDelay));
+            delayTime = Random.Range(minAlarmDelay, maxAlarmDelay);
+            currentDelayTime = 0;
+            do
+            {
+                if (pauseNextAlarmActivation == false)
+                    currentDelayTime += Time.deltaTime ;
+
+                yield return null;
+            } while (currentDelayTime < delayTime);
+
+            //yield return new WaitForSeconds(Random.Range(minAlarmDelay, maxAlarmDelay));
 
             if (alarmsIndexAvailable.Count > 0)
             {
