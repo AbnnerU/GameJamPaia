@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,17 +10,19 @@ namespace Assets.Scripts.BT
         private Transform target;
         private NavMeshAgent agent;
         private Transform agentTransform;
+        private IAgentMovementState agentMovementState;
         private Vector3 pointPosition;
         private float distance;
         private float updateInterval;
 
 
-        public BTFollowTarget(Transform target, NavMeshAgent agent, float distance, float updateInterval)
+        public BTFollowTarget(Transform target, NavMeshAgent agent, IAgentMovementState agentMovementState,  float distance, float updateInterval)
         {
             this.target = target;
             this.agent = agent;
             this.distance = distance;
             this.updateInterval = updateInterval;
+            this.agentMovementState = agentMovementState;
 
             agentTransform = agent.transform;
         }
@@ -112,9 +113,12 @@ namespace Assets.Scripts.BT
 
             agent.stoppingDistance = distance;
 
+            float currentUpdateInterval;
 
             while (target != null && agent != null && agent.enabled == true && agent.isStopped == false)
             {
+
+               currentUpdateInterval = 0;
                 if (agent.pathPending == false && agent.remainingDistance < distance)
                 {                 
                     status = BTstatus.SUCCESS;
@@ -132,8 +136,17 @@ namespace Assets.Scripts.BT
 
                     //lastPosition = agentTransform.position;
 
-                    yield return new WaitForSeconds(updateInterval);
+                    do
+                    {
+                        currentUpdateInterval += Time.deltaTime;
 
+                        agentMovementState.AgentIsOnNavMeshLink(agent.isOnOffMeshLink);
+
+                        yield return null;
+                    } while (currentUpdateInterval < updateInterval);
+
+                    //yield return new WaitForSeconds(updateInterval);
+                    //agentMovementState.AgentIsOnNavMeshLink(agent.isOnOffMeshLink);
                 }
 
                 if (target != null)
