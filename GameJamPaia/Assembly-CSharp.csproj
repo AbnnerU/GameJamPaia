@@ -53,7 +53,7 @@
     <UnityVersion>2022.2.5f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.2.5f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.2.5f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -64,11 +64,13 @@
     <Compile Include="Assets\Scripts\HardCoded\EnemysOnMap.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\LoadLevelData.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\DoorsManager.cs" />
     <Compile Include="Assets\Scripts\InputAreaAction2D.cs" />
     <Compile Include="Assets\Scripts\Door2D.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTWaitForSeconds.cs" />
     <Compile Include="Assets\Scripts\HardCoded\GameManager.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTSequence.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\AlarmsManager.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BehaviorTree.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameScore.cs" />
     <Compile Include="Assets\Scripts\Sound\General\MultiSoundRequest.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Assets\Scripts\Sound\General\SoundsSettings.cs" />
     <Compile Include="Assets\Scripts\Abstract\BTnode.cs" />
     <Compile Include="Assets\Scripts\InputArea2D.cs" />
+    <Compile Include="Assets\Scripts\PlayAnimationArray.cs" />
     <Compile Include="Assets\Scripts\Sound\General\VolumeSlider.cs" />
     <Compile Include="Assets\Scripts\Score\GenericScoreVisual.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTFollowTarget.cs" />
@@ -103,10 +106,12 @@
     <Compile Include="Assets\Scripts\Sound\ButtonsSound.cs" />
     <Compile Include="Assets\Scripts\Sound\SoundInterpolation.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\LoadingScene.cs" />
+    <Compile Include="Assets\Scripts\GameActions\Actions\RequestNewSoundArrayAction.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTSelector.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTInverter.cs" />
     <Compile Include="Assets\Scripts\GameActions\OnTriggerEnterAction2D.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeCollider2DActiveStateAction.cs" />
+    <Compile Include="Assets\Scripts\MapManager.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeSpriteActiveStateAction.cs" />
     <Compile Include="Assets\Scripts\Interface\IHasActiveState.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\SceneLoadManager.cs" />
@@ -115,6 +120,7 @@
     <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprint.cs" />
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerSendToRandomLocation.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\Room.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsManager.cs" />
   </ItemGroup>
   <ItemGroup>

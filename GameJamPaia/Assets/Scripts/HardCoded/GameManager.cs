@@ -9,15 +9,18 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameScore gameScoreRef;
     [SerializeField] private HighScore highScore;
+    [SerializeField]private AudioChannel audioChannel;
     [SerializeField] private bool active = true;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private TMP_Text currentActiveClocksAmountText;
     [Header("Alarms")]
-    [SerializeField] private Alarm[] alarms;
-    List<int> alarmsIndexAvailable;
-    [Header("Doors")]   
-    [SerializeField] private Door2D[] doors;
-    List<int> doorsIndexAvailable;
+    [SerializeField] private AlarmsManager alarmsManager;
+    [SerializeField] private Animator alarmIncreaseAnimator;
+    [SerializeField] private string alarmIncreaseAnimationName;
+    [SerializeField] private AudioConfig[] alarmIncreaseSound;
+
+    [Header("Doors")]
+    [SerializeField] private DoorsManager doorsManager;
     [Header("Game Over")]
     [SerializeField] private Canvas gameOverCanvas;
     [SerializeField] private Canvas[] othersCanvas;
@@ -39,56 +42,66 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MaxDoorsLockedConfig[] doorsLockedConfigs;
     [SerializeField] private AlarmsDelayConfig[] alarmsDelayProgression;
 
-    private int currentDoorsLockedValue = 0;
-    private int alarmsOn=0;
     private bool startLockingDoors = false;
     private bool pauseNextAlarmActivation = false;
     private bool tutorialEnded = false;
 
     private void Awake()
     {
-        alarmsIndexAvailable = new List<int>(alarms.Length);
-        doorsIndexAvailable = new List<int>(doors.Length);
-
-        for(int i=0; i < enemySpawnConfig.Length; i++)
-        {
-            enemySpawnConfig[i].enemyRef.gameObject.SetActive(false);
-        }
-
-
-        if(playerMovement == null)
-            playerMovement = FindObjectOfType<PlayerMovement>();    
-
-        for (int i = 0; i < alarms.Length; i++)
-        {
-            alarms[i].AlarmInputCompleted += OnAlarmInputCompleted;
-            alarms[i].AlarmInputStarted += OnAlarmInputStarted;
-            alarms[i].AlarmInputCancel += OnAlarmInputCancel;
-
-            alarms[i].DisableAlarmWithoutAnimation();
-
-            alarmsIndexAvailable.Add(i);
-        }
-
-        for(int i = 0; i < doors.Length; i++)
-        {
-            doorsIndexAvailable.Add(i);
-
-            doors[i].OnUnlockDoor += Door_OnUnlockDoor;
-        }
+        alarmsManager.OnNewAlarmOn += AlarmManager_OnNewAlarmOn;
+        alarmsManager.OnAlarmDisabled += AlarmManager_OnAlarmDisableComplete;
+        alarmsManager.OnAlarmDisableStart += AlarmManager_OnAlarmDisableStart;
+        alarmsManager.OnAlarmDisableCancel += AlarmManager_OnAlarmDisableCancel;
+        alarmsManager.OnUpdateAlarmsOnCount += AlarmManager_OnAlarmsOnCountUpdate;
 
         gameScoreRef.OnScoreChange += GameScore_OnScoreChange;
     }
-  
+
+   
+
     private void Start()
     {
         for(int i=0;i<doorsStartLocked.Length;i++)
-            LockDoorAt(GetAvailableDoorIndex(doorsStartLocked[i]));
+            doorsManager.LockDoorAt(doorsManager.GetAvailableDoorIndex(doorsStartLocked[i]));
 
-        EnableAlarmAt(GetAvailableAlarmIndex(alarmStartEnabled));
+        alarmsManager.EnableAlarmAt(alarmsManager.GetAvailableAlarmIndex(alarmStartEnabled));
 
         alarmStartEnabled.AlarmInputCompleted += TutorialEnd;                 
     }
+
+    private void AlarmManager_OnNewAlarmOn()
+    {
+        alarmIncreaseAnimator.Play(alarmIncreaseAnimationName, 0, 0);
+
+        audioChannel?.AudioRequest(alarmIncreaseSound[Random.Range(0, alarmIncreaseSound.Length)], Vector3.zero);
+    }
+
+    private void AlarmManager_OnAlarmDisableStart()
+    {
+        pauseNextAlarmActivation = true;
+    }
+
+    private void AlarmManager_OnAlarmDisableCancel()
+    {
+        pauseNextAlarmActivation = false;
+    }
+
+    private void AlarmManager_OnAlarmDisableComplete()
+    {
+        pauseNextAlarmActivation = false;
+    }
+
+    private void AlarmManager_OnAlarmsOnCountUpdate(int value)
+    {
+        currentActiveClocksAmountText.text = value.ToString();
+
+        if (value >= maxAlarmsOn)
+        {
+            active = false;
+            GameOver();
+        }
+    }
+
 
     private void TutorialEnd(Alarm alarm)
     {
@@ -97,33 +110,6 @@ public class GameManager : MonoBehaviour
             StartCoroutine(AlarmsActivationGameplayLoop());
             tutorialEnded = true;
         }
-    }
-
-    private void Door_OnUnlockDoor(Door2D doorRef)
-    {
-        currentDoorsLockedValue--;
-
-    }
-
-    private void OnAlarmInputCompleted(Alarm alarmRef)
-    {
-        alarmRef.DisableAlarm();
-
-        alarmsIndexAvailable.Add(GetAlarmIndex(alarmRef));
-
-        alarmsOn--;
-
-        currentActiveClocksAmountText.text = alarmsOn.ToString();
-    }
-
-    private void OnAlarmInputCancel(Alarm alarm)
-    {
-        pauseNextAlarmActivation = false;
-    }
-
-    private void OnAlarmInputStarted(Alarm alarm)
-    {
-        pauseNextAlarmActivation = true;
     }
 
     private void GameScore_OnScoreChange(int newValue)
@@ -144,20 +130,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator DoorsLockedGameplayLoop()
     {
-        int chooseIndex = 0;
-
         while (active)
         {
             yield return new WaitForSeconds(Random.Range(minLockNewDoorDelay, maxLockNewDoorDelay));
 
-            if (currentDoorsLockedValue < maxLockedDoorsAmount)
+            if (doorsManager.DoorsLockedValue() < maxLockedDoorsAmount)
             {
-                if (doorsIndexAvailable.Count > 0)
-                {
-                    chooseIndex = Random.Range(0, doorsIndexAvailable.Count);
-
-                    LockDoorAt(chooseIndex);          
-                }
+                doorsManager.TryLockRandomDoor();
             }
 
         }
@@ -166,7 +145,6 @@ public class GameManager : MonoBehaviour
 
     IEnumerator AlarmsActivationGameplayLoop()
     {
-        int chooseIndex = 0;
         float delayTime=0;
         float currentDelayTime=0;
       
@@ -182,43 +160,9 @@ public class GameManager : MonoBehaviour
                 yield return null;
             } while (currentDelayTime < delayTime);
 
-            //yield return new WaitForSeconds(Random.Range(minAlarmDelay, maxAlarmDelay));
-
-            if (alarmsIndexAvailable.Count > 0)
-            {
-                chooseIndex = Random.Range(0, alarmsIndexAvailable.Count);
-
-                EnableAlarmAt(chooseIndex);
-
-                if (alarmsOn >= maxAlarmsOn)
-                {
-                    active = false;
-                    GameOver();
-                }
-            }
+            alarmsManager.TryEnableRandomAlarm();
            
         }
-    }
-
-    private void LockDoorAt(int index)
-    {
-        print("Index:" + doors[doorsIndexAvailable[index]]);
-        doors[doorsIndexAvailable[index]].LockDoor();
-
-        doorsIndexAvailable.RemoveAt(index);
-
-        currentDoorsLockedValue++;
-    }
-
-    private void EnableAlarmAt(int index)
-    {
-        alarms[alarmsIndexAvailable[index]].EnableAlarm();
-
-        alarmsIndexAvailable.RemoveAt(index);
-
-        alarmsOn++;
-
-        currentActiveClocksAmountText.text = alarmsOn.ToString();
     }
 
     private void TrySpawnEnemy(int scoreValue)
@@ -280,91 +224,6 @@ public class GameManager : MonoBehaviour
         highScore.TrySetNewHighScore();
         
     }
-
-    private int GetAlarmIndex(Alarm alarmRef)
-    {
-        for(int i = 0; i < alarms.Length; i++)
-        {
-            if (alarms[i] == alarmRef)
-                return i;
-        }
-
-        return -1;
-    }
-
-    private int GetDoorIndex(Door2D doorRef)
-    {
-        for(int i=0; i < doors.Length; i++)
-        {
-            if (doorRef == doors[i])
-                return i;
-        }
-
-        return -1;
-    }
-
-    private int GetAvailableDoorIndex(Door2D doorRef)
-    {
-        int indexRef = GetDoorIndex(doorRef);
-
-        if (indexRef >= 0)
-        {
-            for(int i = 0; i < doorsIndexAvailable.Count; i++)
-            {
-                if (doorsIndexAvailable[i] == indexRef)
-                    return i;
-            }
-            return -1;
-        }
-
-        return -1;
-    }
-
-    private int GetAvailableAlarmIndex(Alarm alarmRef)
-    {
-        int indexRef = GetAlarmId(alarmRef);
-
-        if (indexRef >= 0)
-        {
-            for (int i = 0; i < alarmsIndexAvailable.Count; i++)
-            {
-                if (alarmsIndexAvailable[i] == indexRef)
-                    return i;
-            }
-            return -1;
-        }
-
-        return -1;
-    }
-
-    private int GetAlarmId(Alarm alarmRef)
-    {
-        for(int i=0; i < alarms.Length; i++)
-        {
-            if (alarms[i] == alarmRef)
-                return i;
-        }
-
-        return -1;
-    }
-
-    //private int GetDoorIndex(Door2D doorRef)
-    //{
-    //    for(int i = 0; i < doors.Length; i++)
-    //    {
-    //        if (doors[i] == doorRef)
-    //            return i;
-    //    }
-
-    //    return -1;
-    //}
-
-    //[Serializable]
-    //private class DoorState
-    //{
-    //    public Door2D door;
-    //    public bool locked;
-    //}
 
     [Serializable]
     private class AlarmsDelayConfig

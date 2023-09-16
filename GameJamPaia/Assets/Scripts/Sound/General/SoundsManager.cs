@@ -16,7 +16,6 @@ public class SoundsManager : ManagerBase<SoundsManager>
 
     [Header("General")]
     [SerializeField] private bool stopMainTrackWhenNewScene = true;
-    [SerializeField] private bool onlyOneMusicTrack = true;
 
     private List<SoundEmitter> soundEmitters = new List<SoundEmitter>();
 
@@ -80,12 +79,7 @@ public class SoundsManager : ManagerBase<SoundsManager>
 
         for (int i = 0; i < soundEmitters.Count; i++)
         {
-            if(onlyOneMusicTrack && soundEmitters[i].GetEmitterType() == EmitterType.MAiNTRACK)
-            {
-                soundEmitters[i].PlayAudio(request.audioConfig, EmitterType.MAiNTRACK, volumePercentage, request.audioPosition);
-                return;
-            }
-            else if (!onlyOneMusicTrack && soundEmitters[i].InUse() == false)
+            if(soundEmitters[i].InUse() == false)
             {
                 soundEmitters[i].PlayAudio(request.audioConfig, EmitterType.MAiNTRACK, volumePercentage, request.audioPosition);
                 return;

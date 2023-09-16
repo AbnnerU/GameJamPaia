@@ -30,7 +30,6 @@ public class EnemysOnMap : MonoBehaviour, IHasActiveState
         NativeArray<Vector3> mapAreaSizeArray = new NativeArray<Vector3>(count, Allocator.TempJob);
         NativeArray<int> enemyPositionId = new NativeArray<int>(agentsCount, Allocator.TempJob);
         NativeArray<Vector3> agentsCurrentPositionArray = new NativeArray<Vector3>(agentsCount, Allocator.TempJob);
-        TransformAccessArray a = new TransformAccessArray(agentsCount);
 
         for(int i=0; i < count; i++)
         {

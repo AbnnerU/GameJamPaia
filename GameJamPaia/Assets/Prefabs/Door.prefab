@@ -68,6 +68,7 @@ MonoBehaviour:
   doorCollider: {fileID: 7424396892371247251}
   onTriggerDoorActions:
   - {fileID: 8577348706883191493}
+  - {fileID: 1090589101350791823}
   onDoorLockedActions:
   - {fileID: 6367951262190751840}
   - {fileID: 5936638295081198870}
@@ -198,6 +199,8 @@ Transform:
   - {fileID: 1451709568754977768}
   - {fileID: 1602610794510666573}
   - {fileID: 2788133809616838835}
+  - {fileID: 8484787672653601755}
+  - {fileID: 2288743211649834047}
   m_Father: {fileID: 1056418961315092205}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -302,9 +305,57 @@ MonoBehaviour:
   onInputAreaPerformed:
   - {fileID: 8700777995883134665}
   - {fileID: 8281518757924290441}
+  - {fileID: 6706315372207469623}
   onInputAreaCancel: []
   progressCnavas: {fileID: 6587752627157482287}
   progressFill: {fileID: 980699344718797391}
+--- !u!1 &3345934292681698108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2288743211649834047}
+  - component: {fileID: 6706315372207469623}
+  m_Layer: 0
+  m_Name: Unlock Door Sound Action
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2288743211649834047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3345934292681698108}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5901572131121375240}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6706315372207469623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3345934292681698108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dffd3d2158e9c84985fc4b0d3952b05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+  audioConfig: {fileID: 11400000, guid: 3b8b49d90aa7ae043a1982a11a0668d5, type: 2}
+  positionReference: {fileID: 0}
 --- !u!1 &4352949320120867236
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +486,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundInterpolation: {fileID: 0}
   audioConfig: {fileID: 0}
+--- !u!1 &4512692097480009698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8484787672653601755}
+  - component: {fileID: 1090589101350791823}
+  m_Layer: 0
+  m_Name: Open Door Sound Action
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8484787672653601755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512692097480009698}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5901572131121375240}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1090589101350791823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4512692097480009698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9220c35024aad064ea9fcf509821192a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+  audioConfig:
+  - {fileID: 11400000, guid: d0c335ba437a84342b8a1a7e44ed57f0, type: 2}
+  - {fileID: 11400000, guid: bc695d3c917dd8f42b4f916aa68e056a, type: 2}
+  - {fileID: 11400000, guid: 07a56db79d40f944dbeb3825418608ad, type: 2}
+  positionReference: {fileID: 0}
 --- !u!1 &5423316021356378425
 GameObject:
   m_ObjectHideFlags: 0
