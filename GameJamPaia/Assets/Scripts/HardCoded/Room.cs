@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Room : MonoBehaviour
+public class Room : MonoBehaviour,IHasActiveState
 {
     public bool roomActive;
     [Header("Room")]
@@ -23,6 +23,23 @@ public class Room : MonoBehaviour
     [SerializeField] private Color roomEnabledColor;
     [SerializeField] private Color roomDisableColor;
 
+    public void Disable()
+    {
+        if (!roomActive) return; 
+
+        roomActive = false;
+
+        UpdateColor();
+    }
+
+    public void Enable()
+    {
+        if(roomActive) return;
+
+        roomActive = true;
+
+        UpdateColor();
+    }
 
     private void Start()
     {

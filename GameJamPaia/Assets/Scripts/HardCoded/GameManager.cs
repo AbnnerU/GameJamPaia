@@ -18,9 +18,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Animator alarmIncreaseAnimator;
     [SerializeField] private string alarmIncreaseAnimationName;
     [SerializeField] private AudioConfig[] alarmIncreaseSound;
-
+    [Header("Map")]
+    [SerializeField]private MapManager mapManager;
     [Header("Doors")]
     [SerializeField] private DoorsManager doorsManager;
+    [SerializeField] private int scoreToUnlockAllRooms;
     [Header("Game Over")]
     [SerializeField] private Canvas gameOverCanvas;
     [SerializeField] private Canvas[] othersCanvas;
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
     private bool startLockingDoors = false;
     private bool pauseNextAlarmActivation = false;
     private bool tutorialEnded = false;
+    private bool roomsLocked = true;
 
     private void Awake()
     {
@@ -66,9 +69,12 @@ public class GameManager : MonoBehaviour
 
         alarmsManager.EnableAlarmAt(alarmsManager.GetAvailableAlarmIndex(alarmStartEnabled));
 
-        alarmStartEnabled.AlarmInputCompleted += TutorialEnd;                 
+        alarmStartEnabled.AlarmInputCompleted += TutorialEnd;
+
+        doorsManager.SendActiveStateEvent();
     }
 
+    #region Alarms
     private void AlarmManager_OnNewAlarmOn()
     {
         alarmIncreaseAnimator.Play(alarmIncreaseAnimationName, 0, 0);
@@ -102,7 +108,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     private void TutorialEnd(Alarm alarm)
     {
         if (!tutorialEnded)
@@ -111,6 +116,8 @@ public class GameManager : MonoBehaviour
             tutorialEnded = true;
         }
     }
+
+    #endregion
 
     private void GameScore_OnScoreChange(int newValue)
     {
@@ -125,6 +132,22 @@ public class GameManager : MonoBehaviour
             StartCoroutine(DoorsLockedGameplayLoop());
             startLockingDoors = true;
         }
+
+        if(roomsLocked && newValue >= scoreToUnlockAllRooms)
+        {
+            roomsLocked = false;
+
+            doorsManager.EnableAllDoors();
+
+            mapManager.EnableAllRooms();
+
+            alarmsManager.EnableAllAlarms();
+        }
+    }
+
+    private void UnlockRooms()
+    {
+
     }
 
 

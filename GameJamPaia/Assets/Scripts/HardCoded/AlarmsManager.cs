@@ -7,7 +7,9 @@ using Random = UnityEngine.Random;
 
 public class AlarmsManager : MonoBehaviour
 {
+    [SerializeField] private bool setDisabledAlarmsAsNotAvailableIndex = true;
     [SerializeField] private Alarm[] alarms;
+    private List<Alarm> disabledAlarms;
     private List<int> alarmsIndexAvailable;
 
     private int alarmsOn = 0;
@@ -22,6 +24,7 @@ public class AlarmsManager : MonoBehaviour
     private void Awake()
     {
         alarmsIndexAvailable = new List<int>(alarms.Length);
+        disabledAlarms = new List<Alarm>();
 
         for (int i = 0; i < alarms.Length; i++)
         {
@@ -30,6 +33,27 @@ public class AlarmsManager : MonoBehaviour
             alarms[i].AlarmInputCancel += OnAlarmInputCancel;
 
             alarmsIndexAvailable.Add(i);
+        }
+
+
+        if (setDisabledAlarmsAsNotAvailableIndex)
+        {
+            List<int> temp = new List<int>();
+
+            for (int i = 0; i < alarmsIndexAvailable.Count; i++)
+            {
+                if (alarms[alarmsIndexAvailable[i]].IsEnabled() == false)
+                {
+                    temp.Add(i);
+                    disabledAlarms.Add(alarms[alarmsIndexAvailable[i]]);
+                }
+            }
+
+            for (int i = 0; i < temp.Count; i++)
+            {
+                alarmsIndexAvailable.Remove(temp[i]);
+            }
+
         }
 
     }
@@ -88,6 +112,24 @@ public class AlarmsManager : MonoBehaviour
 
         OnNewAlarmOn?.Invoke();
     }
+
+    public void EnableAllAlarms()
+    {
+        int index = 0;
+        for (int i = 0; i < disabledAlarms.Count; i++)
+        {
+            index = GetAlarmIndex(disabledAlarms[i]);
+
+            disabledAlarms[i].Enable();
+            //disabledAlarms[i].UnlockDoorWhitoutActions();
+
+            alarmsIndexAvailable.Add(index);
+        }
+
+        disabledAlarms.Clear();
+        disabledAlarms.Capacity = 0;
+    }
+
 
     public int AlarmsOnValue()
     {

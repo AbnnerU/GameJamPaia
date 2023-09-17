@@ -115,6 +115,14 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public void EnableAllRooms()
+    {
+        for(int i=0; i < roomsInfo.Length; i++)
+        {
+            roomsInfo[i].Enable();
+        }
+    }
+
     private void Update()
     {
         if (!active) return;
@@ -175,6 +183,65 @@ public class MapManager : MonoBehaviour
 
     }
 
+    private void OnValidate()
+    {
+        if (tryAutoConfig)
+        {
+            if (roomsInfo.Length > 0)
+            {
+                for (int i = 0; i < roomsInfo.Length; i++)
+                {
+                    Room roomRef = roomsInfo[i];
+
+                    if (roomRef.roomAlarm.IsEnabled())
+                    {
+                        if (roomRef.roomActive)
+                            roomRef.roomAlarm.Enable();
+                        else
+                            roomRef.roomAlarm.Disable();
+                    }
+
+                    GameObject roomHudRef = GameObject.Find("HUD " + roomRef.name);
+                    if (roomHudRef != null)
+                    {
+                        roomRef.roomHudRectRef = roomHudRef.GetComponent<RectTransform>();
+                        roomRef.roomHudImageRef = roomHudRef.GetComponent<Image>();
+
+                        Image[] children = roomHudRef.GetComponentsInChildren<Image>();
+
+                        for (int y = 0; y < roomRef.roomDoors.Length; y++)
+                        {
+                            if (roomRef.roomDoors[y].doorRef.IsEnabled())
+                            {
+                                if (roomRef.roomActive)
+                                    roomRef.roomDoors[y].doorRef.Enable();
+                                else
+                                    roomRef.roomDoors[y].doorRef.Disable();
+                            }
+
+                            for (int c = 0; c < children.Length; c++)
+                            {
+                                if (children[c].name.Contains(roomRef.roomDoors[y].doorRef.name))
+                                {
+                                    roomRef.roomDoors[y].doorHudImageRef = children[c];
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int y = 0; y < children.Length; y++)
+                        {
+                            if (children[y].name.Contains("Alarm"))
+                                roomRef.alarmHudImageRef = children[y];
+                        }
+                    }
+
+
+                }
+            }
+        }
+    }
+
     [BurstCompile]
     public struct MarkerParallelJob : IJobParallelFor
     {
@@ -216,52 +283,6 @@ public class MapManager : MonoBehaviour
         public Vector2 areaSize;
         public RectTransform mapRef;
     }
-
-
-    private void OnValidate()
-    {
-        if (tryAutoConfig)
-        {
-            if (roomsInfo.Length > 0)
-            {
-                for(int i = 0; i < roomsInfo.Length; i++)
-                {
-                    Room roomRef = roomsInfo[i];
-
-                    GameObject roomHudRef = GameObject.Find("HUD "+roomRef.name);
-                    if(roomHudRef != null)
-                    {
-                        roomRef.roomHudRectRef = roomHudRef.GetComponent<RectTransform>();
-                        roomRef.roomHudImageRef = roomHudRef.GetComponent<Image>();
-
-                        Image[] children = roomHudRef.GetComponentsInChildren<Image>();
-
-                        for (int y = 0; y < roomRef.roomDoors.Length; y++)
-                        {
-                            for (int c = 0; c < children.Length; c++)
-                            {
-                                if (children[c].name.Contains(roomRef.roomDoors[y].doorRef.name))
-                                {
-                                    roomRef.roomDoors[y].doorHudImageRef = children[c];
-                                    break;
-                                }
-                            }
-                        }
-
-                        for(int y=0; y<children.Length; y++)
-                        {
-                            if (children[y].name.Contains("Alarm"))
-                                roomRef.alarmHudImageRef = children[y];
-                        }
-                    }
-
-                    
-                }
-            }
-        }
-    }
-
-
 
     [Serializable]
     public struct AgentConfig

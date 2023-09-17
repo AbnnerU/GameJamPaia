@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Alarm : MonoBehaviour
+public class Alarm : MonoBehaviour, IHasActiveState
 {
+  
+    [SerializeField] private bool active = true;
+
     [SerializeField] private InputArea2D inputArea;
     //[SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Animator anim;
@@ -57,6 +60,8 @@ public class Alarm : MonoBehaviour
 
     private void OnInput(bool pressed)
     {
+        if (!active) return;
+
         if (pressed && holding==false)
         {
             holding = true;
@@ -103,6 +108,8 @@ public class Alarm : MonoBehaviour
 
     public void EnableAlarm()
     {
+        if (!active) return;
+
         OnAlarmEnabled?.Invoke(this,true) ;
         //sprite.color = onEnableColor;
         inputArea.Enable();
@@ -114,6 +121,8 @@ public class Alarm : MonoBehaviour
 
     public void DisableAlarm()
     {
+        if (!active) return;
+
         OnAlarmEnabled?.Invoke(this,false);
         //sprite.color = onDisableColor;   
         inputArea.Disable();
@@ -135,4 +144,18 @@ public class Alarm : MonoBehaviour
         holding = false;
     }
 
+    public bool IsEnabled()
+    {
+        return active;
+    }
+
+    public void Disable()
+    {
+        active= false;
+    }
+
+    public void Enable()
+    {
+        active = true;
+    }
 }

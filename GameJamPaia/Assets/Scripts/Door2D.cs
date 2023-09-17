@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door2D : MonoBehaviour
+public class Door2D : MonoBehaviour, IHasActiveState
 {
+    [SerializeField] private bool active = true;
     [SerializeField] private bool locked=false;
     [SerializeField] private string targetTag = "Player";
     [SerializeField] private TransformToChange[] onTriggerDoorUpdatePositions;
@@ -20,9 +21,13 @@ public class Door2D : MonoBehaviour
 
     public Action<Door2D> OnLockDoor;
     public Action<Door2D> OnUnlockDoor;
+    public Action<bool> OnChangeDoorActiveState;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if(!active) return;
+
         if (locked) return;
 
         if (collision.CompareTag(targetTag))
@@ -47,7 +52,9 @@ public class Door2D : MonoBehaviour
 
     public void LockDoor()
     {
-        if(locked) return;
+        if (!active) return;
+
+        if (locked) return;
 
         locked = true;
         doorCollider.enabled = false;
@@ -63,7 +70,9 @@ public class Door2D : MonoBehaviour
 
     public void UnlockDoor()
     {
-        if(!locked) return; 
+        if (!active) return;
+
+        if (!locked) return; 
 
         locked = false;
         doorCollider.enabled = true;
@@ -77,7 +86,50 @@ public class Door2D : MonoBehaviour
         OnUnlockDoor?.Invoke(this);
     }
 
-    [System.Serializable]
+    public void UnlockDoorWhitoutActions()
+    {
+        if (!active) return;
+
+        if (!locked) return;
+
+        locked = false;
+        doorCollider.enabled = true;
+
+        OnUnlockDoor?.Invoke(this);
+    }
+
+    public bool IsLocked() 
+    { 
+        return locked; 
+    }
+
+    public bool IsEnabled()
+    {
+        return active;
+    }
+
+    public void Disable()
+    {
+        active = false;
+
+        OnChangeDoorActiveState?.Invoke(false);
+    }
+
+    public void Enable()
+    {
+        active = true;
+
+        OnChangeDoorActiveState?.Invoke(true);
+    }
+
+    public void SendUpdateStateEvent()
+    {
+        OnChangeDoorActiveState?.Invoke(active);
+    }
+
+ 
+
+    [Serializable]
     private struct TransformToChange
     {
         public Transform _transform;
@@ -110,4 +162,6 @@ public class Door2D : MonoBehaviour
 
         }
     }
+
+   
 }
