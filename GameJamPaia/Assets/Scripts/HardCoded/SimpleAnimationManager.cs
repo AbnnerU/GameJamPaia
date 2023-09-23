@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SimpleAnimationManager : MonoBehaviour
 {
+    [SerializeField] private bool active = true;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Animator anim;
     [SerializeField] private string walkAnimation;
@@ -21,12 +22,23 @@ public class SimpleAnimationManager : MonoBehaviour
 
     private void OnMoveInput(Vector2 vector)
     {
+        if (!active) return;
+
         if (vector == Vector2.zero)
             anim.Play(idleAnimation, 0, 0);
         else
             anim.Play(walkAnimation, 0, 0);
     }
 
+    public void PlayAnimation(string animationName)
+    {
+        anim.Play(animationName, 0, 0);
+    }
+
+    public void SetAnimationManagerActive(bool enabled)
+    {
+        active = enabled;
+    }
 
     private void OnDestroy()
     {

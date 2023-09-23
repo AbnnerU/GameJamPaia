@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\Sound\SondInterpolationRequest.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundEmitter.cs" />
     <Compile Include="Assets\Scripts\Interface\IAgentMovementState.cs" />
+    <Compile Include="Assets\Scripts\IA\AIDoorLock.cs" />
     <Compile Include="Assets\Scripts\IA\FollowAI.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsSettings.cs" />
     <Compile Include="Assets\Scripts\Abstract\BTnode.cs" />

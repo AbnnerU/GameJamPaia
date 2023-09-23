@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class AITeleporter : MonoBehaviour, IAgentMovementState, IAIState
+
+public class AIDoorLock : MonoBehaviour, IAgentMovementState, IAIState
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private AIState currentState = AIState.FOLLOWTARGET;
@@ -23,7 +24,8 @@ public class AITeleporter : MonoBehaviour, IAgentMovementState, IAIState
     [SerializeField] private float passOffMeshLinkDelay;
     [Header("Teleport")]
     [SerializeField] private MapManager mapManager;
-    [SerializeField]private GameManager gameManager;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private DoorsManager doorsManager;
     [SerializeField] private string teleportPlayerAnimation;
     [SerializeField] private float teleportPlayerAnimationDuration;
     [SerializeField] private float releasePlayerAnimationDuration;
@@ -48,18 +50,21 @@ public class AITeleporter : MonoBehaviour, IAgentMovementState, IAIState
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
-       
+
 
         if (cameraTransform == null)
             cameraTransform = Camera.main.transform;
 
-        if(mapManager == null)
+        if (mapManager == null)
             mapManager = FindAnyObjectByType<MapManager>();
 
-        if(gameManager)
+        if (gameManager)
             gameManager = FindObjectOfType<GameManager>();
 
-        if(target==null)
+        if(doorsManager==null)
+            doorsManager = FindObjectOfType<DoorsManager>();
+
+        if (target == null)
             target = GameObject.FindGameObjectWithTag(targetTag).transform;
 
         if (targetAnimator == null)
@@ -103,11 +108,11 @@ public class AITeleporter : MonoBehaviour, IAgentMovementState, IAIState
         BTIsOnAIState btIsOnFollowTargetState = new BTIsOnAIState(this, AIState.FOLLOWTARGET);
         BTFollowTarget bTFollowTarget = new BTFollowTarget(target, agent, this, minDistance, followTargetUpdateTime);
         BTConditionalSequence bTFollowTargetCondicionalSequence = new BTConditionalSequence(new List<BTnode> { btIsOnFollowTargetState }, bTFollowTarget);
-       
+
         BTSequence btFollowTargetSequence = new BTSequence(new List<BTnode> {
             btIsOnFollowTargetState,
             bTFollowTargetCondicionalSequence
-                  
+
         });
 
 
@@ -140,11 +145,14 @@ public class AITeleporter : MonoBehaviour, IAgentMovementState, IAIState
 
     private void TeleportTarget()
     {
-        if(target && mapManager && gameManager)
+        if (target && mapManager && gameManager)
         {
+            int id;
             gameManager.PauseAlarms(true);
-            mapManager.SetRandomRoom(transformsArray, offSetArray);
-           
+            mapManager.SetRandomRoom(transformsArray, offSetArray, out id);
+
+            mapManager.LockDoorsOnRoom(id);
+
         }
     }
 
@@ -162,7 +170,7 @@ public class AITeleporter : MonoBehaviour, IAgentMovementState, IAIState
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag(targetTag) && currentState != AIState.HITTEDTARGET)
+        if (collision.CompareTag(targetTag) && currentState != AIState.HITTEDTARGET)
         {
             currentState = AIState.HITTEDTARGET;
         }

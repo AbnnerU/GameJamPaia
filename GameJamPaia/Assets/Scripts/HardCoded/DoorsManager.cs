@@ -62,6 +62,16 @@ public class DoorsManager : MonoBehaviour
 
     }
 
+    public void TryLookDoor(Door2D door2D)
+    {
+        int id = GetAvailableDoorIndex(door2D);
+
+        if (id >= 0)
+        {
+            LockDoorAt(id);
+        }
+    }
+
     public void LockDoorAt(int index)
     {
         //print("Index:" + doors[doorsIndexAvailable[index]]);

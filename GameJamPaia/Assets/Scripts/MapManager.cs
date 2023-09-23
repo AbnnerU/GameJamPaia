@@ -20,9 +20,12 @@ public class MapManager : MonoBehaviour
     [SerializeField]private List<Room> avaliableRooms;
     [SerializeField]private List<Room> disabledRooms;
     private RoomDoorsInfo[] roomsDoors;
+    private DoorsManager doorsManager;
 
     private void Awake()
     {
+        doorsManager = FindObjectOfType<DoorsManager>();
+
         avaliableRooms = new List<Room>();
         disabledRooms = new List<Room>();
 
@@ -143,12 +146,36 @@ public class MapManager : MonoBehaviour
         disabledRooms.Capacity = 0;
     }
 
+    public void LockDoorsOnRoom(int roomId)
+    {
+        Room r = avaliableRooms[roomId];
+
+        if (r != null)
+        {
+            for(int i=0; i < r.roomDoors.Length; i++)
+            {
+                doorsManager.TryLookDoor(r.roomDoors[i].doorRef);
+            }
+        }
+    }
+
     public void SetRandomRoom(Transform[] reference, Vector3[] offset)
     {
         int index = Random.Range(0, avaliableRooms.Count);
         for(int i = 0; i < reference.Length; i++)
         {
             reference[i].position = avaliableRooms[index].roomRefCenter.position+offset[i];
+        }
+    }
+
+    public void SetRandomRoom(Transform[] reference, Vector3[] offset, out int roomId)
+    {
+        roomId = -1;
+        int index = Random.Range(0, avaliableRooms.Count);
+        roomId = index;
+        for (int i = 0; i < reference.Length; i++)
+        {
+            reference[i].position = avaliableRooms[index].roomRefCenter.position + offset[i];
         }
     }
 
