@@ -8,6 +8,8 @@ using Unity.Collections;
 using Unity.Burst;
 using UnityEngine.UI;
 
+using Random = UnityEngine.Random;
+
 public class MapManager : MonoBehaviour
 {
     [SerializeField] private bool active;
@@ -15,11 +17,15 @@ public class MapManager : MonoBehaviour
     [SerializeField] private Vector2 areaSize;
     [SerializeField] private Room[] roomsInfo;
     [SerializeField] private AgentConfig[] enemyInfo;
-
+    [SerializeField]private List<Room> avaliableRooms;
+    [SerializeField]private List<Room> disabledRooms;
     private RoomDoorsInfo[] roomsDoors;
 
     private void Awake()
     {
+        avaliableRooms = new List<Room>();
+        disabledRooms = new List<Room>();
+
         int doorAmount=0;
         int id = 0;
 
@@ -40,7 +46,7 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        Alarm[] alarms = GameObject.FindObjectsOfType<Alarm>();
+        Alarm[] alarms = FindObjectsOfType<Alarm>();
 
         foreach (var a in alarms)
             a.OnAlarmEnabled += Alarms_OnAlarmEnabledUpdate;
@@ -49,6 +55,14 @@ public class MapManager : MonoBehaviour
         {
             d.doorRef.OnLockDoor += Doors_OnDoorLock;
             d.doorRef.OnUnlockDoor += Doors_OnDoorUnluck;
+        }
+
+        foreach(Room d in roomsInfo)
+        {
+            if (d.roomActive)
+                avaliableRooms.Add(d);
+            else
+                disabledRooms.Add(d);
         }
 
         DisableAllDoorsHud();
@@ -120,6 +134,21 @@ public class MapManager : MonoBehaviour
         for(int i=0; i < roomsInfo.Length; i++)
         {
             roomsInfo[i].Enable();
+        }
+
+        foreach(Room d in disabledRooms)
+            avaliableRooms.Add(d);
+
+        disabledRooms.Clear();
+        disabledRooms.Capacity = 0;
+    }
+
+    public void SetRandomRoom(Transform[] reference, Vector3[] offset)
+    {
+        int index = Random.Range(0, avaliableRooms.Count);
+        for(int i = 0; i < reference.Length; i++)
+        {
+            reference[i].position = avaliableRooms[index].roomRefCenter.position+offset[i];
         }
     }
 

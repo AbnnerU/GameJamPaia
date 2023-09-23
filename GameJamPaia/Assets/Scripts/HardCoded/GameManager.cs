@@ -201,6 +201,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PauseAlarms(bool pause)
+    {
+        pauseNextAlarmActivation = pause;
+    }
+
     private void TryChangeDoorsConfig(int scoreValue)
     {
         for(int i = 0; i < doorsLockedConfigs.Length; i++)
