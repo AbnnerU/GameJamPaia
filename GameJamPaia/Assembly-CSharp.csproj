@@ -103,6 +103,7 @@
     <Compile Include="Assets\Scripts\Sound\SondInterpolationRequest.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundEmitter.cs" />
     <Compile Include="Assets\Scripts\Interface\IAgentMovementState.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Base\SpawnConfig.cs" />
     <Compile Include="Assets\Scripts\IA\AIDoorLock.cs" />
     <Compile Include="Assets\Scripts\IA\FollowAI.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsSettings.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Assets\Scripts\IA\Main nodes\BTInverter.cs" />
     <Compile Include="Assets\Scripts\GameActions\OnTriggerEnterAction2D.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\PoolManager.cs" />
+    <Compile Include="Assets\Scripts\Interface\IHasBehaviourTree.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeCollider2DActiveStateAction.cs" />
     <Compile Include="Assets\Scripts\Interface\IAIState.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />

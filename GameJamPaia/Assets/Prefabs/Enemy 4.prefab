@@ -88,7 +88,7 @@ Transform:
   m_Children:
   - {fileID: 5932625375127882161}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &5932625376068725818
 NavMeshAgent:
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 5932625376068725818}
   currentState: 0
-  playOnStart: 1
+  playOnStart: 0
   cameraTransform: {fileID: 0}
   target: {fileID: 0}
   targetMovement: {fileID: 0}

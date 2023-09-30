@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIResetScore : MonoBehaviour,IAgentMovementState, IAIState
+public class AIResetScore : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, IAIState
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private AIState currentState = AIState.FOLLOWTARGET;
@@ -82,6 +82,42 @@ public class AIResetScore : MonoBehaviour,IAgentMovementState, IAIState
 
         if (playOnStart)
             StartBehaviourTree();
+    }
+
+    public void Setup()
+    {
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+
+        agent.enabled = false;
+
+        if (scoreRef == null)
+            scoreRef = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<GameScore>();
+
+        if (cameraTransform == null)
+            cameraTransform = Camera.main.transform;
+
+        if (mapManager == null)
+            mapManager = FindAnyObjectByType<MapManager>();
+
+        if (gameManager == null)
+            gameManager = FindObjectOfType<GameManager>();
+
+
+        if (target == null)
+            target = GameObject.FindGameObjectWithTag(targetTag).transform;
+
+        if (targetAnimator == null)
+            targetAnimator = target.GetComponent<SimpleAnimationManager>();
+
+        if (targetMovement == null)
+            targetMovement = target.GetComponent<PlayerMovement>();
+
+        transformsArray[0] = target;
+        offSetArray[0] = new Vector3(0, 0, 0);
+
+        transformsArray[1] = cameraTransform;
+        offSetArray[1] = new Vector3(0, 0, -10);
     }
 
     public void StartBehaviourTree()

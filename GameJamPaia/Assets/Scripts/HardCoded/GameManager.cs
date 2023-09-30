@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Random = UnityEngine.Random;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,7 +27,6 @@ public class GameManager : MonoBehaviour
     [Header("Game Over")]
     [SerializeField] private Canvas gameOverCanvas;
     [SerializeField] private Canvas[] othersCanvas;
-    [SerializeField] private EnemysOnMap enemyOnMap;
 
     [Header("Tutorial")]
     [SerializeField] private Door2D[] doorsStartLocked;
@@ -40,9 +40,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float maxLockNewDoorDelay;
     [SerializeField] private int startLockingDoorsOnReachScore;
     [SerializeField] private int maxLockedDoorsAmount;
-    [SerializeField] private EnemySpawn[] enemySpawnConfig;
+    [Header("Enemy Spawn")]
+    [SerializeField] private SpawnConfig[] enemyBalanceOptions;
     [SerializeField] private MaxDoorsLockedConfig[] doorsLockedConfigs;
     [SerializeField] private AlarmsDelayConfig[] alarmsDelayProgression;
+
+    private EnemySpawn enemySpawnConfig;
 
     private bool startLockingDoors = false;
     private bool pauseNextAlarmActivation = false;
@@ -58,6 +61,8 @@ public class GameManager : MonoBehaviour
         alarmsManager.OnUpdateAlarmsOnCount += AlarmManager_OnAlarmsOnCountUpdate;
 
         gameScoreRef.OnScoreChange += GameScore_OnScoreChange;
+
+        SetupEnemySpawn();
     }
 
    
@@ -150,6 +155,26 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void SetupEnemySpawn()
+    {
+        SpawnConfig current = enemyBalanceOptions[Random.Range(0, enemyBalanceOptions.Length)];
+
+        enemySpawnConfig = new EnemySpawn();
+
+        enemySpawnConfig.spawnConfig = current;
+
+        enemySpawnConfig.enemySpawned = new ScoreReachEnemySpawned[current.spawnOnReachScore.Length];
+
+        for (int i = 0; i < current.spawnOnReachScore.Length; i++)
+        {
+
+            ScoreReachEnemySpawned s = new ScoreReachEnemySpawned();
+            s.onScoreRef = current.spawnOnReachScore[i]; ;
+            s.spawned = false;
+
+            enemySpawnConfig.enemySpawned[i] = s;
+        }
+    }
 
     IEnumerator DoorsLockedGameplayLoop()
     {
@@ -190,14 +215,35 @@ public class GameManager : MonoBehaviour
 
     private void TrySpawnEnemy(int scoreValue)
     {
-        for(int i = 0; i < enemySpawnConfig.Length; i++)
+        for(int i = 0; i < enemySpawnConfig.enemySpawned.Length; i++)
         {
-            if (enemySpawnConfig[i].applied==false && scoreValue>= enemySpawnConfig[i].spawnOnReachScore)
+            if (enemySpawnConfig.enemySpawned[i].spawned ==false && scoreValue >= enemySpawnConfig.enemySpawned[i].onScoreRef)
             {
-                enemySpawnConfig[i].applied = true;
-                enemySpawnConfig[i].enemyRef.gameObject.SetActive(true);
-                enemySpawnConfig[i].enemyRef.StartBehaviourTree();
+                enemySpawnConfig.enemySpawned[i].spawned = true;
+                SpawnEnemy();
+                //enemySpawnConfig[i].enemyRef.gameObject.SetActive(true);
+                //enemySpawnConfig[i].enemyRef.StartBehaviourTree();
             }
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        float chance = Random.Range(0f, 100f);
+
+        for(int i=0; i < enemySpawnConfig.spawnConfig.enemySpawnChance.Length; i++)
+        {
+            if (enemySpawnConfig.spawnConfig.enemySpawnChance[i].spawnChance >= chance)
+            {
+                GameObject g = PoolManager.SpawnObject(enemySpawnConfig.spawnConfig.enemySpawnChance[i].prefab);
+
+                g.GetComponent<IHasBehaviourTree>().Setup();
+
+                mapManager.SetRandomRoom(g.transform, Vector3.zero);
+
+                g.GetComponent<IHasBehaviourTree>().StartBehaviourTree();
+                break;
+            } 
         }
     }
 
@@ -239,8 +285,6 @@ public class GameManager : MonoBehaviour
     {
         gameOverCanvas.enabled = true;
 
-        enemyOnMap.Disable();
-
         for(int i=0;i<othersCanvas.Length;i++)
             othersCanvas[i].enabled = false;
 
@@ -266,9 +310,15 @@ public class GameManager : MonoBehaviour
     [Serializable]
     private class EnemySpawn
     {
-        public FollowAI enemyRef;
-        public int spawnOnReachScore;
-        public bool applied=false;
+        public SpawnConfig spawnConfig;
+        public ScoreReachEnemySpawned[] enemySpawned;
+    }
+
+    [Serializable]
+    private class ScoreReachEnemySpawned
+    {
+        public int onScoreRef;
+        public bool spawned;
     }
 
     [Serializable]

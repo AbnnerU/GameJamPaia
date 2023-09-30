@@ -171,6 +171,14 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public void SetRandomRoom(Transform reference, Vector3 offset)
+    {
+        
+        int index = Random.Range(0, avaliableRooms.Count);
+        reference.position = avaliableRooms[index].roomRefCenter.position + offset;
+        print(avaliableRooms[index].roomRefCenter.position);
+    }
+
     public void SetRandomRoom(Transform[] reference, Vector3[] offset)
     {
         int index = Random.Range(0, avaliableRooms.Count);
