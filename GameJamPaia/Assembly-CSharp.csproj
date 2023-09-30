@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Scriptable Base\LoadLevelData.cs" />
     <Compile Include="Assets\Scripts\HardCoded\DoorsManager.cs" />
     <Compile Include="Assets\Scripts\InputAreaAction2D.cs" />
+    <Compile Include="Assets\Scripts\IA\AITurnOnAlarm.cs" />
     <Compile Include="Assets\Scripts\Door2D.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTWaitForSeconds.cs" />
     <Compile Include="Assets\Scripts\HardCoded\GameManager.cs" />

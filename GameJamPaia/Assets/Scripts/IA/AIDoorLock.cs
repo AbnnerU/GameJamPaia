@@ -25,7 +25,6 @@ public class AIDoorLock : MonoBehaviour, IAgentMovementState, IAIState
     [Header("Teleport")]
     [SerializeField] private MapManager mapManager;
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private DoorsManager doorsManager;
     [SerializeField] private string teleportPlayerAnimation;
     [SerializeField] private float teleportPlayerAnimationDuration;
     [SerializeField] private float releasePlayerAnimationDuration;
@@ -61,8 +60,6 @@ public class AIDoorLock : MonoBehaviour, IAgentMovementState, IAIState
         if (gameManager)
             gameManager = FindObjectOfType<GameManager>();
 
-        if(doorsManager==null)
-            doorsManager = FindObjectOfType<DoorsManager>();
 
         if (target == null)
             target = GameObject.FindGameObjectWithTag(targetTag).transform;
@@ -148,7 +145,7 @@ public class AIDoorLock : MonoBehaviour, IAgentMovementState, IAIState
         if (target && mapManager && gameManager)
         {
             int id;
-            gameManager.PauseAlarms(true);
+            gameManager.PauseAlarmsEnableDelay(true);
             mapManager.SetRandomRoom(transformsArray, offSetArray, out id);
 
             mapManager.LockDoorsOnRoom(id);
@@ -160,7 +157,7 @@ public class AIDoorLock : MonoBehaviour, IAgentMovementState, IAIState
     {
         if (gameManager)
         {
-            gameManager.PauseAlarms(false);
+            gameManager.PauseAlarmsEnableDelay(false);
 
             targetMovement.Enable();
 

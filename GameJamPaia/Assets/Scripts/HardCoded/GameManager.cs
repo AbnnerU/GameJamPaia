@@ -201,7 +201,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PauseAlarms(bool pause)
+    public void PauseAlarmsEnableDelay(bool pause)
     {
         pauseNextAlarmActivation = pause;
     }

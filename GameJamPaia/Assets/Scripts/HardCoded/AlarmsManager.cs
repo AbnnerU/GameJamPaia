@@ -83,6 +83,16 @@ public class AlarmsManager : MonoBehaviour
         OnAlarmDisabled?.Invoke();
     }
 
+    public void TryEnableAlarm(Alarm alarm)
+    {
+        int id = GetAvailableAlarmIndex(alarm);
+
+        if (id >= 0)
+        {
+            EnableAlarmAt(id);
+        }
+    }
+
     private void OnAlarmInputCancel(Alarm alarm)
     {
         OnAlarmDisableCancel?.Invoke();

@@ -21,10 +21,12 @@ public class MapManager : MonoBehaviour
     [SerializeField]private List<Room> disabledRooms;
     private RoomDoorsInfo[] roomsDoors;
     private DoorsManager doorsManager;
+    private AlarmsManager alarmsManager;
 
     private void Awake()
     {
         doorsManager = FindObjectOfType<DoorsManager>();
+        alarmsManager = FindObjectOfType<AlarmsManager>();
 
         avaliableRooms = new List<Room>();
         disabledRooms = new List<Room>();
@@ -156,6 +158,16 @@ public class MapManager : MonoBehaviour
             {
                 doorsManager.TryLookDoor(r.roomDoors[i].doorRef);
             }
+        }
+    }
+
+    public void EneableAlarmOnRoom(int roomId)
+    {
+        Room r = avaliableRooms[roomId];
+
+        if (r != null)
+        {
+            alarmsManager.TryEnableAlarm(r.roomAlarm);
         }
     }
 
