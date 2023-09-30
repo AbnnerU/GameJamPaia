@@ -18,6 +18,8 @@ public abstract class GameScore : MonoBehaviour
     public abstract void RemovePoints(int value);
 
     public abstract void StopThisGameScore();
+
+    public abstract void RemoveAll();
     
     public ScoreName GetScoreName()
     {
@@ -31,36 +33,10 @@ public abstract class GameScore : MonoBehaviour
 
     public enum ScoreName
     {
-        MAIN
+        MAIN,
+        COINS
     }
 }
-
-//public abstract class GameScoreAgent:MonoBehaviour
-//{
-//    [SerializeField] protected string scoreName;
-
-//    [SerializeField] protected int points;
-
-//    protected GameScore gameScore=null;
-
-//    protected void FindGameScore()
-//    {
-//        GameScore[] allGameScore = FindObjectsOfType<GameScore>();
-
-//        for(int i = 0; i < allGameScore.Length; i++)
-//        {
-//            if(allGameScore[i].GetScoreName() == scoreName)
-//            {
-//                gameScore = allGameScore[i];
-//                break;
-//            }
-
-//        }
-
-//        if (gameScore == null)
-//            Debug.LogError("Game score of type " + scoreName.ToString() + " not exist");
-//    }
-//}
 
 public abstract class ScoreVisual:MonoBehaviour
 {

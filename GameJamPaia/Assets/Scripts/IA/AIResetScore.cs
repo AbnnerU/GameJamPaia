@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AITurnOnAlarm : MonoBehaviour, IAgentMovementState, IAIState
+public class AIResetScore : MonoBehaviour,IAgentMovementState, IAIState
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private AIState currentState = AIState.FOLLOWTARGET;
@@ -28,6 +28,9 @@ public class AITurnOnAlarm : MonoBehaviour, IAgentMovementState, IAIState
     [SerializeField] private string teleportPlayerAnimation;
     [SerializeField] private float teleportPlayerAnimationDuration;
     [SerializeField] private float releasePlayerAnimationDuration;
+    [Header("Score")]
+    [SerializeField] private GameScore scoreRef;
+    [SerializeField] private string scoreTag = "Coin";
     //[SerializeField] private Transform particlesTransform;
     //[SerializeField] private ParticleSystem particlesRef;
 
@@ -49,7 +52,8 @@ public class AITurnOnAlarm : MonoBehaviour, IAgentMovementState, IAIState
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
-
+        if (scoreRef == null)
+            scoreRef = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<GameScore>();
 
         if (cameraTransform == null)
             cameraTransform = Camera.main.transform;
@@ -57,8 +61,9 @@ public class AITurnOnAlarm : MonoBehaviour, IAgentMovementState, IAIState
         if (mapManager == null)
             mapManager = FindAnyObjectByType<MapManager>();
 
-        if (gameManager == null)
+        if (gameManager==null)
             gameManager = FindObjectOfType<GameManager>();
+
 
         if (target == null)
             target = GameObject.FindGameObjectWithTag(targetTag).transform;
@@ -143,12 +148,10 @@ public class AITurnOnAlarm : MonoBehaviour, IAgentMovementState, IAIState
     {
         if (target && mapManager && gameManager)
         {
-            int id;
             gameManager.PauseAlarmsEnableDelay(true);
-            mapManager.SetRandomRoom(transformsArray, offSetArray, out id);
+            mapManager.SetRandomRoom(transformsArray, offSetArray);
 
-            mapManager.EneableAlarmOnRoom(id);
-
+            scoreRef.RemoveAll();
         }
     }
 

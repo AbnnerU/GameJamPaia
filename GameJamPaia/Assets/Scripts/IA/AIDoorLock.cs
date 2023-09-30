@@ -57,7 +57,7 @@ public class AIDoorLock : MonoBehaviour, IAgentMovementState, IAIState
         if (mapManager == null)
             mapManager = FindAnyObjectByType<MapManager>();
 
-        if (gameManager)
+        if(gameManager == null)
             gameManager = FindObjectOfType<GameManager>();
 
 

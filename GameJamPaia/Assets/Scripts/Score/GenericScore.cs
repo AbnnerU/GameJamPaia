@@ -16,6 +16,16 @@ public class GenericScore : GameScore
         OnScoreChange?.Invoke((int)score);
     }
 
+    public override void RemoveAll()
+    {
+        if (active == false)
+            return;
+
+        score = 0;
+
+        OnScoreChange?.Invoke(0);
+    }
+
     public override void RemovePoints(int value)
     {
         if (active == false)

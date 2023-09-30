@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &13849148727128667
 Transform:
   m_ObjectHideFlags: 0
@@ -82,7 +82,7 @@ MonoBehaviour:
   spriteObj: {fileID: 13849149119026735}
   executionInterval: 0.1
   followTargetUpdateTime: 0.25
-  minDistance: 1
+  minDistance: 0.5
   passOffMeshLinkDelay: 0.2
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}

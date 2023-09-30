@@ -87,4 +87,9 @@ public class HighScore : GameScore
     {
         active = false;
     }
+
+    public override void RemoveAll()
+    {
+        Debug.LogWarning("cant remove all");
+    }
 }

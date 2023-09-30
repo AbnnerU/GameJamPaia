@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\IA\Main nodes\BTConditionalSequence.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundRequest.cs" />
+    <Compile Include="Assets\Scripts\Score\ColletableAddScore.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Audio\AudioConfig.cs" />
     <Compile Include="Assets\Scripts\HardCoded\EnemysOnMap.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeTransformPositionAction.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Scripts\IA\Nodes\BTDoAction.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BehaviorTree.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameScore.cs" />
+    <Compile Include="Assets\Scripts\Scripts Pool\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Sound\General\MultiSoundRequest.cs" />
     <Compile Include="Assets\Scripts\Save.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeDoorLockedStateAction.cs" />
@@ -90,7 +92,9 @@
     <Compile Include="Assets\Scripts\HardCoded\Alarm.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\RequestNewSoundAction.cs" />
     <Compile Include="Assets\Scripts\Input\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Scripts Pool\ObjectPoolContainer.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\SoundInterpolationAction.cs" />
+    <Compile Include="Assets\Scripts\Scripts Pool\Singleton.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Audio\AudioChannel.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsAgentOnNavMeshLink.cs" />
     <Compile Include="Assets\Scripts\General\OnTriggerEnter2DSignal.cs" />
@@ -103,6 +107,7 @@
     <Compile Include="Assets\Scripts\IA\FollowAI.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsSettings.cs" />
     <Compile Include="Assets\Scripts\Abstract\BTnode.cs" />
+    <Compile Include="Assets\Scripts\IA\AIResetScore.cs" />
     <Compile Include="Assets\Scripts\InputArea2D.cs" />
     <Compile Include="Assets\Scripts\PlayAnimationArray.cs" />
     <Compile Include="Assets\Scripts\Sound\General\VolumeSlider.cs" />
@@ -117,6 +122,7 @@
     <Compile Include="Assets\Scripts\IA\Main nodes\BTSelector.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTInverter.cs" />
     <Compile Include="Assets\Scripts\GameActions\OnTriggerEnterAction2D.cs" />
+    <Compile Include="Assets\Scripts\Scripts Pool\PoolManager.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeCollider2DActiveStateAction.cs" />
     <Compile Include="Assets\Scripts\Interface\IAIState.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />

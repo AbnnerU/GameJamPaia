@@ -56,7 +56,7 @@ public class AITeleporter : MonoBehaviour, IAgentMovementState, IAIState
         if(mapManager == null)
             mapManager = FindAnyObjectByType<MapManager>();
 
-        if(gameManager)
+        if (gameManager == null)
             gameManager = FindObjectOfType<GameManager>();
 
         if(target==null)
