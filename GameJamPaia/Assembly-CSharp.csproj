@@ -58,6 +58,7 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.2.5f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\HardCoded\Managers\CoinsManager.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTConditionalSequence.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundRequest.cs" />
     <Compile Include="Assets\Scripts\Score\ColletableAddScore.cs" />
@@ -65,25 +66,24 @@
     <Compile Include="Assets\Scripts\HardCoded\EnemysOnMap.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\LoadLevelData.cs" />
-    <Compile Include="Assets\Scripts\HardCoded\DoorsManager.cs" />
     <Compile Include="Assets\Scripts\InputAreaAction2D.cs" />
     <Compile Include="Assets\Scripts\IA\AITurnOnAlarm.cs" />
     <Compile Include="Assets\Scripts\Door2D.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTWaitForSeconds.cs" />
-    <Compile Include="Assets\Scripts\HardCoded\GameManager.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTSequence.cs" />
-    <Compile Include="Assets\Scripts\HardCoded\AlarmsManager.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTDoAction.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BehaviorTree.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameScore.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Sound\General\MultiSoundRequest.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\Managers\AlarmsManager.cs" />
     <Compile Include="Assets\Scripts\Save.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeDoorLockedStateAction.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTSetAIState.cs" />
     <Compile Include="Assets\Scripts\Movement\PlayerMovement.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\Score\HighScore.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\Managers\DoorsManager.cs" />
     <Compile Include="Assets\Scripts\IA\AITeleporter.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\MultiChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\HardCoded\SimpleAnimationManager.cs" />
@@ -133,6 +133,8 @@
     <Compile Include="Assets\Scripts\SceneLoad\SceneLoadManager.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameAction.cs" />
     <Compile Include="Assets\Scripts\OnStartSceneLoad.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\DisableAfterTime.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsOnAIState.cs" />
     <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprint.cs" />

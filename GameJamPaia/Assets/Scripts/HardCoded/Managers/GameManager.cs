@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Random = UnityEngine.Random;
-using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,6 +43,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MaxDoorsLockedConfig[] doorsLockedConfigs;
     [SerializeField] private AlarmsDelayConfig[] alarmsDelayProgression;
 
+    public Action OnEndTutorial;
     private EnemySpawn enemySpawnConfig;
 
     private bool startLockingDoors = false;
@@ -119,6 +118,8 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(AlarmsActivationGameplayLoop());
             tutorialEnded = true;
+
+            OnEndTutorial?.Invoke();
         }
     }
 
@@ -148,11 +149,6 @@ public class GameManager : MonoBehaviour
 
             alarmsManager.EnableAllAlarms();
         }
-    }
-
-    private void UnlockRooms()
-    {
-
     }
 
     private void SetupEnemySpawn()
@@ -221,8 +217,6 @@ public class GameManager : MonoBehaviour
             {
                 enemySpawnConfig.enemySpawned[i].spawned = true;
                 SpawnEnemy();
-                //enemySpawnConfig[i].enemyRef.gameObject.SetActive(true);
-                //enemySpawnConfig[i].enemyRef.StartBehaviourTree();
             }
         }
     }
