@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Alarm : MonoBehaviour, IHasActiveState
+public class Alarm : HoldTime, IHasActiveState
 {
   
     [SerializeField] private bool active = true;
@@ -15,7 +15,7 @@ public class Alarm : MonoBehaviour, IHasActiveState
     [SerializeField] private MultiSoundRequest soundRequest;
 
     [Header("Progress Bar")]
-    [SerializeField] private float holdTime;
+    //[SerializeField] private float holdTime;
     [SerializeField] private Canvas progressCnavas;
     [SerializeField] private Image progressFill;
 
@@ -45,8 +45,10 @@ public class Alarm : MonoBehaviour, IHasActiveState
 
     private bool holding = false;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (findScoreByTag)
         {
             scoreRef = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<GameScore>();

@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InputAreaAction2D : MonoBehaviour
-{
+public class InputAreaAction2D : HoldTime { 
     [SerializeField] private InputArea2D inputArea;
-    [SerializeField] private float holdTime;
+    //[SerializeField] private float holdTime;
     [SerializeField] private GameAction[] onInputAreaPerformed;
     [SerializeField] private GameAction[] onInputAreaCancel;
 
@@ -16,8 +15,9 @@ public class InputAreaAction2D : MonoBehaviour
     [SerializeField] private Canvas progressCnavas;
     [SerializeField] private Image progressFill;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         inputArea.OnInputPerformed += InputArea_OnInputPerformed;
     }
 

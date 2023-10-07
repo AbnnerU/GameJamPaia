@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\HardCoded\Managers\CoinsManager.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTConditionalSequence.cs" />
+    <Compile Include="Assets\Scripts\Abstract\HoldTime.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundRequest.cs" />
     <Compile Include="Assets\Scripts\Score\ColletableAddScore.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Audio\AudioConfig.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\Scripts\GameActions\Actions\MultiChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\HardCoded\SimpleAnimationManager.cs" />
     <Compile Include="Assets\Scripts\Abstract\UpgradeBase.cs" />
+    <Compile Include="Assets\Scripts\Perks\InteractionSpeedUpgrade.cs" />
     <Compile Include="Assets\Scripts\Door2DSpriteManager.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Map.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Alarm.cs" />
