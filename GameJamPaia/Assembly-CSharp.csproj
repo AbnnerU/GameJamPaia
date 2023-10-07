@@ -85,8 +85,10 @@
     <Compile Include="Assets\Scripts\Score\HighScore.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Managers\DoorsManager.cs" />
     <Compile Include="Assets\Scripts\IA\AITeleporter.cs" />
+    <Compile Include="Assets\Scripts\Perks\SprintDurationUpgrade.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\MultiChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\HardCoded\SimpleAnimationManager.cs" />
+    <Compile Include="Assets\Scripts\Abstract\UpgradeBase.cs" />
     <Compile Include="Assets\Scripts\Door2DSpriteManager.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Map.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Alarm.cs" />

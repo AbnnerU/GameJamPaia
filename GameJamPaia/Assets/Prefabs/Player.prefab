@@ -475,7 +475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 8221687289810548816}
   inputs: {fileID: 0}
-  newSpeedValue: 800
+  newSpeedValue: 400
   sprintDuration: 1
   sprintRechargeTime: 5
 --- !u!114 &31584808
@@ -490,6 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573219e08e8bc4849a075eb4f7548fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 1
   inputManager: {fileID: 0}
   anim: {fileID: 8221687290254946858}
   walkAnimation: Girl_Walk

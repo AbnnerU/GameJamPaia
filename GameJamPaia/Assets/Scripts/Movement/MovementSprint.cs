@@ -26,6 +26,11 @@ public class MovementSprint : MonoBehaviour
         }
     }
 
+    public void AddDuration(float addValue)
+    {
+        sprintDuration += addValue;
+    }
+
 
     IEnumerator SprintExecution()
     {

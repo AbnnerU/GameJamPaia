@@ -150,13 +150,13 @@ public class MapManager : MonoBehaviour
         agentConfig.agentRealWordTransform = agentTransform;
 
         AgentConfig[] temp = enemyInfo;
-        print(enemyInfo.Length);
-        print(temp.Length);
+        //print(enemyInfo.Length);
+        //print(temp.Length);
         int originalSize = temp.Length;
         int newSize = originalSize +1;
 
-        print(originalSize);
-        print(newSize);
+        //print(originalSize);
+        //print(newSize);
 
         enemyInfo = new AgentConfig[newSize];
 
