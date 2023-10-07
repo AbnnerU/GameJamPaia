@@ -45,6 +45,15 @@ public class CoinsManager : MonoBehaviour, IHasActiveState
         }
     }
 
+    public void TryUseCoins(int value, out bool success)
+    {
+        success = false;
+        if ((currentCoinsAmount - value) < 0) return;
+
+        success= true;
+        coinsScore.RemovePoints(value);
+    }
+
     private void CoinsScore_OnScoreChange(int newCoinsValue)
     {
        currentCoinsAmount = newCoinsValue;

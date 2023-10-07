@@ -151,6 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5373962c1b0c13c42bc2f6b761bb8b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDisble: 3
-  getIHasActiveState: 1
+  timeToDisble: 10
+  getIHasActiveState: 0
   startTimerOnEnable: 1

@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\GameActions\Actions\SoundInterpolationAction.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\Singleton.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Audio\AudioChannel.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\BuyUpgrade.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsAgentOnNavMeshLink.cs" />
     <Compile Include="Assets\Scripts\General\OnTriggerEnter2DSignal.cs" />
     <Compile Include="Assets\Input\InputController.cs" />
