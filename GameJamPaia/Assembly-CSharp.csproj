@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Sound\General\MultiSoundRequest.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Managers\AlarmsManager.cs" />
     <Compile Include="Assets\Scripts\Save.cs" />
+    <Compile Include="Assets\Scripts\Perks\ShieldUpgrade.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeDoorLockedStateAction.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTSetAIState.cs" />
     <Compile Include="Assets\Scripts\Movement\PlayerMovement.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\Scripts\Perks\SprintDurationUpgrade.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\MultiChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\HardCoded\SimpleAnimationManager.cs" />
+    <Compile Include="Assets\Scripts\Shield.cs" />
     <Compile Include="Assets\Scripts\Abstract\UpgradeBase.cs" />
     <Compile Include="Assets\Scripts\Perks\InteractionSpeedUpgrade.cs" />
     <Compile Include="Assets\Scripts\Door2DSpriteManager.cs" />

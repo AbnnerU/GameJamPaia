@@ -10,5 +10,6 @@ public enum AIState
 {
     FOLLOWTARGET,
     HITTEDTARGET,
-    STOPPED
+    STOPPED, 
+    STUNNED
 }

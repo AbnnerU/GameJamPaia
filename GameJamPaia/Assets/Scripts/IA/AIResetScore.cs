@@ -18,6 +18,9 @@ public class AIResetScore : MonoBehaviour, IHasBehaviourTree, IAgentMovementStat
     [SerializeField] private BehaviorTree behaviorTree;
     [SerializeField] private GameObject spriteObj;
     [SerializeField] private float executionInterval;
+    [Header("Shield")]
+    [SerializeField] private Shield shield;
+    [SerializeField] private float stunTime = 2;
     [Header("FollowConfig")]
     [SerializeField] private float followTargetUpdateTime;
     [SerializeField] private float minDistance;
@@ -113,6 +116,9 @@ public class AIResetScore : MonoBehaviour, IHasBehaviourTree, IAgentMovementStat
         if (targetMovement == null)
             targetMovement = target.GetComponent<PlayerMovement>();
 
+        if (shield == null)
+            shield = FindObjectOfType<Shield>();
+
         transformsArray[0] = target;
         offSetArray[0] = new Vector3(0, 0, 0);
 
@@ -124,19 +130,31 @@ public class AIResetScore : MonoBehaviour, IHasBehaviourTree, IAgentMovementStat
 
     public void StartBehaviourTree()
     {
-        BTIsOnAIState bTIsOnHittedTargetState = new BTIsOnAIState(this, AIState.HITTEDTARGET);
+        BTIsOnAIState btIsOnStunnedState = new BTIsOnAIState(this, AIState.STUNNED);
         BTStopAgent bTStopAgent = new BTStopAgent(agent);
+        BTWaitForSeconds btStunnedTime = new BTWaitForSeconds(stunTime);
+        BTSetAIState btSetFollowAIState = new BTSetAIState(this, AIState.FOLLOWTARGET);
+        BTSequence btStunnedSequence = new BTSequence(new List<BTnode>
+        {
+            btIsOnStunnedState,
+            bTStopAgent,
+            btStunnedTime,
+            btSetFollowAIState
+        });
+
+
+        BTIsOnAIState bTIsOnHittedTargetState = new BTIsOnAIState(this, AIState.HITTEDTARGET);
         BTDoAction bTTeleportPlayerAnimation = new BTDoAction(() => TeleportPlayerAnimation());
         BTWaitForSeconds bTWaitTeleportPlayerAnimation = new BTWaitForSeconds(teleportPlayerAnimationDuration);
         BTDoAction bTTeleportTargetAction = new BTDoAction(() => TeleportTarget());
         BTWaitForSeconds bTWaitReleasePlayerAnimation = new BTWaitForSeconds(releasePlayerAnimationDuration);
         BTDoAction bTUnpauseAlarmsAction = new BTDoAction(() => UnpauseAlrams());
-        BTSetAIState btSetFollowAIState = new BTSetAIState(this, AIState.FOLLOWTARGET);
         BTSequence bTTeleportPlayerSequence = new BTSequence(new List<BTnode>
         {
             bTIsOnHittedTargetState,
             bTStopAgent,
             bTTeleportPlayerAnimation,
+            bTIsOnHittedTargetState,
             bTWaitTeleportPlayerAnimation,
             bTTeleportTargetAction,
             bTWaitReleasePlayerAnimation,
@@ -158,6 +176,7 @@ public class AIResetScore : MonoBehaviour, IHasBehaviourTree, IAgentMovementStat
         //----Root----
         rootSelector = new BTSelector(new List<BTnode>
         {
+            btStunnedSequence,
             bTTeleportPlayerSequence,
             btFollowTargetSequence
         });
@@ -176,6 +195,13 @@ public class AIResetScore : MonoBehaviour, IHasBehaviourTree, IAgentMovementStat
     {
         if (targetAnimator)
         {
+            if (shield.IsShieldActive())
+            {
+                currentState = AIState.STUNNED;
+                shield.HitShield();
+                return;
+            }
+
             targetMovement.Disable();
             targetAnimator.SetAnimationManagerActive(false);
             targetAnimator.PlayAnimation(teleportPlayerAnimation);
