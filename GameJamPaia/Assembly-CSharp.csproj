@@ -137,6 +137,7 @@
     <Compile Include="Assets\Scripts\Interface\IHasActiveState.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\SceneLoadManager.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameAction.cs" />
+    <Compile Include="Assets\Scripts\Perks\IncreaseMaxAlarmNumberUpgrade.cs" />
     <Compile Include="Assets\Scripts\OnStartSceneLoad.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\DisableAfterTime.cs" />

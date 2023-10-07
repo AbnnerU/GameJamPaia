@@ -123,6 +123,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddMaxAlarmOnValue(int addValue)
+    {
+        maxAlarmsOn += addValue;
+    }
+
     #endregion
 
     private void GameScore_OnScoreChange(int newValue)
