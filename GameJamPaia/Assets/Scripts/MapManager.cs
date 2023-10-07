@@ -14,9 +14,13 @@ public class MapManager : MonoBehaviour
 {
     [SerializeField] private bool active;
     [SerializeField] private bool tryAutoConfig;
+    [Header("Enemy")]
+    [SerializeField] private GameObject enemyHudIconPrefab;
+    [SerializeField] private RectTransform enemyIconParent;
+    [SerializeField] private AgentConfig[] enemyInfo;
+    [Header("Rooms")]
     [SerializeField] private Vector2 areaSize;
     [SerializeField] private Room[] roomsInfo;
-    [SerializeField] private AgentConfig[] enemyInfo;
     [SerializeField]private List<Room> avaliableRooms;
     [SerializeField]private List<Room> disabledRooms;
     private RoomDoorsInfo[] roomsDoors;
@@ -71,6 +75,101 @@ public class MapManager : MonoBehaviour
         }
 
         DisableAllDoorsHud();
+    }
+
+    private void Update()
+    {
+        if (!active || enemyInfo.Length == 0) return;
+
+        int count = roomsInfo.Length;
+        int agentsCount = enemyInfo.Length;
+
+        NativeArray<Vector3> mapCenterArray = new NativeArray<Vector3>(count, Allocator.TempJob);
+        NativeArray<Vector3> mapAreaSizeArray = new NativeArray<Vector3>(count, Allocator.TempJob);
+        NativeArray<int> enemyPositionId = new NativeArray<int>(agentsCount, Allocator.TempJob);
+        NativeArray<Vector3> agentsCurrentPositionArray = new NativeArray<Vector3>(agentsCount, Allocator.TempJob);
+
+        for (int i = 0; i < count; i++)
+        {
+            mapCenterArray[i] = roomsInfo[i].roomRefCenter.position;
+            mapAreaSizeArray[i] = areaSize / 2;
+        }
+
+        for (int i = 0; i < enemyInfo.Length; i++)
+        {
+            agentsCurrentPositionArray[i] = enemyInfo[i].agentRealWordTransform.position;
+        }
+
+        MarkerParallelJob markerParallelJob = new MarkerParallelJob
+        {
+            mapCenterRef = mapCenterArray,
+            mapAreaSizeRef = mapAreaSizeArray,
+            resultsIndex = enemyPositionId,
+            currentAgentPosition = agentsCurrentPositionArray
+        };
+
+        JobHandle jobHandle = markerParallelJob.Schedule(agentsCount, 1);
+
+        jobHandle.Complete();
+
+
+        for (int i = 0; i < agentsCount; i++)
+        {
+            if (enemyInfo[i].agentRealWordTransform.gameObject.activeSelf == false)
+            {
+                enemyInfo[i].agentUIImage.enabled = false;
+                continue;
+            }
+            else
+                enemyInfo[i].agentUIImage.enabled = true;
+
+
+            if (markerParallelJob.resultsIndex[i] >= 0)
+            {
+                enemyInfo[i].agentRectTransform.anchoredPosition = roomsInfo[markerParallelJob.resultsIndex[i]].roomHudRectRef.anchoredPosition;
+            }
+        }
+
+        mapCenterArray.Dispose();
+        mapAreaSizeArray.Dispose();
+        enemyPositionId.Dispose();
+        agentsCurrentPositionArray.Dispose();
+
+    }
+
+    public void AddNewAgent(Transform agentTransform)
+    {
+        GameObject icon = Instantiate(enemyHudIconPrefab, enemyIconParent);
+
+        RectTransform iconRect = icon.GetComponent<RectTransform>();
+        Image iconImage = icon.GetComponent<Image>();
+
+        AgentConfig agentConfig = new AgentConfig();
+        agentConfig.agentRectTransform = iconRect;
+        agentConfig.agentUIImage = iconImage;
+        agentConfig.agentRealWordTransform = agentTransform;
+
+        AgentConfig[] temp = enemyInfo;
+        print(enemyInfo.Length);
+        print(temp.Length);
+        int originalSize = temp.Length;
+        int newSize = originalSize +1;
+
+        print(originalSize);
+        print(newSize);
+
+        enemyInfo = new AgentConfig[newSize];
+
+        if (originalSize > 0)
+        {
+            for (int i = 0; i < originalSize; i++)
+            {
+                enemyInfo[i] = temp[i];
+            }
+        }
+
+        enemyInfo[newSize - 1] = agentConfig;
+
     }
 
     private void Doors_OnDoorUnluck(Door2D d)
@@ -199,66 +298,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (!active) return;
-
-        int count = roomsInfo.Length;
-        int agentsCount = enemyInfo.Length;
-
-        NativeArray<Vector3> mapCenterArray = new NativeArray<Vector3>(count, Allocator.TempJob);
-        NativeArray<Vector3> mapAreaSizeArray = new NativeArray<Vector3>(count, Allocator.TempJob);
-        NativeArray<int> enemyPositionId = new NativeArray<int>(agentsCount, Allocator.TempJob);
-        NativeArray<Vector3> agentsCurrentPositionArray = new NativeArray<Vector3>(agentsCount, Allocator.TempJob);
-
-        for (int i = 0; i < count; i++)
-        {
-            mapCenterArray[i] = roomsInfo[i].roomRefCenter.position;
-            mapAreaSizeArray[i] = areaSize / 2;
-        }
-
-        for (int i = 0; i < enemyInfo.Length; i++)
-        {
-            agentsCurrentPositionArray[i] = enemyInfo[i].agentRealWordTransform.position;
-        }
-
-        MarkerParallelJob markerParallelJob = new MarkerParallelJob
-        {
-            mapCenterRef = mapCenterArray,
-            mapAreaSizeRef = mapAreaSizeArray,
-            resultsIndex = enemyPositionId,
-            currentAgentPosition = agentsCurrentPositionArray
-        };
-
-        JobHandle jobHandle = markerParallelJob.Schedule(agentsCount, 1);
-
-        jobHandle.Complete();
-
-
-        for (int i = 0; i < agentsCount; i++)
-        {
-            if (enemyInfo[i].agentRealWordTransform.gameObject.activeSelf == false)
-            {
-                enemyInfo[i].agentUIImage.enabled = false;
-                continue;
-            }
-            else
-                enemyInfo[i].agentUIImage.enabled = true;
-
-
-            if (markerParallelJob.resultsIndex[i] >= 0)
-            {
-                enemyInfo[i].agentRectTransform.anchoredPosition = roomsInfo[markerParallelJob.resultsIndex[i]].roomHudRectRef.anchoredPosition;
-            }
-        }
-
-        mapCenterArray.Dispose();
-        mapAreaSizeArray.Dispose();
-        enemyPositionId.Dispose();
-        agentsCurrentPositionArray.Dispose();
-
-    }
-
+    
     private void OnValidate()
     {
         if (tryAutoConfig)

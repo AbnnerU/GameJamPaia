@@ -109,6 +109,8 @@ public class AITurnOnAlarm : MonoBehaviour, IHasBehaviourTree, IAgentMovementSta
 
         transformsArray[1] = cameraTransform;
         offSetArray[1] = new Vector3(0, 0, -10);
+
+        mapManager.AddNewAgent(agent.transform);
     }
 
     public void StartBehaviourTree()

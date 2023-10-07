@@ -107,6 +107,8 @@ public class AITeleporter : MonoBehaviour, IHasBehaviourTree, IAgentMovementStat
         transformsArray[1] = cameraTransform;
         offSetArray[1] = new Vector3(0, 0, -10);
 
+
+        mapManager.AddNewAgent(agent.transform);
     }
 
     public void StartBehaviourTree()
