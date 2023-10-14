@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 13849148727128999}
   - component: {fileID: 13849148727128666}
   m_Layer: 0
-  m_Name: Enemy 1
+  m_Name: Enemy 1 - Basic
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,12 +75,15 @@ MonoBehaviour:
   playOnStart: 0
   cameraTransform: {fileID: 0}
   target: {fileID: 0}
+  targetCollider: {fileID: 0}
   targetMovement: {fileID: 0}
   targetAnimator: {fileID: 0}
   targetTag: Player
   behaviorTree: {fileID: 13849148727128999}
   spriteObj: {fileID: 13849149119026735}
   executionInterval: 0.1
+  shield: {fileID: 0}
+  stunTime: 2
   followTargetUpdateTime: 0.25
   minDistance: 0.5
   passOffMeshLinkDelay: 0.2
@@ -88,7 +91,8 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   teleportPlayerAnimation: HandGetPlayer
   teleportPlayerAnimationDuration: 1.03
-  releasePlayerAnimationDuration: 0.27
+  releasePlayerAnimation: HandReleasePlayer
+  releasePlayerAnimationDuration: 0.7
 --- !u!114 &13849148727128999
 MonoBehaviour:
   m_ObjectHideFlags: 0

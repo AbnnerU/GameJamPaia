@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 6892697019398397732}
   - component: {fileID: 6892697019398397657}
   m_Layer: 0
-  m_Name: Enemy 2
+  m_Name: Enemy 2 - Lock Doors
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,12 +327,15 @@ MonoBehaviour:
   playOnStart: 0
   cameraTransform: {fileID: 0}
   target: {fileID: 0}
+  targetCollider: {fileID: 0}
   targetMovement: {fileID: 0}
   targetAnimator: {fileID: 0}
   targetTag: Player
   behaviorTree: {fileID: 6892697019398397732}
   spriteObj: {fileID: 6892697021155556012}
   executionInterval: 0.1
+  shield: {fileID: 0}
+  stunTime: 2
   followTargetUpdateTime: 0.2
   minDistance: 0.5
   passOffMeshLinkDelay: 0.2
@@ -340,7 +343,8 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   teleportPlayerAnimation: HandGetPlayer
   teleportPlayerAnimationDuration: 1.03
-  releasePlayerAnimationDuration: 0.27
+  releasePlayerAnimation: HandReleasePlayer
+  releasePlayerAnimationDuration: 0.7
 --- !u!114 &6892697019398397732
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,6 +22,7 @@ public class Door2D : MonoBehaviour, IHasActiveState
     public Action<Door2D> OnLockDoor;
     public Action<Door2D> OnUnlockDoor;
     public Action<bool> OnChangeDoorActiveState;
+    public Action OnUpdatePositions;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -41,6 +42,8 @@ public class Door2D : MonoBehaviour, IHasActiveState
                 else
                     onTriggerDoorUpdatePositions[i]._transform.position = onTriggerDoorUpdatePositions[i].target.position + onTriggerDoorUpdatePositions[i].offSet;
             }
+
+            OnUpdatePositions?.Invoke();
 
             if(onTriggerDoorActions.Length > 0)
             {

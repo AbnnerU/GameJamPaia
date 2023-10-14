@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\IA\Nodes\BTSetAIState.cs" />
     <Compile Include="Assets\Scripts\Movement\PlayerMovement.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\RoomsMusicManager.cs" />
     <Compile Include="Assets\Scripts\Score\HighScore.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Managers\DoorsManager.cs" />
     <Compile Include="Assets\Scripts\IA\AITeleporter.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Assets\Scripts\General\DisableAfterTime.cs" />
     <Compile Include="Assets\Scripts\General\OnTriggerEnter2DSignal.cs" />
     <Compile Include="Assets\Input\InputController.cs" />
+    <Compile Include="Assets\Scripts\General\ColliderHandler2D.cs" />
     <Compile Include="Assets\Scripts\Abstract\ManagerBase.cs" />
     <Compile Include="Assets\Scripts\Sound\SondInterpolationRequest.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundEmitter.cs" />
@@ -121,9 +123,12 @@
     <Compile Include="Assets\Scripts\PlayAnimationArray.cs" />
     <Compile Include="Assets\Scripts\Sound\General\VolumeSlider.cs" />
     <Compile Include="Assets\Scripts\Score\GenericScoreVisual.cs" />
+    <Compile Include="Assets\Scripts\Abstract\AIBasicBehaviour.cs" />
+    <Compile Include="Assets\Scripts\General\EventSignal.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTFollowTarget.cs" />
     <Compile Include="Assets\Scripts\Score\GenericScore.cs" />
     <Compile Include="Assets\Scripts\Sound\ButtonsSound.cs" />
+    <Compile Include="Assets\Scripts\IA\Nodes\BTIsColliderEnabled.cs" />
     <Compile Include="Assets\Scripts\Sound\SoundInterpolation.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\LoadingScene.cs" />
     <Compile Include="Assets\Scripts\HardCoded\EnemyActions.cs" />

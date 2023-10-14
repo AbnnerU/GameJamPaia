@@ -304,6 +304,10 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public Vector2 GetAreaSize()
+    {
+        return areaSize;
+    }
     
     private void OnValidate()
     {
