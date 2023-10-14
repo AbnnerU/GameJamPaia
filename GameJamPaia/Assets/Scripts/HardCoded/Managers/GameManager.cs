@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameScore gameScoreRef;
     [SerializeField] private HighScore highScore;
     [SerializeField]private AudioChannel audioChannel;
+    [SerializeField] private GameObject powerUpPrefab;
     [SerializeField] private bool active = true;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private TMP_Text currentActiveClocksAmountText;
@@ -37,7 +38,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float minLockNewDoorDelay;
     [SerializeField] private float maxLockNewDoorDelay;
     [SerializeField] private int startLockingDoorsOnReachScore;
-    [SerializeField] private int maxLockedDoorsAmount;
+    //[SerializeField] private int maxLockedDoorsAmount;
+    [SerializeField] private int startSpawningPowerUpOnReachScore;
+    [SerializeField] private int minPowerUpDelay;
+    [SerializeField] private int maxPowerUpDelay;
     [Header("Enemy Spawn")]
     [SerializeField] private SpawnConfig[] enemyBalanceOptions;
     [SerializeField] private MaxDoorsLockedConfig[] doorsLockedConfigs;
@@ -46,6 +50,7 @@ public class GameManager : MonoBehaviour
     public Action OnEndTutorial;
     private EnemySpawn enemySpawnConfig;
 
+    private bool startSpawningPowerUp = false;
     private bool startLockingDoors = false;
     private bool pauseNextAlarmActivation = false;
     private bool tutorialEnded = false;
@@ -138,10 +143,18 @@ public class GameManager : MonoBehaviour
 
         TryApplyNewAlarmProgression(newValue);
 
+        //-----Doors Lock-------
         if (!startLockingDoors && newValue >= startLockingDoorsOnReachScore)
         {
             StartCoroutine(DoorsLockedGameplayLoop());
             startLockingDoors = true;
+        }
+
+        //-----Power Up-------
+        if(!startSpawningPowerUp && newValue >= startSpawningPowerUpOnReachScore)
+        {
+            StartCoroutine(PowerUpGameplayLoop());
+            startSpawningPowerUp = true;
         }
 
         if(roomsLocked && newValue >= scoreToUnlockAllRooms)
@@ -177,17 +190,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #region GameLoop
+
     IEnumerator DoorsLockedGameplayLoop()
     {
         while (active)
         {
             yield return new WaitForSeconds(Random.Range(minLockNewDoorDelay, maxLockNewDoorDelay));
 
-            if (doorsManager.DoorsLockedValue() < maxLockedDoorsAmount)
-            {
+            //if (doorsManager.DoorsLockedValue() < maxLockedDoorsAmount)
+            //{
                 doorsManager.TryLockRandomDoor();
-            }
+            //}
 
+        }
+    }
+
+    IEnumerator PowerUpGameplayLoop()
+    {
+        while (active)
+        {
+            yield return new WaitForSeconds(Random.Range(minPowerUpDelay, maxPowerUpDelay));
+
+            SpawnPowerUp();
         }
     }
 
@@ -226,6 +251,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SpawnPowerUp()
+    {
+        Vector3 pos = mapManager.GetRandomAvalibleRoomPosition();
+        float x = Random.Range(0, 4);
+        float y = Random.Range(0, 4);
+
+        PoolManager.SpawnObject(powerUpPrefab, pos + new Vector3(x, y, 0), Quaternion.identity);
+    }
+
+    #endregion
+
     private void SpawnEnemy()
     {
         float chance = Random.Range(0f, 100f);
@@ -258,7 +294,7 @@ public class GameManager : MonoBehaviour
             if (doorsLockedConfigs[i].applied ==false && scoreValue >= doorsLockedConfigs[i].onReachScore)
             {
                 doorsLockedConfigs[i].applied = true;
-                maxLockedDoorsAmount = doorsLockedConfigs[i].newMaxValue;
+                //maxLockedDoorsAmount = doorsLockedConfigs[i].newMaxValue;
 
                 minLockNewDoorDelay = doorsLockedConfigs[i].minDelay;
                 maxLockNewDoorDelay = doorsLockedConfigs[i].maxDelay;
@@ -324,7 +360,7 @@ public class GameManager : MonoBehaviour
     private class MaxDoorsLockedConfig
     {
         public int onReachScore;
-        public int newMaxValue;
+        //public int newMaxValue;
         [Header("Delay")]
         public float minDelay;
         public float maxDelay;

@@ -7,6 +7,9 @@ public class BuyUpgrade : MonoBehaviour
     [SerializeField] private CoinsManager coinsManager;
     [SerializeField]private UpgradeBase upgradeRef;
     [SerializeField] private int price;
+    [SerializeField] private int maximumPurchases=1;
+
+    private int currentPurschase = 0;
 
     private void Awake()
     {
@@ -18,6 +21,8 @@ public class BuyUpgrade : MonoBehaviour
 
     private void TryBuyUpgrade()
     {
+        if (currentPurschase >= maximumPurchases) return;
+
         bool success = false;
 
         coinsManager.TryUseCoins(price, out success);
@@ -26,6 +31,8 @@ public class BuyUpgrade : MonoBehaviour
         {
             print("Buy success");
             upgradeRef.ApplyUpgrade();
+
+            currentPurschase++;
         }
         else
         {

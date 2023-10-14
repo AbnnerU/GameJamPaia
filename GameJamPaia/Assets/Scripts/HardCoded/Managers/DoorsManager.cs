@@ -138,6 +138,14 @@ public class DoorsManager : MonoBehaviour
         disabledDoors.Capacity = 0;
     }
 
+    public void UnlockAllDoors()
+    {
+        for (int i = 0; i < doors.Length; i++)
+        {
+            doors[i].UnlockDoor();
+        }
+    }
+
     public int DoorsLockedValue()
     {
         return currentDoorsLockedValue;

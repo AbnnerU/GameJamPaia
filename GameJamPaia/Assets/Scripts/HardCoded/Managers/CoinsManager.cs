@@ -40,8 +40,9 @@ public class CoinsManager : MonoBehaviour, IHasActiveState
             yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
 
             Vector3 pos = mapManager.GetRandomAvalibleRoomPosition();
-
-            PoolManager.SpawnObject(coinPrefab, pos, Quaternion.identity);
+            float x = Random.Range(0, 2);
+            float y = Random.Range(0, 2);
+            PoolManager.SpawnObject(coinPrefab, pos + new Vector3(x,y,0), Quaternion.identity);
         }
     }
 

@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\Scriptable Base\Audio\AudioChannel.cs" />
     <Compile Include="Assets\Scripts\HardCoded\BuyUpgrade.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsAgentOnNavMeshLink.cs" />
+    <Compile Include="Assets\Scripts\General\DisableAfterTime.cs" />
     <Compile Include="Assets\Scripts\General\OnTriggerEnter2DSignal.cs" />
     <Compile Include="Assets\Input\InputController.cs" />
     <Compile Include="Assets\Scripts\Abstract\ManagerBase.cs" />
@@ -142,8 +143,8 @@
     <Compile Include="Assets\Scripts\Perks\IncreaseMaxAlarmNumberUpgrade.cs" />
     <Compile Include="Assets\Scripts\OnStartSceneLoad.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Managers\GameManager.cs" />
-    <Compile Include="Assets\Scripts\DisableAfterTime.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsOnAIState.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\OnTriggerUnlockAllDoors2D.cs" />
     <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprint.cs" />
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerSendToRandomLocation.cs" />
