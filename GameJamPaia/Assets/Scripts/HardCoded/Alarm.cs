@@ -45,6 +45,8 @@ public class Alarm : HoldTime, IHasActiveState
 
     private bool holding = false;
 
+    private bool alarmOn = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -119,6 +121,8 @@ public class Alarm : HoldTime, IHasActiveState
         holding = false;
        
         anim.Play(onEnableAnimation, 0, 0);
+
+        alarmOn = true;
     }
 
     public void DisableAlarm()
@@ -135,6 +139,8 @@ public class Alarm : HoldTime, IHasActiveState
 
 
         anim.Play(onDisableAnimation, 0, 0);
+
+        alarmOn = false;    
     }
 
     public void DisableAlarmWithoutAnimation()
@@ -144,6 +150,13 @@ public class Alarm : HoldTime, IHasActiveState
         inputArea.Disable();
         progressCnavas.enabled = false;
         holding = false;
+
+        alarmOn = false;
+    }
+
+    public bool AlarmOn()
+    {
+        return alarmOn;
     }
 
     public bool IsEnabled()

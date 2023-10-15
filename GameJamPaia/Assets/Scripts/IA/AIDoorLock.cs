@@ -1,4 +1,4 @@
-
+using UnityEngine;
 
 public class AIDoorLock : AIBasicBehaviour
 {
@@ -14,8 +14,11 @@ public class AIDoorLock : AIBasicBehaviour
             }
 
             targetMovement.Disable();
+            targetCollider.enabled = false;
             targetAnimator.SetAnimationManagerActive(false);
             targetAnimator.PlayAnimation(teleportPlayerAnimation);
+
+            gameManager.PauseAlarmsLoop(true);
         }
     }
 
@@ -23,9 +26,12 @@ public class AIDoorLock : AIBasicBehaviour
     {
         if (target && mapManager && gameManager)
         {
-            int id;
-            gameManager.PauseAlarmsLoop(true);
-            mapManager.SetRandomRoom(transformsArray, offSetArray, out id);
+            int id = 0;
+            targetAnimator.PlayAnimation(releasePlayerAnimation);
+
+            mapManager.RandomRoomNoRepeatAndAlarmOff(target, Vector3.zero, out id);
+            mapManager.SetRoom(cameraTransform, new Vector3(0, 0, -10), id);
+        
 
             mapManager.LockDoorsOnRoom(id);
 

@@ -21,7 +21,11 @@ public class AIResetScore : AIBasicBehaviour
     public override void Setup()
     {
         base.Setup();
-       
+
+        if (scoreRef == null)
+            scoreRef = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<GameScore>();
+
+
         agent.enabled = false;
     }
 
@@ -38,8 +42,11 @@ public class AIResetScore : AIBasicBehaviour
             }
 
             targetMovement.Disable();
+            targetCollider.enabled = false;
             targetAnimator.SetAnimationManagerActive(false);
             targetAnimator.PlayAnimation(teleportPlayerAnimation);
+
+            gameManager.PauseAlarmsLoop(true);
         }
     }
 
@@ -47,8 +54,12 @@ public class AIResetScore : AIBasicBehaviour
     {
         if (target && mapManager && gameManager)
         {
-            gameManager.PauseAlarmsLoop(true);
-            mapManager.SetRandomRoom(transformsArray, offSetArray);
+            int id = 0;
+            targetAnimator.PlayAnimation(releasePlayerAnimation);
+
+            mapManager.RandomRoomNoRepeatAndAlarmOff(target, Vector3.zero, out id);
+            mapManager.SetRoom(cameraTransform, new Vector3(0, 0, -10), id);
+
 
             scoreRef.RemoveAll();
         }

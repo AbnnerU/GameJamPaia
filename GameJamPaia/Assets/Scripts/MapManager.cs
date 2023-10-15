@@ -277,6 +277,13 @@ public class MapManager : MonoBehaviour
         return avaliableRooms[index].roomRefCenter.position;
     }
 
+    public void SetRoom(Transform reference, Vector3 offset, int id)
+    {
+        reference.position = avaliableRooms[id].roomRefCenter.position + offset;
+        print(avaliableRooms[id].roomRefCenter.position);
+    }
+
+
     public void SetRandomRoom(Transform reference, Vector3 offset)
     {   
         int index = Random.Range(0, avaliableRooms.Count);
@@ -293,6 +300,70 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public void RandomRoomNoRepeatAndAlarmOff(Transform reference, Vector3 offset)
+    {
+        Room currentRoom = GetRoomOfPosition(reference.position);
+
+        List<Room> roomOptions = new List<Room>();
+
+        foreach (Room r in avaliableRooms)
+        {
+            if(r.roomAlarm.IsEnabled() ==false)
+                roomOptions.Add(r);
+        }
+        
+
+        if (currentRoom)
+        {
+            if(roomOptions.Contains(currentRoom))
+                roomOptions.Remove(currentRoom);
+        }
+
+        int index = Random.Range(0, roomOptions.Count);
+ 
+        reference.position = roomOptions[index].roomRefCenter.position + offset;
+        
+    }
+
+    public void RandomRoomNoRepeatAndAlarmOff(Transform reference, Vector3 offset, out int id)
+    {
+        id = -1;
+
+        Room currentRoom = GetRoomOfPosition(reference.position);
+
+        print("Current Room: " + currentRoom);
+
+        List<Room> roomOptions = new List<Room>();
+
+        foreach (Room r in avaliableRooms)
+        {
+            if (r.roomAlarm.AlarmOn() == false)
+                roomOptions.Add(r);
+        }
+
+        print("Room options: "+roomOptions.Count);
+
+        if (currentRoom)
+        {
+            if (roomOptions.Contains(currentRoom))
+            {
+                print("Current Room removed");
+                roomOptions.Remove(currentRoom);
+            }
+
+        }
+
+        int index = Random.Range(0, roomOptions.Count);
+
+        print("Options choose: " + index);
+
+        reference.position = roomOptions[index].roomRefCenter.position + offset;
+
+        id = avaliableRooms.IndexOf(roomOptions[index]);
+
+        print("Avaliable room id:" + id);
+    }
+
     public void SetRandomRoom(Transform[] reference, Vector3[] offset, out int roomId)
     {
         roomId = -1;
@@ -302,6 +373,25 @@ public class MapManager : MonoBehaviour
         {
             reference[i].position = avaliableRooms[index].roomRefCenter.position + offset[i];
         }
+    }
+
+    public Room GetRoomOfPosition(Vector3 positionRef)
+    {
+        Vector3 size = areaSize / 2;
+        Vector3 roomCenter;
+        for(int i=0; i< roomsInfo.Length; i++)
+        {
+            roomCenter = roomsInfo[i].roomRefCenter.position;
+
+            if(positionRef.x < roomCenter.x + size.x &&
+                positionRef.x > roomCenter.x - size.x &&
+                positionRef.y < roomCenter.y + size.y && 
+                positionRef.y > roomCenter.y - size.y)
+            {
+                return roomsInfo[i];
+            }
+        }
+        return null;
     }
 
     public Vector2 GetAreaSize()

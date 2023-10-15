@@ -36,8 +36,8 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     //[SerializeField] protected Transform particlesTransform;
     //[SerializeField] protected ParticleSystem particlesRef;
 
-    protected Transform[] transformsArray;
-    protected Vector3[] offSetArray;
+    //protected Transform[] transformsArray;
+    //protected Vector3[] offSetArray;
 
     protected BTSelector rootSelector;
 
@@ -45,8 +45,8 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     protected virtual void Awake()
     {
-        transformsArray = new Transform[2];
-        offSetArray = new Vector3[2];
+        //transformsArray = new Transform[2];
+       // offSetArray = new Vector3[2];
     }
 
     protected virtual void Start()
@@ -75,11 +75,11 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         if(targetCollider == null)
             targetCollider = target.GetComponent<Collider2D>();
 
-        transformsArray[0] = target;
-        offSetArray[0] = new Vector3(0, 0, 0);
+        //transformsArray[0] = target;
+        //offSetArray[0] = new Vector3(0, 0, 0);
 
-        transformsArray[1] = cameraTransform;
-        offSetArray[1] = new Vector3(0, 0, -10);
+        //transformsArray[1] = cameraTransform;
+        // offSetArray[1] = new Vector3(0, 0, -10);
 
         if (playOnStart)
             StartBehaviourTree();
@@ -116,11 +116,11 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         if (targetCollider == null)
             targetCollider = target.GetComponent<Collider2D>();
 
-        transformsArray[0] = target;
-        offSetArray[0] = new Vector3(0, 0, 0);
+        //transformsArray[0] = target;
+        //offSetArray[0] = new Vector3(0, 0, 0);
 
-        transformsArray[1] = cameraTransform;
-        offSetArray[1] = new Vector3(0, 0, -10);
+        //transformsArray[1] = cameraTransform;
+        //offSetArray[1] = new Vector3(0, 0, -10);
 
 
         mapManager.AddNewAgent(agent.transform);
@@ -214,10 +214,11 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     {
         if (target && mapManager && gameManager)
         {
+            int id = 0;
             targetAnimator.PlayAnimation(releasePlayerAnimation);
-            
-            mapManager.SetRandomRoom(transformsArray, offSetArray);
 
+            mapManager.RandomRoomNoRepeatAndAlarmOff(target, Vector3.zero, out id);
+            mapManager.SetRoom(cameraTransform, new Vector3(0, 0, -10), id);
         }
     }
 
