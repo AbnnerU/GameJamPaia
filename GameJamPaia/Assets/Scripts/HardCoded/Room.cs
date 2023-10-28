@@ -16,6 +16,13 @@ public class Room : MonoBehaviour,IHasActiveState
     public Alarm roomAlarm;
     public Image alarmHudImageRef;
 
+
+    [Header("Coin")]
+    public Image coinHudImageRef;
+
+    [Header("PowerUp")]
+    public Image powerUpHudImageRef;
+
     [Header("Doors")]
     public RoomDoorsInfo[] roomDoors;
 

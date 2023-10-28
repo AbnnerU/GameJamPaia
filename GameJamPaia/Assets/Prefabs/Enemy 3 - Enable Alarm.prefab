@@ -84,7 +84,7 @@ MonoBehaviour:
   spriteObj: {fileID: 6617581793214855176}
   executionInterval: 0.1
   shield: {fileID: 0}
-  stunTime: 2
+  stunTime: 4
   followTargetUpdateTime: 0.2
   minDistance: 0.5
   passOffMeshLinkDelay: 0.2

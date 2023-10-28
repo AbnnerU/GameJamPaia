@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 public class OnTriggerUnlockAllDoors2D : MonoBehaviour
@@ -6,6 +7,8 @@ public class OnTriggerUnlockAllDoors2D : MonoBehaviour
     [SerializeField] private string targetTag;
     [SerializeField] private DoorsManager doorsManager;
     [SerializeField] private bool disableOnTriggerEnter = true;
+
+    public Action<Vector3> WhenCollected;
 
     private void Awake()
     {
@@ -21,6 +24,8 @@ public class OnTriggerUnlockAllDoors2D : MonoBehaviour
 
             if (disableOnTriggerEnter)
                 PoolManager.ReleaseObject(gameObject);
+
+            WhenCollected?.Invoke(transform.position);
         }
     }
 }

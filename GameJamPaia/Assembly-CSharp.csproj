@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Sound\General\SoundRequest.cs" />
     <Compile Include="Assets\Scripts\Score\ColletableAddScore.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Audio\AudioConfig.cs" />
+    <Compile Include="Assets\Scripts\General\OnTriggerEnterSpawnPrefab.cs" />
     <Compile Include="Assets\Scripts\HardCoded\EnemysOnMap.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\LoadLevelData.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Assets\Scripts\HardCoded\Alarm.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\RequestNewSoundAction.cs" />
     <Compile Include="Assets\Scripts\Input\InputManager.cs" />
+    <Compile Include="Assets\Scripts\Movement\MovementSprintVisual.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\ObjectPoolContainer.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\SoundInterpolationAction.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\Singleton.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Assets\Scripts\HardCoded\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsOnAIState.cs" />
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerUnlockAllDoors2D.cs" />
+    <Compile Include="Assets\Scripts\General\ParticleHandler.cs" />
     <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprint.cs" />
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerSendToRandomLocation.cs" />

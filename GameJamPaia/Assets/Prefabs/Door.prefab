@@ -89,8 +89,7 @@ MonoBehaviour:
   doorSpriteRenderer: {fileID: 4203733606836293542}
   unlockedSprite: {fileID: 0}
   lockedSprite: {fileID: 21300000, guid: 9ae9551de69f35b438d832e66334b839, type: 3}
-  enabledSprite: {fileID: 0}
-  disabledSprite: {fileID: 21300000, guid: 1fe6e7ee8a69c064e86723fcd685bf6c, type: 3}
+  disabledSprite: {fileID: 21300000, guid: ce0ac02496fe9a149b6da5902242f84d, type: 3}
   disableIfSpriteIsNull: 1
 --- !u!61 &7424396892371247251
 BoxCollider2D:
@@ -315,8 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac744a1a8adcb154fbaf5d14256e5625, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputArea: {fileID: 2228711465501025937}
   holdTime: 0.7
+  inputArea: {fileID: 2228711465501025937}
   onInputAreaPerformed:
   - {fileID: 8700777995883134665}
   - {fileID: 8281518757924290441}
@@ -444,7 +443,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 9ae9551de69f35b438d832e66334b839, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ce0ac02496fe9a149b6da5902242f84d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

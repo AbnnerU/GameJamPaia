@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 
 using UnityEngine;
@@ -10,6 +11,10 @@ public class MovementSprint : MonoBehaviour
     [SerializeField] private float newSpeedValue;
     [SerializeField] private float sprintDuration;
     [SerializeField] private float sprintRechargeTime;
+
+    public Action<float> WhenItGoesIntoRechargeTime;
+
+    public Action<bool> OnSprintActive;
 
     private bool canUse = true;
     private void Awake()
@@ -38,9 +43,15 @@ public class MovementSprint : MonoBehaviour
 
         playerMovement.SetNewSpeed(newSpeedValue);
 
+        OnSprintActive?.Invoke(true);
+
         yield return new WaitForSeconds(sprintDuration);
 
+        OnSprintActive?.Invoke(false);
+
         playerMovement.SetDefaultSpeed();
+
+        WhenItGoesIntoRechargeTime?.Invoke(sprintRechargeTime);
 
         yield return new WaitForSeconds(sprintRechargeTime);  
         

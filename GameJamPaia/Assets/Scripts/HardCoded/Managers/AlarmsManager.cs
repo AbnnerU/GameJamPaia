@@ -141,7 +141,7 @@ public class AlarmsManager : MonoBehaviour
     }
 
 
-    public int AlarmsOnValue()
+    public int GetAlarmsActiveValue()
     {
         return alarmsOn;
     }

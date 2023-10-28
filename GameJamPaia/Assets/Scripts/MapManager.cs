@@ -75,6 +75,10 @@ public class MapManager : MonoBehaviour
         }
 
         DisableAllDoorsHud();
+
+        DisableAllCoinsHud();
+
+        DisableAllPowerUpHud();
     }
 
     private void Update()
@@ -219,6 +223,22 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    private void DisableAllCoinsHud()
+    {
+        for (int i = 0; i < roomsInfo.Length; i++)
+        {
+            roomsInfo[i].coinHudImageRef.enabled = false;
+        }
+    }
+
+    private void DisableAllPowerUpHud()
+    {
+        for (int i = 0; i < roomsInfo.Length; i++)
+        {
+            roomsInfo[i].powerUpHudImageRef.enabled = false;
+        }
+    }
+
     private void DisableAllDoorsAndAlarmsHud()
     {
         for (int i = 0; i < roomsInfo.Length; i++)
@@ -270,11 +290,24 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public Vector3 GetRandomAvalibleRoomPosition()
+    public void ChangeCoinHudActiveStateOnPosition(Vector3 position, bool enabled)
     {
-        int index = Random.Range(0, avaliableRooms.Count);
+        Room r = GetRoomOfPosition(position);
 
-        return avaliableRooms[index].roomRefCenter.position;
+        if(r != null)
+        {
+            r.coinHudImageRef.enabled = enabled;
+        }
+    }
+
+    public void ChangePowerUpHudActiveStateOnPosition(Vector3 position, bool enabled)
+    {
+        Room r = GetRoomOfPosition(position);
+
+        if (r != null)
+        {
+            r.powerUpHudImageRef.enabled = enabled;
+        }
     }
 
     public void SetRoom(Transform reference, Vector3 offset, int id)
@@ -282,7 +315,6 @@ public class MapManager : MonoBehaviour
         reference.position = avaliableRooms[id].roomRefCenter.position + offset;
         print(avaliableRooms[id].roomRefCenter.position);
     }
-
 
     public void SetRandomRoom(Transform reference, Vector3 offset)
     {   
@@ -394,6 +426,14 @@ public class MapManager : MonoBehaviour
         return null;
     }
 
+    public Vector3 GetRandomAvalibleRoomPosition()
+    {
+        int index = Random.Range(0, avaliableRooms.Count);
+
+        return avaliableRooms[index].roomRefCenter.position;
+    }
+
+
     public Vector2 GetAreaSize()
     {
         return areaSize;
@@ -449,6 +489,18 @@ public class MapManager : MonoBehaviour
                         {
                             if (children[y].name.Contains("Alarm"))
                                 roomRef.alarmHudImageRef = children[y];
+                        }
+
+                        for (int y = 0; y < children.Length; y++)
+                        {
+                            if (children[y].name.Contains("Coin"))
+                                roomRef.coinHudImageRef = children[y];
+                        }
+
+                        for (int y = 0; y < children.Length; y++)
+                        {
+                            if (children[y].name.Contains("PowerUp"))
+                                roomRef.powerUpHudImageRef = children[y];
                         }
                     }
 

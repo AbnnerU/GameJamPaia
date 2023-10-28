@@ -1,7 +1,7 @@
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
 using Random = UnityEngine.Random;
 
 public class CoinsManager : MonoBehaviour, IHasActiveState
@@ -15,7 +15,7 @@ public class CoinsManager : MonoBehaviour, IHasActiveState
     [Header("Spawn Coins")]
     [SerializeField] private float minSpawnDelay;
     [SerializeField] private float maxSpawnDelay;
-
+    private List<GameObject> coins = new List<GameObject>();
     private void Awake()
     {
         if (mapManager == null)
@@ -40,9 +40,18 @@ public class CoinsManager : MonoBehaviour, IHasActiveState
             yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
 
             Vector3 pos = mapManager.GetRandomAvalibleRoomPosition();
-            float x = Random.Range(0, 2);
-            float y = Random.Range(0, 2);
-            PoolManager.SpawnObject(coinPrefab, pos + new Vector3(x,y,0), Quaternion.identity);
+            float x = Random.Range(0, 5);
+            float y = Random.Range(0, 5);
+            GameObject c = PoolManager.SpawnObject(coinPrefab, pos + new Vector3(x,y,0), Quaternion.identity);
+
+            if (!coins.Contains(c))
+            {
+                coins.Add(c);
+                c.GetComponent<ColletableAddScore>().WhenCollected += DisableCoinHud;
+                c.GetComponent<DisableAfterTime>().OnTimeOut += DisableCoinHud;
+            }
+
+            mapManager.ChangeCoinHudActiveStateOnPosition(pos, true);
         }
     }
 
@@ -53,6 +62,11 @@ public class CoinsManager : MonoBehaviour, IHasActiveState
 
         success= true;
         coinsScore.RemovePoints(value);
+    }
+
+    private void DisableCoinHud(Vector3 position)
+    {
+        mapManager.ChangeCoinHudActiveStateOnPosition(position, false);
     }
 
     private void CoinsScore_OnScoreChange(int newCoinsValue)

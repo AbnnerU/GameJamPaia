@@ -3,6 +3,10 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using Random = UnityEngine.Random;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using System.Xml.Serialization;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,12 +16,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject powerUpPrefab;
     [SerializeField] private bool active = true;
     [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private TMP_Text currentActiveClocksAmountText;
     [Header("Alarms")]
     [SerializeField] private AlarmsManager alarmsManager;
+    [SerializeField] private Image alarmsActiveBar;
     [SerializeField] private Animator alarmIncreaseAnimator;
     [SerializeField] private string alarmIncreaseAnimationName;
+    [SerializeField] private string alarmsOffAnimationName;
     [SerializeField] private AudioConfig[] alarmIncreaseSound;
+    [SerializeField] private Color alarmAmountLowColor = Color.green;
+    [SerializeField] private Color alarmAmountMediumColor = Color.yellow;
+    [SerializeField] private Color alarmAmountHighColor= Color.red;
     [Header("Map")]
     [SerializeField]private MapManager mapManager;
     [Header("Doors")]
@@ -47,6 +55,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MaxDoorsLockedConfig[] doorsLockedConfigs;
     [SerializeField] private AlarmsDelayConfig[] alarmsDelayProgression;
 
+    private List<GameObject> powerUpList = new List<GameObject>();
+
     public Action OnEndTutorial;
     private EnemySpawn enemySpawnConfig;
 
@@ -67,10 +77,11 @@ public class GameManager : MonoBehaviour
         gameScoreRef.OnScoreChange += GameScore_OnScoreChange;
 
         SetupEnemySpawn();
+
+        alarmsActiveBar.fillAmount = 0;
     }
 
-   
-
+  
     private void Start()
     {
         for(int i=0;i<doorsStartLocked.Length;i++)
@@ -104,11 +115,14 @@ public class GameManager : MonoBehaviour
     private void AlarmManager_OnAlarmDisableComplete()
     {
         pauseNextAlarmActivation = false;
+
+        if(alarmsManager.GetAlarmsActiveValue() == 0)
+            alarmIncreaseAnimator.Play(alarmsOffAnimationName, 0, 0);
     }
 
     private void AlarmManager_OnAlarmsOnCountUpdate(int value)
     {
-        currentActiveClocksAmountText.text = value.ToString();
+        ChooseBarColor(value);
 
         if (value >= maxAlarmsOn)
         {
@@ -131,6 +145,24 @@ public class GameManager : MonoBehaviour
     public void AddMaxAlarmOnValue(int addValue)
     {
         maxAlarmsOn += addValue;
+
+        ChooseBarColor(alarmsManager.GetAlarmsActiveValue());
+    }
+    public void ChooseBarColor(int value)
+    {
+        float percentage = (value * 100) / maxAlarmsOn;
+
+        alarmsActiveBar.fillAmount = percentage/100;
+
+        print("Percentage: " + percentage+" | Value: "+value+" | Max:"+maxAlarmsOn);
+
+        if(percentage < 50)       
+            alarmsActiveBar.color = alarmAmountLowColor;
+        else if(value != maxAlarmsOn - 1)       
+            alarmsActiveBar.color = alarmAmountMediumColor;
+        else if(value == maxAlarmsOn - 1)      
+            alarmsActiveBar.color = alarmAmountHighColor;
+        
     }
 
     #endregion
@@ -254,10 +286,25 @@ public class GameManager : MonoBehaviour
     private void SpawnPowerUp()
     {
         Vector3 pos = mapManager.GetRandomAvalibleRoomPosition();
-        float x = Random.Range(0, 4);
-        float y = Random.Range(0, 4);
+        float x = Random.Range(0, 5);
+        float y = Random.Range(0, 5);
 
-        PoolManager.SpawnObject(powerUpPrefab, pos + new Vector3(x, y, 0), Quaternion.identity);
+        GameObject p = PoolManager.SpawnObject(powerUpPrefab, pos + new Vector3(x, y, 0), Quaternion.identity);
+
+        if (!powerUpList.Contains(p))
+        {
+            powerUpList.Add(p);
+
+            p.GetComponent<OnTriggerUnlockAllDoors2D>().WhenCollected += DisablePowerUpHud;
+            p.GetComponent<DisableAfterTime>().OnTimeOut += DisablePowerUpHud;
+        }
+
+        mapManager.ChangePowerUpHudActiveStateOnPosition(pos, true);
+    }
+
+    private void DisablePowerUpHud(Vector3 position)
+    {
+        mapManager.ChangePowerUpHudActiveStateOnPosition(position, false);
     }
 
     #endregion

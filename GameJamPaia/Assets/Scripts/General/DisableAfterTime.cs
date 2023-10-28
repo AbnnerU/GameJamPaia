@@ -8,6 +8,8 @@ public class DisableAfterTime : MonoBehaviour
     [SerializeField] private bool getIHasActiveState=true;
     [SerializeField] private bool startTimerOnEnable=true;
 
+    public Action<Vector3> OnTimeOut;
+
     private IHasActiveState activeState;
 
     private float currentTime = 0;
@@ -49,6 +51,8 @@ public class DisableAfterTime : MonoBehaviour
 
         if (activeState!=null)
             activeState.Disable();
+
+        OnTimeOut?.Invoke(transform.position);
 
         PoolManager.ReleaseObject(gameObject);
     }

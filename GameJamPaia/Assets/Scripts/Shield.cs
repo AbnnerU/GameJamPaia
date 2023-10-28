@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class Shield : MonoBehaviour, IHasActiveState
     [SerializeField] private bool active=false;
     [SerializeField] private SpriteRenderer shieldRender;
     [SerializeField] private float rechargeTime;
+
+    public Action<float> OnShieldEnterInRecharge;
 
     private void Awake()
     {
@@ -39,6 +42,8 @@ public class Shield : MonoBehaviour, IHasActiveState
 
     IEnumerator RechargeShield()
     {
+        OnShieldEnterInRecharge?.Invoke(rechargeTime);
+
         yield return new WaitForSeconds(rechargeTime);
 
         EnableShield();

@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using static GameScore;
 
@@ -10,6 +11,8 @@ public class ColletableAddScore :MonoBehaviour, IHasActiveState
     [SerializeField] private int addScoreValue = 1;
     [SerializeField] private GameScore scoreReference;
     [SerializeField] private ScoreName searchScoreName;
+
+    public Action<Vector3> WhenCollected;
 
     public void Disable()
     {
@@ -38,6 +41,8 @@ public class ColletableAddScore :MonoBehaviour, IHasActiveState
 
             if (disableOnTriggerEnter)
                 Disable();
+
+            WhenCollected?.Invoke(transform.position);
         }
     }
 
