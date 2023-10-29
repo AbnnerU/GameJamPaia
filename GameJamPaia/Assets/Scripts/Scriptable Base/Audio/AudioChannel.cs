@@ -42,11 +42,14 @@ public class AudioChannel : ScriptableObject
     {
         if (OnAudioRequest != null)
         {
+            Debug.Log("Channel pre: " + audioConfig.minDistance);
             AudioRequestInfo audioRequestInfo = new AudioRequestInfo()
             {
                 audioConfig = audioConfig,
                 audioPosition = audioPosition
             };
+
+            Debug.Log("Channel pos: "+audioRequestInfo.audioConfig.minDistance);
 
             OnAudioRequest.Invoke(audioRequestInfo);
         }

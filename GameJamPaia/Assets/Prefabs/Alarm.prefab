@@ -172,6 +172,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8649242962176215610}
   - {fileID: 665305275449214315}
   - {fileID: 8456543649316692346}
   - {fileID: 814825268937012379}
@@ -225,10 +226,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a210fbc9accd127448f42f5bc024f1d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdTime: 1
+  active: 1
   inputArea: {fileID: 665305276584957937}
   anim: {fileID: 2052431950519880564}
   soundRequest: {fileID: 2213522291905753443}
-  holdTime: 1
   progressCnavas: {fileID: 1087729577393196997}
   progressFill: {fileID: 6935339493349432801}
   scoreRef: {fileID: 0}
@@ -269,10 +271,10 @@ MonoBehaviour:
   requests:
   - channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
     audioConfig: {fileID: 11400000, guid: 4c9b1514db23f0b4ba1fb128f34016bf, type: 2}
-    positionReference: {fileID: 665305276584957938}
+    positionReference: {fileID: 8649242962176215610}
   - channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
     audioConfig: {fileID: 11400000, guid: db7945a149893c8459d6a60e722c6d57, type: 2}
-    positionReference: {fileID: 665305276584957938}
+    positionReference: {fileID: 8649242962176215610}
 --- !u!1 &1980438048094401423
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +435,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5499646870183454759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8649242962176215610}
+  m_Layer: 0
+  m_Name: 'Sound Point '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8649242962176215610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5499646870183454759}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 665305276584957938}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6990430703246328254
 GameObject:
   m_ObjectHideFlags: 0

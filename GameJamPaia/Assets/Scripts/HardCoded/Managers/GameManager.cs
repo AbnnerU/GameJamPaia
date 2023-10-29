@@ -5,8 +5,7 @@ using TMPro;
 using Random = UnityEngine.Random;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using System.Xml.Serialization;
-using static UnityEngine.Rendering.DebugUI;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -32,7 +31,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DoorsManager doorsManager;
     [SerializeField] private int scoreToUnlockAllRooms;
     [Header("Game Over")]
-    [SerializeField] private Canvas gameOverCanvas;
+    [SerializeField]private RoomsMusicManager roomMusicManager;
+    [SerializeField] private GameObject transitionPanel;
+    [SerializeField] private GameObject gameOverOptionsPanel;
+    [SerializeField] private Animator gameOverAnimator;
+    [SerializeField]private string gameOverAnimationName;
+    [SerializeField] private float gameOverAnimationTime;
     [SerializeField] private Canvas[] othersCanvas;
 
     [Header("Tutorial")]
@@ -79,6 +83,10 @@ public class GameManager : MonoBehaviour
         SetupEnemySpawn();
 
         alarmsActiveBar.fillAmount = 0;
+
+        transitionPanel.SetActive(false);
+
+        gameOverAnimator.enabled = false;
     }
 
   
@@ -154,7 +162,7 @@ public class GameManager : MonoBehaviour
 
         alarmsActiveBar.fillAmount = percentage/100;
 
-        print("Percentage: " + percentage+" | Value: "+value+" | Max:"+maxAlarmsOn);
+       // print("Percentage: " + percentage+" | Value: "+value+" | Max:"+maxAlarmsOn);
 
         if(percentage < 50)       
             alarmsActiveBar.color = alarmAmountLowColor;
@@ -365,18 +373,37 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        gameOverCanvas.enabled = true;
+        alarmsManager.DisableAllAlarmsSound();
+
+        roomMusicManager.TurnOffMusic();
+
+        transitionPanel.SetActive(true);
+
+        gameOverAnimator.enabled = true;
+
+        gameOverAnimator.Play(gameOverAnimationName, 0, 0);
 
         for(int i=0;i<othersCanvas.Length;i++)
             othersCanvas[i].enabled = false;
 
-        playerMovement.gameObject.SetActive(false);
+        playerMovement.GetComponent<Collider2D>().enabled = false;
         playerMovement.Disable();
 
         active = false;
 
         highScore.TrySetNewHighScore();
-        
+
+        StopAllCoroutines();
+
+        StartCoroutine(GameOverTransition());
+    }
+
+
+    IEnumerator GameOverTransition()
+    {
+        yield return new WaitForSeconds(gameOverAnimationTime);
+        gameOverAnimator.enabled = false;
+        gameOverOptionsPanel.SetActive(true);
     }
 
     [Serializable]

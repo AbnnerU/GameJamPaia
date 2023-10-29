@@ -49,8 +49,8 @@ public class MovementSprintVisual : MonoBehaviour
            
             percentage = ((currentTime * 100) / rechageTime)/100;
 
-            print("Current Time:" + currentTime);
-            print("Percentage: " + percentage);
+            //print("Current Time:" + currentTime);
+            //print("Percentage: " + percentage);
 
             rechargeImage.fillAmount = 1 - percentage;
 

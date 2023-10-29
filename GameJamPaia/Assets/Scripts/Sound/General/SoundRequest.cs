@@ -26,4 +26,12 @@ public class SoundRequest : MonoBehaviour
             channel.AudioRequest(audioConfig, Vector3.zero);
     }
 
+    public void StopSoundRequest()
+    {
+        if (positionReference)
+            channel.StopAudioRequest(audioConfig, positionReference.position);
+        else
+            channel.StopAudioRequest(audioConfig, Vector3.zero);
+    }
+
 }

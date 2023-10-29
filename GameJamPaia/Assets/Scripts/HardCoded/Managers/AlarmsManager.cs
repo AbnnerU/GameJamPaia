@@ -70,6 +70,12 @@ public class AlarmsManager : MonoBehaviour
             alarms[i].DisableAlarmWithoutAnimation();
     }
 
+    public void DisableAllAlarmsSound()
+    {
+        for (int i = 0; i < alarms.Length; i++)
+            alarms[i].DisableAlarmSound();
+    }
+
     private void OnAlarmInputCompleted(Alarm alarmRef)
     {
         alarmRef.DisableAlarm();

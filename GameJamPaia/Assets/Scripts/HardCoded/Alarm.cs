@@ -143,6 +143,12 @@ public class Alarm : HoldTime, IHasActiveState
         alarmOn = false;    
     }
 
+    public void DisableAlarmSound()
+    {
+        soundRequest.StopRequest(onEnableSoundId);
+    }
+
+
     public void DisableAlarmWithoutAnimation()
     {
         OnAlarmEnabled?.Invoke(this, false);

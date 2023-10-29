@@ -31,20 +31,22 @@ public class SoundEmitter : MonoBehaviour
     {
         float finalVolume = audioConfig.volume * (volumePercentage / 100);
 
+        print("Pre apply config: " + audioConfig.minDistance);
+
+        ApplyConfigs(audioConfig);
+
         this.emitterType = emitterType;
 
         defaltVolume = audioConfig.volume;
 
         _audioSource.volume = finalVolume;
 
-        ApplyConfigs(audioConfig);
-
         _sourceTrasform.position = position;
-
-        _audioSource.Play();
 
         currentAudioConfig = audioConfig;
         currentPosition = position;
+
+        _audioSource.Play();
 
     }
 
@@ -54,9 +56,13 @@ public class SoundEmitter : MonoBehaviour
         _audioSource.priority = config.priority;
         _audioSource.spatialBlend = config.SpatialBlend;
         _audioSource.loop = config.loop;
-        _audioSource.minDistance = config.minDistance;
+        _audioSource.minDistance = /*config.minDistance*/ 2;
         _audioSource.maxDistance = config.maxDistance;
-            
+        _audioSource.panStereo = config.StereoPan;
+
+        print("Pos apply config: " + config.minDistance);
+        print("Audio source: " + _audioSource.minDistance);
+
     }
 
     public bool IsUsingAudioConfig(AudioConfig audioConfig, Vector3 position)

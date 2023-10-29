@@ -118,6 +118,7 @@
     <Compile Include="Assets\Scripts\Scriptable Base\SpawnConfig.cs" />
     <Compile Include="Assets\Scripts\IA\AIDoorLock.cs" />
     <Compile Include="Assets\Scripts\IA\FollowAI.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\RestartButtonSounds.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsSettings.cs" />
     <Compile Include="Assets\Scripts\Abstract\BTnode.cs" />
     <Compile Include="Assets\Scripts\IA\AIResetScore.cs" />
@@ -155,8 +156,10 @@
     <Compile Include="Assets\Scripts\General\ParticleHandler.cs" />
     <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprint.cs" />
+    <Compile Include="Assets\Scripts\Sound\General\SoundRequestIntermediary.cs" />
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerSendToRandomLocation.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Room.cs" />
+    <Compile Include="Assets\Scripts\Sound\General\SoundRequestHandler.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsManager.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTStopAgent.cs" />
   </ItemGroup>

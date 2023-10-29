@@ -55,6 +55,11 @@ public class SoundInterpolation : MonoBehaviour
     }
 
 
+    public void StopSound()
+    {
+        audioSource01.Stop();
+    }
+
     private int GetIdOf(AudioConfig audioConfig)
     {
         for(int i = 0; i < config.Length; i++)

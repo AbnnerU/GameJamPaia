@@ -62,6 +62,11 @@ public class RoomsMusicManager : MonoBehaviour
         }
     }
 
+    public void TurnOffMusic()
+    {
+        soundInterpolation.StopSound();
+    }
+
     private Room GetCurrentPlayerRoom()
     {
         Vector3 playerPosition = player.position;

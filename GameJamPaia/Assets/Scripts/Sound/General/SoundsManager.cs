@@ -55,7 +55,11 @@ public class SoundsManager : ManagerBase<SoundsManager>
         {
             if (soundEmitters[i].InUse() == false)
             {
+                print("Sound manager request: " + request.audioConfig.minDistance);
+
                 soundEmitters[i].PlayAudio(request.audioConfig, EmitterType.SOUNDEFFECTS, volumePercentage, request.audioPosition);
+
+              
 
                 return ;
             }
