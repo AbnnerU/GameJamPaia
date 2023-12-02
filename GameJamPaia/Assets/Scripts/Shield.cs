@@ -8,6 +8,13 @@ public class Shield : MonoBehaviour, IHasActiveState
     [SerializeField] private bool active=false;
     [SerializeField] private SpriteRenderer shieldRender;
     [SerializeField] private float rechargeTime;
+    [SerializeField] private ParticleSystem shieldDestroyedEffect;
+
+    [Header("Sound")]
+    [SerializeField] private AudioChannel channel;
+    [SerializeField] private AudioConfig audioConfig;
+    [SerializeField] private Transform positionReference;
+
 
     public Action<float> OnShieldEnterInRecharge;
 
@@ -38,6 +45,10 @@ public class Shield : MonoBehaviour, IHasActiveState
         DisableShield();
 
         StartCoroutine(RechargeShield());
+
+        shieldDestroyedEffect.Play();
+
+        ExecuteSound();
     }
 
     IEnumerator RechargeShield()
@@ -48,6 +59,15 @@ public class Shield : MonoBehaviour, IHasActiveState
 
         EnableShield();
     }
+
+    public void ExecuteSound()
+    {
+        if (positionReference)
+            channel.AudioRequest(audioConfig, positionReference.position);
+        else
+            channel.AudioRequest(audioConfig, Vector3.zero);
+    }
+
 
     public bool IsShieldActive()
     {

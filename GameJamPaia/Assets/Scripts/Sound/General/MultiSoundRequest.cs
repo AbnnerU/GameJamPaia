@@ -24,6 +24,18 @@ public class MultiSoundRequest : MonoBehaviour
             requests[id].channel.StopAudioRequest(requests[id].audioConfig, Vector3.zero);
     }
 
+    public void StopAll()
+    {
+        for(int i=0; i<requests.Length; i++)
+        {
+            if (requests[i].positionReference)
+                requests[i].channel.StopAudioRequest(requests[i].audioConfig, requests[i].positionReference.position);
+            else
+                requests[i].channel.StopAudioRequest(requests[i].audioConfig, Vector3.zero);
+        }
+    }
+  
+
     [System.Serializable]
     public struct MultiSoundRequestConfig
     {

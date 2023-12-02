@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 8821151791306579490}
   - component: {fileID: 7614427242506392048}
   - component: {fileID: 5503251505060996808}
+  - component: {fileID: 1790588206496883997}
+  - component: {fileID: -1377579037230082598}
+  - component: {fileID: 8141377556376463127}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -154,3 +157,51 @@ MonoBehaviour:
   timeToDisble: 10
   getIHasActiveState: 0
   startTimerOnEnable: 1
+--- !u!114 &1790588206496883997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3853228999472388432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e836088d692279b4b9735127462dc5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  uniqueInteraction: 0
+  channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+  audioConfig: {fileID: 11400000, guid: 7f851a35ed6f631418e5c0bc73d97c54, type: 2}
+  positionReference: {fileID: 0}
+--- !u!114 &-1377579037230082598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3853228999472388432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cf9dedc15752fd4a9aafffd714160df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  actionsToDo: []
+--- !u!114 &8141377556376463127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3853228999472388432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd01f00825734d4fb77ff04e23aecd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  getAnimatorByTag: 1
+  anim: {fileID: 0}
+  animationName: Add
+  animatorTag: CoinsUi

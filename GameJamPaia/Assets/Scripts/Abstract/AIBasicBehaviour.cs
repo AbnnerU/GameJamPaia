@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, IAIState
 {
     [SerializeField] protected NavMeshAgent agent;
-    [SerializeField] protected AIState currentState = AIState.FOLLOWTARGET;
+    [SerializeField] protected AIState currentState = AIState.SPAWNING;
     [SerializeField] protected bool playOnStart;
     [SerializeField] protected Transform cameraTransform;
     [SerializeField] protected Transform target;
@@ -19,9 +19,11 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     [SerializeField] protected BehaviorTree behaviorTree;
     [SerializeField] protected GameObject spriteObj;
     [SerializeField] protected float executionInterval;
+    [SerializeField] protected float spawnDelay = 2;
     [Header("Shield")]
     [SerializeField] protected Shield shield;
     [SerializeField] protected float stunTime = 2;
+    [SerializeField] protected ParticleSystem stunEffect;
     [Header("FollowConfig")]
     [SerializeField] protected float followTargetUpdateTime;
     [SerializeField] protected float minDistance;
@@ -33,8 +35,8 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     [SerializeField] protected float teleportPlayerAnimationDuration;
     [SerializeField] protected string releasePlayerAnimation;
     [SerializeField] protected float releasePlayerAnimationDuration;
-    //[SerializeField] protected Transform particlesTransform;
-    //[SerializeField] protected ParticleSystem particlesRef;
+    [SerializeField] protected Transform particlesTransform;
+    [SerializeField] protected ParticleSystem particlesRef;
 
     //protected Transform[] transformsArray;
     //protected Vector3[] offSetArray;
@@ -128,14 +130,28 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     public virtual void StartBehaviourTree()
     {
+        BTIsOnAIState btIsOnSpawningState = new BTIsOnAIState(this, AIState.SPAWNING);
+        BTDoAction btSpawningBehaviourAction = new BTDoAction(() => Spawn());
+        BTWaitForSeconds btSpawnDelay = new BTWaitForSeconds(spawnDelay);
+        BTSetAIState btSetFollowTargetState = new BTSetAIState(this, AIState.FOLLOWTARGET);
+        BTSequence btSpawnSequence = new BTSequence(new List<BTnode>
+        {
+            btIsOnSpawningState,
+            btSpawningBehaviourAction,
+            btSpawnDelay,
+            btSetFollowTargetState
+        });
+
         BTIsOnAIState btIsOnStunnedState = new BTIsOnAIState(this, AIState.STUNNED);
         BTStopAgent bTStopAgent = new BTStopAgent(agent);
+        BTDoAction btPlayStunEffect = new BTDoAction(() => PlayStunEffect());
         BTWaitForSeconds btStunnedTime = new BTWaitForSeconds(stunTime);
         BTSetAIState btSetFollowAIState = new BTSetAIState(this, AIState.FOLLOWTARGET);
         BTSequence btStunnedSequence = new BTSequence(new List<BTnode>
         {
             btIsOnStunnedState,
             bTStopAgent,
+            btPlayStunEffect,
             btStunnedTime,
             btSetFollowAIState
         });
@@ -190,17 +206,21 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     }
 
+    protected virtual void Spawn()
+    {
+
+    }
+
+    protected virtual void PlayStunEffect()
+    {
+        print("Pika");
+        stunEffect.Play();
+    }
+
     protected virtual void GetTargetAnimation()
     {
         if (targetAnimator)
         {
-            if (shield.IsShieldActive())
-            {
-                currentState = AIState.STUNNED;
-                shield.HitShield();
-                return;
-            }
-
             targetMovement.Disable();
             targetCollider.enabled = false;
             targetAnimator.SetAnimationManagerActive(false);
@@ -238,7 +258,15 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     {
         if (collision.CompareTag(targetTag) && currentState != AIState.HITTEDTARGET)
         {
-            currentState = AIState.HITTEDTARGET;
+            if (shield.IsShieldActive())
+            {
+                currentState = AIState.STUNNED;
+                shield.HitShield();
+            }
+            else
+            {
+                currentState = AIState.HITTEDTARGET;
+            }
         }
     }
 
@@ -267,8 +295,8 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         float currentTime = 0;
         Vector3 offMeshEndPosition = agent.currentOffMeshLinkData.endPos;
 
-        //particlesTransform.position = offMeshEndPosition;
-        //particlesRef.Play();
+        particlesTransform.position = offMeshEndPosition;
+        particlesRef.Play();
 
         do
         {

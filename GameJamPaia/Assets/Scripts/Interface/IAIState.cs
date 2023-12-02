@@ -8,6 +8,7 @@ public interface IAIState
 
 public enum AIState
 {
+    SPAWNING,
     FOLLOWTARGET,
     HITTEDTARGET,
     STOPPED, 

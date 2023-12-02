@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\LoadLevelData.cs" />
     <Compile Include="Assets\Scripts\InputAreaAction2D.cs" />
+    <Compile Include="Assets\Scripts\Sound\OnEnableSoundRequest.cs" />
     <Compile Include="Assets\Scripts\IA\AITurnOnAlarm.cs" />
     <Compile Include="Assets\Scripts\Door2D.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTWaitForSeconds.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeSpriteActiveStateAction.cs" />
     <Compile Include="Assets\Scripts\Interface\IHasActiveState.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\SceneLoadManager.cs" />
+    <Compile Include="Assets\Scripts\Sound\OnTriggerAnimation.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameAction.cs" />
     <Compile Include="Assets\Scripts\Perks\IncreaseMaxAlarmNumberUpgrade.cs" />
     <Compile Include="Assets\Scripts\OnStartSceneLoad.cs" />
@@ -156,11 +158,11 @@
     <Compile Include="Assets\Scripts\General\ParticleHandler.cs" />
     <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprint.cs" />
-    <Compile Include="Assets\Scripts\Sound\General\SoundRequestIntermediary.cs" />
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerSendToRandomLocation.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Room.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundRequestHandler.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsManager.cs" />
+    <Compile Include="Assets\Scripts\General\ParticlesPlay.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTStopAgent.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -453,6 +455,15 @@
     </Reference>
     <Reference Include="Unity.Burst.Cecil.Rocks">
       <HintPath>Library\PackageCache\com.unity.burst@1.8.2\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Android.Types">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.2.5f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Android.Gradle">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.2.5f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Android.GradleProject">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.2.5f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.GradleProject.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.2.5f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>

@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private string gameOverAnimationName;
     [SerializeField] private float gameOverAnimationTime;
     [SerializeField] private Canvas[] othersCanvas;
+    [SerializeField] private MultiSoundRequest[] perksSound;
 
     [Header("Tutorial")]
     [SerializeField] private Door2D[] doorsStartLocked;
@@ -385,6 +386,9 @@ public class GameManager : MonoBehaviour
 
         for(int i=0;i<othersCanvas.Length;i++)
             othersCanvas[i].enabled = false;
+
+        for (int i = 0; i < perksSound.Length; i++)
+            perksSound[i].StopAll();
 
         playerMovement.GetComponent<Collider2D>().enabled = false;
         playerMovement.Disable();

@@ -9,6 +9,21 @@ public class BuyUpgrade : MonoBehaviour
     [SerializeField] private int price;
     [SerializeField] private int maximumPurchases=1;
 
+    [Header("Sound")]
+    [SerializeField] private AudioChannel channel;
+    [SerializeField] private AudioConfig audioConfig;
+    [SerializeField] private Transform positionReference;
+
+    [Header("UiAnimation")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string animationName;
+
+    [Header("Upgrade Animator")]
+    [SerializeField] private Animator upgradeAnimator;
+    [SerializeField] private string onReachMaximumPurchaseAnimation;
+
+
+
     private int currentPurschase = 0;
 
     private void Awake()
@@ -33,10 +48,31 @@ public class BuyUpgrade : MonoBehaviour
             upgradeRef.ApplyUpgrade();
 
             currentPurschase++;
+
+            PlaySound();
+            PlayAnimation();
+
+            if (currentPurschase >= maximumPurchases)
+            {
+                upgradeAnimator.Play(onReachMaximumPurchaseAnimation, 0, 0);
+            }
         }
         else
         {
             print("Buy fail");
         }
+    }
+
+    public void PlaySound()
+    {
+        if (positionReference)
+            channel.AudioRequest(audioConfig, positionReference.position);
+        else
+            channel.AudioRequest(audioConfig, Vector3.zero);
+    }
+
+    public void PlayAnimation()
+    {
+        animator.Play(animationName, 0, 0);
     }
 }
