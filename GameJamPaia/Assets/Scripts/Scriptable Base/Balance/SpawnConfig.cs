@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "_EnemySpawnConfig", menuName = "Assets/EnemySpawnConfig")]
+[CreateAssetMenu(fileName = "_EnemySpawnConfig", menuName = "Assets/Balance/EnemySpawnConfig")]
 public class SpawnConfig : ScriptableObject
 {
     public SpawnChance[] enemySpawnChance;

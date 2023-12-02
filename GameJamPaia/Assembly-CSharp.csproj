@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\General\OnTriggerEnterSpawnPrefab.cs" />
     <Compile Include="Assets\Scripts\HardCoded\EnemysOnMap.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeTransformPositionAction.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Base\Balance\DoorsLockedProgression.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\LoadLevelData.cs" />
     <Compile Include="Assets\Scripts\InputAreaAction2D.cs" />
     <Compile Include="Assets\Scripts\Sound\OnEnableSoundRequest.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\Scripts\HardCoded\Managers\AlarmsManager.cs" />
     <Compile Include="Assets\Scripts\Save.cs" />
     <Compile Include="Assets\Scripts\Perks\ShieldUpgrade.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Base\Balance\BalanceValues.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeDoorLockedStateAction.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTSetAIState.cs" />
     <Compile Include="Assets\Scripts\Movement\PlayerMovement.cs" />
@@ -116,13 +118,13 @@
     <Compile Include="Assets\Scripts\Sound\SondInterpolationRequest.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundEmitter.cs" />
     <Compile Include="Assets\Scripts\Interface\IAgentMovementState.cs" />
-    <Compile Include="Assets\Scripts\Scriptable Base\SpawnConfig.cs" />
     <Compile Include="Assets\Scripts\IA\AIDoorLock.cs" />
     <Compile Include="Assets\Scripts\IA\FollowAI.cs" />
     <Compile Include="Assets\Scripts\HardCoded\RestartButtonSounds.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsSettings.cs" />
     <Compile Include="Assets\Scripts\Abstract\BTnode.cs" />
     <Compile Include="Assets\Scripts\IA\AIResetScore.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Base\Balance\AlarmsProgression.cs" />
     <Compile Include="Assets\Scripts\InputArea2D.cs" />
     <Compile Include="Assets\Scripts\PlayAnimationArray.cs" />
     <Compile Include="Assets\Scripts\Sound\General\VolumeSlider.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Assets\Scripts\IA\Nodes\BTFollowTarget.cs" />
     <Compile Include="Assets\Scripts\Score\GenericScore.cs" />
     <Compile Include="Assets\Scripts\Sound\ButtonsSound.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Base\Balance\SpawnConfig.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsColliderEnabled.cs" />
     <Compile Include="Assets\Scripts\Sound\SoundInterpolation.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\LoadingScene.cs" />

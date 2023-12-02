@@ -45,20 +45,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Alarm alarmStartEnabled;
 
     [Header("Balance")]
-    [SerializeField] private int maxAlarmsOn = 4;
-    [SerializeField] private float minAlarmDelay;
-    [SerializeField] private float maxAlarmDelay;
-    [SerializeField] private float minLockNewDoorDelay;
-    [SerializeField] private float maxLockNewDoorDelay;
-    [SerializeField] private int startLockingDoorsOnReachScore;
-    //[SerializeField] private int maxLockedDoorsAmount;
-    [SerializeField] private int startSpawningPowerUpOnReachScore;
-    [SerializeField] private int minPowerUpDelay;
-    [SerializeField] private int maxPowerUpDelay;
+    [SerializeField] private BalanceValues balanceValues;
+    [SerializeField]private DoorsLockedProgression doorsLockedProgression;
+    [SerializeField]private AlarmsProgression alarmsProgression;
+   
     [Header("Enemy Spawn")]
     [SerializeField] private SpawnConfig[] enemyBalanceOptions;
-    [SerializeField] private MaxDoorsLockedConfig[] doorsLockedConfigs;
-    [SerializeField] private AlarmsDelayConfig[] alarmsDelayProgression;
+
 
     private List<GameObject> powerUpList = new List<GameObject>();
 
@@ -71,8 +64,26 @@ public class GameManager : MonoBehaviour
     private bool tutorialEnded = false;
     private bool roomsLocked = true;
 
+    //--------------Balance-------------
+    private int maxAlarmsOn = 4;
+    private float minAlarmDelay;
+    private float maxAlarmDelay;
+    private float minLockNewDoorDelay;
+    private float maxLockNewDoorDelay;
+    private int startLockingDoorsOnReachScore;
+    private int startSpawningPowerUpOnReachScore;
+    private int minPowerUpDelay;
+    private int maxPowerUpDelay;
+    private MaxDoorsLockedConfig[] doorsLockedConfigs;
+    private AlarmsDelayConfig[] alarmsDelayProgression;
+    //--------------------------------------
+
+
+
     private void Awake()
     {
+        ApplyBalanceValues();
+
         alarmsManager.OnNewAlarmOn += AlarmManager_OnNewAlarmOn;
         alarmsManager.OnAlarmDisabled += AlarmManager_OnAlarmDisableComplete;
         alarmsManager.OnAlarmDisableStart += AlarmManager_OnAlarmDisableStart;
@@ -403,6 +414,23 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private void ApplyBalanceValues()
+    {
+        maxAlarmsOn = balanceValues.maxAlarmsOn;
+        minAlarmDelay = balanceValues.minAlarmDelay;
+        maxAlarmDelay = balanceValues.maxAlarmDelay;
+        minLockNewDoorDelay = balanceValues.minLockNewDoorDelay;
+        maxLockNewDoorDelay = balanceValues.maxLockNewDoorDelay;
+        startLockingDoorsOnReachScore = balanceValues.startLockingDoorsOnReachScore;
+        startSpawningPowerUpOnReachScore = balanceValues.startSpawningPowerUpOnReachScore;
+        minPowerUpDelay = balanceValues.minPowerUpDelay;
+        maxPowerUpDelay = balanceValues.maxPowerUpDelay;
+
+        doorsLockedConfigs = doorsLockedProgression.doorsLockedConfigs;
+        alarmsDelayProgression = alarmsProgression.alarmsDelayProgression;
+
+    }
+
     IEnumerator GameOverTransition()
     {
         yield return new WaitForSeconds(gameOverAnimationTime);
@@ -410,15 +438,7 @@ public class GameManager : MonoBehaviour
         gameOverOptionsPanel.SetActive(true);
     }
 
-    [Serializable]
-    private class AlarmsDelayConfig
-    {
-        public int onReachScore;
-        [Header("Delay")]
-        public float minDelay;
-        public float maxDelay;
-        public bool applied;
-    }
+  
 
     [Serializable]
     private class EnemySpawn
@@ -434,14 +454,4 @@ public class GameManager : MonoBehaviour
         public bool spawned;
     }
 
-    [Serializable]
-    private class MaxDoorsLockedConfig
-    {
-        public int onReachScore;
-        //public int newMaxValue;
-        [Header("Delay")]
-        public float minDelay;
-        public float maxDelay;
-        public bool applied;
-    }
 }
