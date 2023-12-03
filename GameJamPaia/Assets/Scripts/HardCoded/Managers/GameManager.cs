@@ -356,8 +356,8 @@ public class GameManager : MonoBehaviour
     private void SpawnPowerUp()
     {
         Vector3 pos = mapManager.GetRandomAvalibleRoomPosition();
-        float x = Random.Range(0, 5);
-        float y = Random.Range(0, 5);
+        float x = Random.Range(2, 3.5f);
+        float y = Random.Range(2, 3.5f);
 
         GameObject p = PoolManager.SpawnObject(powerUpPrefab, pos + new Vector3(x, y, 0), Quaternion.identity);
 

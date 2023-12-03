@@ -40,8 +40,8 @@ public class CoinsManager : MonoBehaviour, IHasActiveState
             yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
 
             Vector3 pos = mapManager.GetRandomAvalibleRoomPosition();
-            float x = Random.Range(0, 5);
-            float y = Random.Range(0, 5);
+            float x = Random.Range(2, 3.5f);
+            float y = Random.Range(2, 3.5f);
             GameObject c = PoolManager.SpawnObject(coinPrefab, pos + new Vector3(x,y,0), Quaternion.identity);
 
             if (!coins.Contains(c))
