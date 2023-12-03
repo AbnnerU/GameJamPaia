@@ -141,10 +141,13 @@ public class GameManager : MonoBehaviour
 
         for(int i=0; i<reference.Length; i++)
         {
-            doorsLockedConfigs[i].applied = false;
-            doorsLockedConfigs[i].onReachScore = reference[i].onReachScore;
-            doorsLockedConfigs[i].minDelay = reference[i].minDelay;
-            doorsLockedConfigs[i].maxDelay = reference[i].maxDelay;
+            MaxDoorsLockedConfig current = new MaxDoorsLockedConfig();
+            current.applied = false;
+            current.onReachScore = reference[i].onReachScore;
+            current.minDelay = reference[i].minDelay;
+            current.maxDelay = reference[i].maxDelay;
+
+            doorsLockedConfigs[i] = current;
         }
 
         AlarmsDelayConfig[] reference2 = alarmsProgression.alarmsDelayProgression;
@@ -153,11 +156,13 @@ public class GameManager : MonoBehaviour
 
         for(int i=0; i < reference2.Length; i++)
         {
-            alarmsDelayProgression[i].applied = false;
-            alarmsDelayProgression[i].onReachScore = reference2[i].onReachScore;
-            alarmsDelayProgression[i].minDelay = reference2[i].minDelay;
-            alarmsDelayProgression[i].maxDelay= reference2[i].maxDelay;
+            AlarmsDelayConfig current = new AlarmsDelayConfig();
+            current.applied = false;
+            current.onReachScore = reference2[i].onReachScore;
+            current.minDelay = reference2[i].minDelay;
+            current.maxDelay = reference2[i].maxDelay;
 
+            alarmsDelayProgression[i] = current;
         }
 
 

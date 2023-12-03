@@ -19,7 +19,10 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     [SerializeField] protected BehaviorTree behaviorTree;
     [SerializeField] protected GameObject spriteObj;
     [SerializeField] protected float executionInterval;
+    [Header("Spawn")]
+    [SerializeField] protected ParticleSystem spawnParticle;
     [SerializeField] protected float spawnDelay = 2;
+    [SerializeField] protected SpriteRenderer[] sprites;
     [Header("Shield")]
     [SerializeField] protected Shield shield;
     [SerializeField] protected float stunTime = 2;
@@ -131,14 +134,18 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     public virtual void StartBehaviourTree()
     {
         BTIsOnAIState btIsOnSpawningState = new BTIsOnAIState(this, AIState.SPAWNING);
+        BTDoAction btDisableRendersAction = new BTDoAction(() => ChangeRendersActiveState(false));
         BTDoAction btSpawningBehaviourAction = new BTDoAction(() => Spawn());
         BTWaitForSeconds btSpawnDelay = new BTWaitForSeconds(spawnDelay);
+        BTDoAction btEnableRendersAction = new BTDoAction(() => ChangeRendersActiveState(true));
         BTSetAIState btSetFollowTargetState = new BTSetAIState(this, AIState.FOLLOWTARGET);
         BTSequence btSpawnSequence = new BTSequence(new List<BTnode>
         {
             btIsOnSpawningState,
+            btDisableRendersAction,
             btSpawningBehaviourAction,
             btSpawnDelay,
+            btEnableRendersAction,
             btSetFollowTargetState
         });
 
@@ -191,6 +198,7 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         //----Root----
         rootSelector = new BTSelector(new List<BTnode>
         {
+            btSpawnSequence,
             btStunnedSequence,
             bTTeleportPlayerSequence,
             btFollowTargetSequence
@@ -206,9 +214,15 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     }
 
+    protected virtual void ChangeRendersActiveState(bool active)
+    {
+        for(int i=0; i< sprites.Length; i++)
+            sprites[i].enabled = active;
+    }
+
     protected virtual void Spawn()
     {
-
+        spawnParticle.Play();
     }
 
     protected virtual void PlayStunEffect()
