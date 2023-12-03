@@ -114,6 +114,56 @@ public class GameManager : MonoBehaviour
         doorsManager.SendActiveStateEvent();
     }
 
+    private void ApplyBalanceValues()
+    {
+        maxAlarmsOn = balanceValues.maxAlarmsOn;
+        minAlarmDelay = balanceValues.minAlarmDelay;
+        maxAlarmDelay = balanceValues.maxAlarmDelay;
+        minLockNewDoorDelay = balanceValues.minLockNewDoorDelay;
+        maxLockNewDoorDelay = balanceValues.maxLockNewDoorDelay;
+        startLockingDoorsOnReachScore = balanceValues.startLockingDoorsOnReachScore;
+        startSpawningPowerUpOnReachScore = balanceValues.startSpawningPowerUpOnReachScore;
+        minPowerUpDelay = balanceValues.minPowerUpDelay;
+        maxPowerUpDelay = balanceValues.maxPowerUpDelay;
+
+        //doorsLockedConfigs = doorsLockedProgression.doorsLockedConfigs;
+        //alarmsDelayProgression = alarmsProgression.alarmsDelayProgression;
+
+        GetAndApplyBalanceValues();
+
+    }
+
+    private void GetAndApplyBalanceValues()
+    {
+        MaxDoorsLockedConfig[] reference = doorsLockedProgression.doorsLockedConfigs;
+
+        doorsLockedConfigs = new MaxDoorsLockedConfig[reference.Length];
+
+        for(int i=0; i<reference.Length; i++)
+        {
+            doorsLockedConfigs[i].applied = false;
+            doorsLockedConfigs[i].onReachScore = reference[i].onReachScore;
+            doorsLockedConfigs[i].minDelay = reference[i].minDelay;
+            doorsLockedConfigs[i].maxDelay = reference[i].maxDelay;
+        }
+
+        AlarmsDelayConfig[] reference2 = alarmsProgression.alarmsDelayProgression;
+
+        alarmsDelayProgression = new AlarmsDelayConfig[reference2.Length];
+
+        for(int i=0; i < reference2.Length; i++)
+        {
+            alarmsDelayProgression[i].applied = false;
+            alarmsDelayProgression[i].onReachScore = reference2[i].onReachScore;
+            alarmsDelayProgression[i].minDelay = reference2[i].minDelay;
+            alarmsDelayProgression[i].maxDelay= reference2[i].maxDelay;
+
+        }
+
+
+    }
+
+
     #region Alarms
     private void AlarmManager_OnNewAlarmOn()
     {
@@ -414,23 +464,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void ApplyBalanceValues()
-    {
-        maxAlarmsOn = balanceValues.maxAlarmsOn;
-        minAlarmDelay = balanceValues.minAlarmDelay;
-        maxAlarmDelay = balanceValues.maxAlarmDelay;
-        minLockNewDoorDelay = balanceValues.minLockNewDoorDelay;
-        maxLockNewDoorDelay = balanceValues.maxLockNewDoorDelay;
-        startLockingDoorsOnReachScore = balanceValues.startLockingDoorsOnReachScore;
-        startSpawningPowerUpOnReachScore = balanceValues.startSpawningPowerUpOnReachScore;
-        minPowerUpDelay = balanceValues.minPowerUpDelay;
-        maxPowerUpDelay = balanceValues.maxPowerUpDelay;
-
-        doorsLockedConfigs = doorsLockedProgression.doorsLockedConfigs;
-        alarmsDelayProgression = alarmsProgression.alarmsDelayProgression;
-
-    }
-
+  
     IEnumerator GameOverTransition()
     {
         yield return new WaitForSeconds(gameOverAnimationTime);
