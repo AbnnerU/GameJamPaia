@@ -62,6 +62,17 @@ public class Room : MonoBehaviour,IHasActiveState
     }
     
 
+    public Door2D GetDoorByDirection(DoorDirection direction)
+    {
+        for(int i=0;i<roomDoors.Length;i++)
+        {
+            if (roomDoors[i].doorDirection == direction)
+                return roomDoors[i].doorRef;
+        }
+
+        return null;
+    }
+
 }
 
 [Serializable]
@@ -69,4 +80,7 @@ public struct RoomDoorsInfo
 {
     public Door2D doorRef;
     public Image doorHudImageRef;
+    public DoorDirection doorDirection;
 }
+
+public enum DoorDirection { UP, DOWN, RIGHT, LEFT };

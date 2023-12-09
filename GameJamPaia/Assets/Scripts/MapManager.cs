@@ -9,6 +9,7 @@ using Unity.Burst;
 using UnityEngine.UI;
 
 using Random = UnityEngine.Random;
+using Unity.VisualScripting;
 
 public class MapManager : MonoBehaviour
 {
@@ -21,8 +22,8 @@ public class MapManager : MonoBehaviour
     [Header("Rooms")]
     [SerializeField] private Vector2 areaSize;
     [SerializeField] private Room[] roomsInfo;
-    [SerializeField]private List<Room> avaliableRooms;
-    [SerializeField]private List<Room> disabledRooms;
+    [SerializeField] private List<Room> avaliableRooms;
+    [SerializeField] private List<Room> disabledRooms;
     private RoomDoorsInfo[] roomsDoors;
     private DoorsManager doorsManager;
     private AlarmsManager alarmsManager;
@@ -35,7 +36,7 @@ public class MapManager : MonoBehaviour
         avaliableRooms = new List<Room>();
         disabledRooms = new List<Room>();
 
-        int doorAmount=0;
+        int doorAmount = 0;
         int id = 0;
 
         for (int i = 0; i < roomsInfo.Length; i++)
@@ -66,7 +67,7 @@ public class MapManager : MonoBehaviour
             d.doorRef.OnUnlockDoor += Doors_OnDoorUnluck;
         }
 
-        foreach(Room d in roomsInfo)
+        foreach (Room d in roomsInfo)
         {
             if (d.roomActive)
                 avaliableRooms.Add(d);
@@ -157,7 +158,7 @@ public class MapManager : MonoBehaviour
         //print(enemyInfo.Length);
         //print(temp.Length);
         int originalSize = temp.Length;
-        int newSize = originalSize +1;
+        int newSize = originalSize + 1;
 
         //print(originalSize);
         //print(newSize);
@@ -202,7 +203,7 @@ public class MapManager : MonoBehaviour
 
     private void Alarms_OnAlarmEnabledUpdate(Alarm alarm, bool enabled)
     {
-        for(int i=0; i< roomsInfo.Length; i++)
+        for (int i = 0; i < roomsInfo.Length; i++)
         {
             if (roomsInfo[i].roomAlarm == alarm)
             {
@@ -214,12 +215,12 @@ public class MapManager : MonoBehaviour
 
     private void DisableAllDoorsHud()
     {
-        for(int i = 0; i < roomsInfo.Length; i++)
+        for (int i = 0; i < roomsInfo.Length; i++)
         {
             for (int y = 0; y < roomsInfo[i].roomDoors.Length; y++)
             {
                 roomsInfo[i].roomDoors[y].doorHudImageRef.enabled = false;
-            }     
+            }
         }
     }
 
@@ -253,19 +254,152 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void EnableAllRooms()
+    public void EnableRandomRoom()
     {
-        for(int i=0; i < roomsInfo.Length; i++)
+        if (disabledRooms.Count <= 0) return;
+        int id;
+        do
         {
-            roomsInfo[i].Enable();
+            id = Random.Range(0, disabledRooms.Count);
+            
+        } while (UpdateDoors(disabledRooms[id]) == false);
+
+
+        avaliableRooms.Add(disabledRooms[id]);
+
+        alarmsManager.SetAlarmAvailable(disabledRooms[id].roomAlarm);
+
+        disabledRooms[id].Enable();
+
+        disabledRooms.RemoveAt(id);
+    }
+
+    private bool UpdateDoors(Room roomRef)
+    {
+        int roomId = GetRoomId(roomRef);
+
+        print("-------------- RANDOM ROOM :" + roomId + " --------------");
+
+        if (roomId < 0)
+        {
+            Debug.LogError("Room " + roomRef + " dont exist");
+            return false;
         }
 
-        foreach(Room d in disabledRooms)
-            avaliableRooms.Add(d);
+        int max = 5;
 
-        disabledRooms.Clear();
-        disabledRooms.Capacity = 0;
+        int neighborTop = roomId + max;
+        int neighborDown = roomId - max;
+        int neighborLeft = roomId - 1;
+        int neighborRight = roomId + 1;
+
+        int roomLine = roomId / 5;
+
+        if (neighborTop < 0 || neighborTop > roomsInfo.Length-1) neighborTop = -1;
+
+        if (neighborDown < 0 || neighborDown > roomsInfo.Length-1) neighborDown = -1;
+
+        if (neighborLeft < 0 || neighborLeft > roomsInfo.Length-1 || (int)(neighborLeft / 5) != roomLine) neighborLeft = -1;
+
+        if (neighborRight < 0 || neighborRight > roomsInfo.Length-1 || (int)(neighborRight / 5) != roomLine) neighborRight = -1;
+
+
+        if (neighborTop < 0 && neighborDown < 0 && neighborRight < 0 && neighborLeft < 0)
+        {
+            print("ENABLE ROOM FAIL.");
+            return false;
+        }
+
+        bool haveSomeNeighborActive = false;
+
+        if (neighborTop >= 0)
+        {
+            print("VIZINHO DO TOPO: "+ neighborTop);
+            if (ValidateNeighborDoors(roomRef, neighborTop, DoorDirection.UP, DoorDirection.DOWN)) haveSomeNeighborActive = true;
+        }
+
+        if (neighborDown >= 0)
+        {
+            print("VIZINHO DE BAIXO: " + neighborDown);
+            if (ValidateNeighborDoors(roomRef, neighborDown, DoorDirection.DOWN, DoorDirection.UP)) haveSomeNeighborActive = true;
+        }
+
+        if (neighborLeft >= 0)
+        {
+            print("VIZINHO DA ESQUERDA: " + neighborLeft);
+            if (ValidateNeighborDoors(roomRef, neighborLeft, DoorDirection.LEFT, DoorDirection.RIGHT)) haveSomeNeighborActive = true;
+        }
+
+        if (neighborRight >= 0)
+        {
+            print("VIZINHO DA DIREITA: " + neighborRight);
+            if (ValidateNeighborDoors(roomRef, neighborRight, DoorDirection.RIGHT, DoorDirection.LEFT)) haveSomeNeighborActive = true;
+        }
+
+        if (haveSomeNeighborActive)
+            return true;
+        else
+        {
+            print("None neighbor active");
+            return false;
+        }
     }
+
+    private bool ValidateNeighborDoors(Room roomRef, int neighborIndex, DoorDirection roomRefDoorDirection, DoorDirection neighborDoorDirection)
+    {
+        if (roomsInfo[neighborIndex].roomActive == true)
+        {
+            Door2D door = roomRef.GetDoorByDirection(roomRefDoorDirection);
+
+            if (door)
+            {
+                doorsManager.EnableDoor(door);
+
+                Door2D neighborDoor = roomsInfo[neighborIndex].GetDoorByDirection(neighborDoorDirection);
+
+                doorsManager.EnableDoor(neighborDoor);
+
+                return true;
+
+            }
+            else
+            {
+                print("Doors not finded");
+                return false;
+            }
+        }
+        else
+        {
+            print(neighborIndex + "disabled");
+            return false;
+        }
+    }
+
+    private int GetRoomId(Room room)
+    {
+        for (int i = 0; i < roomsInfo.Length; i++)
+        {
+            if (roomsInfo[i] == room)
+                return i;
+        }
+
+        return -1;
+    }
+
+
+    //public void EnableAllRooms()
+    //{
+    //    for(int i=0; i < roomsInfo.Length; i++)
+    //    {
+    //        roomsInfo[i].Enable();
+    //    }
+
+    //    foreach(Room d in disabledRooms)
+    //        avaliableRooms.Add(d);
+
+    //    disabledRooms.Clear();
+    //    disabledRooms.Capacity = 0;
+    //}
 
     public void LockDoorsOnRoom(int roomId)
     {
@@ -273,7 +407,7 @@ public class MapManager : MonoBehaviour
 
         if (r != null)
         {
-            for(int i=0; i < r.roomDoors.Length; i++)
+            for (int i = 0; i < r.roomDoors.Length; i++)
             {
                 doorsManager.TryLookDoor(r.roomDoors[i].doorRef);
             }
@@ -294,7 +428,7 @@ public class MapManager : MonoBehaviour
     {
         Room r = GetRoomOfPosition(position);
 
-        if(r != null)
+        if (r != null)
         {
             r.coinHudImageRef.enabled = enabled;
         }
@@ -317,7 +451,7 @@ public class MapManager : MonoBehaviour
     }
 
     public void SetRandomRoom(Transform reference, Vector3 offset)
-    {   
+    {
         int index = Random.Range(0, avaliableRooms.Count);
         reference.position = avaliableRooms[index].roomRefCenter.position + offset;
         print(avaliableRooms[index].roomRefCenter.position);
@@ -326,9 +460,9 @@ public class MapManager : MonoBehaviour
     public void SetRandomRoom(Transform[] reference, Vector3[] offset)
     {
         int index = Random.Range(0, avaliableRooms.Count);
-        for(int i = 0; i < reference.Length; i++)
+        for (int i = 0; i < reference.Length; i++)
         {
-            reference[i].position = avaliableRooms[index].roomRefCenter.position+offset[i];
+            reference[i].position = avaliableRooms[index].roomRefCenter.position + offset[i];
         }
     }
 
@@ -340,21 +474,21 @@ public class MapManager : MonoBehaviour
 
         foreach (Room r in avaliableRooms)
         {
-            if(r.roomAlarm.IsEnabled() ==false)
+            if (r.roomAlarm.IsEnabled() == false)
                 roomOptions.Add(r);
         }
-        
+
 
         if (currentRoom)
         {
-            if(roomOptions.Contains(currentRoom))
+            if (roomOptions.Contains(currentRoom))
                 roomOptions.Remove(currentRoom);
         }
 
         int index = Random.Range(0, roomOptions.Count);
- 
+
         reference.position = roomOptions[index].roomRefCenter.position + offset;
-        
+
     }
 
     public void RandomRoomNoRepeatAndAlarmOff(Transform reference, Vector3 offset, out int id)
@@ -373,7 +507,7 @@ public class MapManager : MonoBehaviour
                 roomOptions.Add(r);
         }
 
-        print("Room options: "+roomOptions.Count);
+        print("Room options: " + roomOptions.Count);
 
         if (currentRoom)
         {
@@ -411,13 +545,13 @@ public class MapManager : MonoBehaviour
     {
         Vector3 size = areaSize / 2;
         Vector3 roomCenter;
-        for(int i=0; i< roomsInfo.Length; i++)
+        for (int i = 0; i < roomsInfo.Length; i++)
         {
             roomCenter = roomsInfo[i].roomRefCenter.position;
 
-            if(positionRef.x < roomCenter.x + size.x &&
+            if (positionRef.x < roomCenter.x + size.x &&
                 positionRef.x > roomCenter.x - size.x &&
-                positionRef.y < roomCenter.y + size.y && 
+                positionRef.y < roomCenter.y + size.y &&
                 positionRef.y > roomCenter.y - size.y)
             {
                 return roomsInfo[i];
@@ -438,7 +572,7 @@ public class MapManager : MonoBehaviour
     {
         return areaSize;
     }
-    
+
     private void OnValidate()
     {
         if (tryAutoConfig)

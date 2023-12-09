@@ -121,22 +121,35 @@ public class DoorsManager : MonoBehaviour
         }
     }
 
-    public void EnableAllDoors()
+    public void EnableDoor(Door2D door)
     {
-        int index = 0;
-        for(int i=0; i < disabledDoors.Count;i++)
-        {
-            index = GetDoorIndex(disabledDoors[i]);
+        int index = GetDoorIndex(door);
 
-            disabledDoors[i].Enable();
-            disabledDoors[i].UnlockDoorWhitoutActions();
+        doors[index].Enable();
+        doors[index].UnlockDoorWhitoutActions();
 
-            doorsIndexAvailable.Add(index);
-        }
+        doorsIndexAvailable.Add(index);
 
-        disabledDoors.Clear();
-        disabledDoors.Capacity = 0;
+        disabledDoors.Remove(door);
+
     }
+
+    //public void EnableAllDoors()
+    //{
+    //    int index = 0;
+    //    for(int i=0; i < disabledDoors.Count;i++)
+    //    {
+    //        index = GetDoorIndex(disabledDoors[i]);
+
+    //        disabledDoors[i].Enable();
+    //        disabledDoors[i].UnlockDoorWhitoutActions();
+
+    //        doorsIndexAvailable.Add(index);
+    //    }
+
+    //    disabledDoors.Clear();
+    //    disabledDoors.Capacity = 0;
+    //}
 
     public void UnlockAllDoors()
     {

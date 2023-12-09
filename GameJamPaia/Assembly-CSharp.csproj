@@ -158,6 +158,7 @@
     <Compile Include="Assets\Scripts\HardCoded\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsOnAIState.cs" />
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerUnlockAllDoors2D.cs" />
+    <Compile Include="Assets\Scripts\Scriptable Base\Balance\EnableRoomProgression.cs" />
     <Compile Include="Assets\Scripts\General\ParticleHandler.cs" />
     <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprint.cs" />

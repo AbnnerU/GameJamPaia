@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]private MapManager mapManager;
     [Header("Doors")]
     [SerializeField] private DoorsManager doorsManager;
-    [SerializeField] private int scoreToUnlockAllRooms;
+    //[SerializeField] private int scoreToUnlockAllRooms;
     [Header("Game Over")]
     [SerializeField]private RoomsMusicManager roomMusicManager;
     [SerializeField] private GameObject transitionPanel;
@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BalanceValues balanceValues;
     [SerializeField]private DoorsLockedProgression doorsLockedProgression;
     [SerializeField]private AlarmsProgression alarmsProgression;
+    [SerializeField]private EnableRoomProgression enableRoomProgression;
    
     [Header("Enemy Spawn")]
     [SerializeField] private SpawnConfig[] enemyBalanceOptions;
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
     private int maxPowerUpDelay;
     private MaxDoorsLockedConfig[] doorsLockedConfigs;
     private AlarmsDelayConfig[] alarmsDelayProgression;
+    [SerializeField]private RoomProgression[] roomProgressions;
     //--------------------------------------
 
 
@@ -165,7 +167,18 @@ public class GameManager : MonoBehaviour
             alarmsDelayProgression[i] = current;
         }
 
+        RoomProgression[] reference3 = enableRoomProgression.roomProgressions;
 
+        roomProgressions = new RoomProgression[reference3.Length];
+
+        for (int i = 0; i < reference3.Length; i++)
+        {
+            RoomProgression current = new RoomProgression();
+            current.applied = false;
+            current.onReachScore = reference3[i].onReachScore;
+
+            roomProgressions[i] = current;
+        }
     }
 
 
@@ -250,6 +263,8 @@ public class GameManager : MonoBehaviour
 
         TryApplyNewAlarmProgression(newValue);
 
+        TryOpenNewRoom(newValue);
+
         //-----Doors Lock-------
         if (!startLockingDoors && newValue >= startLockingDoorsOnReachScore)
         {
@@ -262,17 +277,6 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(PowerUpGameplayLoop());
             startSpawningPowerUp = true;
-        }
-
-        if(roomsLocked && newValue >= scoreToUnlockAllRooms)
-        {
-            roomsLocked = false;
-
-            doorsManager.EnableAllDoors();
-
-            mapManager.EnableAllRooms();
-
-            alarmsManager.EnableAllAlarms();
         }
     }
 
@@ -420,6 +424,8 @@ public class GameManager : MonoBehaviour
 
                 minLockNewDoorDelay = doorsLockedConfigs[i].minDelay;
                 maxLockNewDoorDelay = doorsLockedConfigs[i].maxDelay;
+
+                return;
             }
         }
     }
@@ -434,9 +440,30 @@ public class GameManager : MonoBehaviour
 
                 minAlarmDelay = alarmsDelayProgression[i].minDelay;
                 maxAlarmDelay = alarmsDelayProgression[i].maxDelay;
+
+                return;
             }
         }
     }
+
+    private void TryOpenNewRoom(int scoreValue)
+    {
+        for (int i = 0; i < roomProgressions.Length; i++)
+        {
+            print("______OIIIIIIIIIIIIIIIIIIIIII__________");
+            if (roomProgressions[i].applied == false && scoreValue >= roomProgressions[i].onReachScore)
+            {
+                print("______AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA__________");
+                roomProgressions[i].applied = true;
+
+                mapManager.EnableRandomRoom();
+
+                return;
+
+            }
+        }
+    }
+
 
     private void GameOver()
     {

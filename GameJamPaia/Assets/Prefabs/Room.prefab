@@ -489,12 +489,16 @@ MonoBehaviour:
   roomDoors:
   - doorRef: {fileID: 3564642091715116643}
     doorHudImageRef: {fileID: 0}
+    doorDirection: 2
   - doorRef: {fileID: 3564642093165417374}
     doorHudImageRef: {fileID: 0}
+    doorDirection: 0
   - doorRef: {fileID: 3564642093036966810}
     doorHudImageRef: {fileID: 0}
+    doorDirection: 1
   - doorRef: {fileID: 3564642092926989674}
     doorHudImageRef: {fileID: 0}
+    doorDirection: 3
   roomEnabledColor: {r: 1, g: 1, b: 1, a: 1}
   roomDisableColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &6651940493880324688
