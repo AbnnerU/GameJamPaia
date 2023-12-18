@@ -30,7 +30,7 @@ public class AIResetScore : AIBasicBehaviour
     }
 
 
-    protected override void GetTargetAnimation()
+    protected override void TargetWasCaughtAnimation()
     {
         if (targetAnimator)
         {

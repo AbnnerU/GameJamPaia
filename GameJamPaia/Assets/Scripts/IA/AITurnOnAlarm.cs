@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AITurnOnAlarm : AIBasicBehaviour
 {
-    protected override void GetTargetAnimation()
+    protected override void TargetWasCaughtAnimation()
     {
         if (targetAnimator)
         {

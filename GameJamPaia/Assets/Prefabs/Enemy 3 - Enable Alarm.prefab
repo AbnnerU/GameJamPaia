@@ -9848,7 +9848,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6617581792320150919}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.27, y: -1.34, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9897,6 +9897,7 @@ MonoBehaviour:
   currentState: 0
   playOnStart: 0
   cameraTransform: {fileID: 0}
+  agentCollider: {fileID: 6617581792320150653}
   target: {fileID: 0}
   targetCollider: {fileID: 0}
   targetMovement: {fileID: 0}
@@ -9906,7 +9907,7 @@ MonoBehaviour:
   spriteObj: {fileID: 6617581793214855176}
   executionInterval: 0.1
   spawnParticle: {fileID: 2834020834894816444}
-  spawnDelay: 3.95
+  spawnDelay: 3.85
   sprites:
   - {fileID: 8947545592671383880}
   - {fileID: 8947545591361799129}

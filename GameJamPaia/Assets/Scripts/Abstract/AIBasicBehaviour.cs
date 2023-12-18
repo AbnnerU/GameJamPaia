@@ -10,6 +10,8 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     [SerializeField] protected AIState currentState = AIState.SPAWNING;
     [SerializeField] protected bool playOnStart;
     [SerializeField] protected Transform cameraTransform;
+    [SerializeField] protected Collider2D agentCollider;
+    [Header("Player Info")]
     [SerializeField] protected Transform target;
     [SerializeField] protected Collider2D targetCollider;
     [SerializeField] protected PlayerMovement targetMovement;
@@ -133,6 +135,10 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     public virtual void StartBehaviourTree()
     {
+        BTDoAction btEnableAgentColliderAction = new BTDoAction(() => SetColliderActive(true));
+        BTDoAction btDisableAgentColliderAction = new BTDoAction(() =>SetColliderActive(false));
+
+
         BTIsOnAIState btIsOnSpawningState = new BTIsOnAIState(this, AIState.SPAWNING);
         BTDoAction btDisableRendersAction = new BTDoAction(() => ChangeRendersActiveState(false));
         BTDoAction btSpawningBehaviourAction = new BTDoAction(() => Spawn());
@@ -142,29 +148,34 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         BTSequence btSpawnSequence = new BTSequence(new List<BTnode>
         {
             btIsOnSpawningState,
+            btDisableAgentColliderAction,
             btDisableRendersAction,
             btSpawningBehaviourAction,
             btSpawnDelay,
             btEnableRendersAction,
+            btEnableAgentColliderAction,
             btSetFollowTargetState
         });
 
         BTIsOnAIState btIsOnStunnedState = new BTIsOnAIState(this, AIState.STUNNED);
         BTStopAgent bTStopAgent = new BTStopAgent(agent);
-        BTDoAction btPlayStunEffect = new BTDoAction(() => PlayStunEffect());
+        BTDoAction btStunAction = new BTDoAction(() => Stun());
         BTWaitForSeconds btStunnedTime = new BTWaitForSeconds(stunTime);
         BTSetAIState btSetFollowAIState = new BTSetAIState(this, AIState.FOLLOWTARGET);
         BTSequence btStunnedSequence = new BTSequence(new List<BTnode>
         {
             btIsOnStunnedState,
             bTStopAgent,
-            btPlayStunEffect,
+            btEnableRendersAction,
+            btStunAction,
+            btDisableAgentColliderAction,
             btStunnedTime,
+            btEnableAgentColliderAction,
             btSetFollowAIState
         });
 
         BTIsOnAIState bTIsOnHittedTargetState = new BTIsOnAIState(this, AIState.HITTEDTARGET);
-        BTDoAction bTTeleportPlayerAnimation = new BTDoAction(() => GetTargetAnimation());
+        BTDoAction bTTeleportPlayerAnimation = new BTDoAction(() => TargetWasCaughtAnimation());
         BTWaitForSeconds bTWaitTeleportPlayerAnimation = new BTWaitForSeconds(teleportPlayerAnimationDuration);
         BTDoAction bTTeleportTargetAction = new BTDoAction(() => ReleaseTargetAnimations());
         BTWaitForSeconds bTWaitReleasePlayerAnimation = new BTWaitForSeconds(releasePlayerAnimationDuration);
@@ -222,16 +233,22 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     protected virtual void Spawn()
     {
+        SetColliderActive(false);
         spawnParticle.Play();
     }
 
-    protected virtual void PlayStunEffect()
+    protected virtual void SetColliderActive(bool active)
     {
-        print("Pika");
+        agentCollider.enabled = active;
+    }
+
+    protected virtual void Stun()
+    {
+        //print("Pika");
         stunEffect.Play();
     }
 
-    protected virtual void GetTargetAnimation()
+    protected virtual void TargetWasCaughtAnimation()
     {
         if (targetAnimator)
         {
@@ -268,23 +285,6 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         }
     }
 
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag(targetTag) && currentState != AIState.HITTEDTARGET)
-        {
-            if (shield.IsShieldActive())
-            {
-                currentState = AIState.STUNNED;
-                shield.HitShield();
-            }
-            else
-            {
-                currentState = AIState.HITTEDTARGET;
-            }
-        }
-    }
-
-
     public virtual void AgentIsOnNavMeshLink(bool isOnNavMeshLink)
     {
         if (spriteActive && isOnNavMeshLink)
@@ -306,6 +306,7 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     protected IEnumerator PassOffMeshLink()
     {
+        SetColliderActive(false);
         float currentTime = 0;
         Vector3 offMeshEndPosition = agent.currentOffMeshLinkData.endPos;
 
@@ -318,6 +319,7 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
             if (agent.currentOffMeshLinkData.endPos != offMeshEndPosition)
             {
+                SetColliderActive(true);
                 yield break;
             }
 
@@ -325,7 +327,9 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
         } while (currentTime < passOffMeshLinkDelay);
 
+        
         agent.CompleteOffMeshLink();
+        SetColliderActive(true);
     }
 
     public AIState GetCurrentAIState()
@@ -337,5 +341,23 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     {
         currentState = newState;
     }
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(targetTag) && currentState != AIState.HITTEDTARGET && targetCollider.enabled)
+        {
+            if (shield.IsShieldActive())
+            {
+                currentState = AIState.STUNNED;
+                shield.HitShield();
+            }
+            else
+            {
+                currentState = AIState.HITTEDTARGET;
+            }
+        }
+    }
+
+
 
 }
