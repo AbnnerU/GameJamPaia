@@ -115,7 +115,9 @@ namespace Assets.Scripts.BT
 
             float currentUpdateInterval;
 
-            while (target != null && agent != null && agent.enabled == true && agent.isStopped == false || target.gameObject.activeSelf == true)
+            if (agent.isOnOffMeshLink) agent.CompleteOffMeshLink();
+
+            while (target != null && agent != null && agent.enabled == true && agent.isStopped == false && target.gameObject.activeSelf == true)
             {
 
                currentUpdateInterval = 0;

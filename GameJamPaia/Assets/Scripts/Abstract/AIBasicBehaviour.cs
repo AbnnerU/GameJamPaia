@@ -159,15 +159,14 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
         BTIsOnAIState btIsOnStunnedState = new BTIsOnAIState(this, AIState.STUNNED);
         BTStopAgent bTStopAgent = new BTStopAgent(agent);
-        BTDoAction btStunAction = new BTDoAction(() => Stun());
+        BTDoAction btStunEffectAction = new BTDoAction(() => StunEffect());
         BTWaitForSeconds btStunnedTime = new BTWaitForSeconds(stunTime);
         BTSetAIState btSetFollowAIState = new BTSetAIState(this, AIState.FOLLOWTARGET);
         BTSequence btStunnedSequence = new BTSequence(new List<BTnode>
         {
             btIsOnStunnedState,
             bTStopAgent,
-            btEnableRendersAction,
-            btStunAction,
+            btStunEffectAction,
             btDisableAgentColliderAction,
             btStunnedTime,
             btEnableAgentColliderAction,
@@ -201,8 +200,8 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         BTSequence btFollowTargetSequence = new BTSequence(new List<BTnode> {
             btIsOnFollowTargetState,
             bTIsColliderEnabled,
+            btEnableAgentColliderAction,
             bTFollowTargetCondicionalSequence
-
         });
 
 
@@ -242,7 +241,7 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         agentCollider.enabled = active;
     }
 
-    protected virtual void Stun()
+    protected virtual void StunEffect()
     {
         //print("Pika");
         stunEffect.Play();
@@ -317,9 +316,13 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         {
             currentTime += Time.deltaTime;
 
-            if (agent.currentOffMeshLinkData.endPos != offMeshEndPosition)
+            if (agent.currentOffMeshLinkData.endPos != offMeshEndPosition && currentState == AIState.FOLLOWTARGET)
             {
                 SetColliderActive(true);
+                yield break;
+            }
+            else if (currentState == AIState.STUNNED)
+            {
                 yield break;
             }
 
@@ -344,12 +347,14 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(targetTag) && currentState != AIState.HITTEDTARGET && targetCollider.enabled)
+        if (collision.CompareTag(targetTag) && currentState != AIState.HITTEDTARGET && currentState!=AIState.STUNNED && targetCollider.enabled && !passingNavMeshLink)
         {
             if (shield.IsShieldActive())
             {
-                currentState = AIState.STUNNED;
+                currentState = AIState.STUNNED;             
                 shield.HitShield();
+                agent.isStopped = true;
+                SetColliderActive(false);
             }
             else
             {
