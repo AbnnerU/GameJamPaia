@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,7 +9,7 @@ public class AlarmsManager : MonoBehaviour
     [SerializeField] private bool setDisabledAlarmsAsNotAvailableIndex = true;
     [SerializeField] private Alarm[] alarms;
     private List<Alarm> disabledAlarms;
-    private List<int> alarmsIndexAvailable;
+    private List<Alarm> alarmsAvailable;
 
     private int alarmsOn = 0;
 
@@ -23,7 +22,7 @@ public class AlarmsManager : MonoBehaviour
 
     private void Awake()
     {
-        alarmsIndexAvailable = new List<int>(alarms.Length);
+        alarmsAvailable = new List<Alarm>(alarms.Length);
         disabledAlarms = new List<Alarm>();
 
         for (int i = 0; i < alarms.Length; i++)
@@ -32,26 +31,26 @@ public class AlarmsManager : MonoBehaviour
             alarms[i].AlarmInputStarted += OnAlarmInputStarted;
             alarms[i].AlarmInputCancel += OnAlarmInputCancel;
 
-            alarmsIndexAvailable.Add(i);
+            alarmsAvailable.Add(alarms[i]);
         }
 
 
         if (setDisabledAlarmsAsNotAvailableIndex)
         {
-            List<int> temp = new List<int>();
+            List<Alarm> temp = new List<Alarm>();
 
-            for (int i = 0; i < alarmsIndexAvailable.Count; i++)
+            for (int i = 0; i < alarmsAvailable.Count; i++)
             {
-                if (alarms[alarmsIndexAvailable[i]].IsEnabled() == false)
+                if (alarmsAvailable[i].CanBeActive() == false)
                 {
-                    temp.Add(i);
-                    disabledAlarms.Add(alarms[alarmsIndexAvailable[i]]);
+                    temp.Add(alarmsAvailable[i]);
+                    disabledAlarms.Add(alarmsAvailable[i]);
                 }
             }
 
             for (int i = 0; i < temp.Count; i++)
             {
-                alarmsIndexAvailable.Remove(temp[i]);
+                alarmsAvailable.Remove(temp[i]);
             }
 
         }
@@ -80,7 +79,7 @@ public class AlarmsManager : MonoBehaviour
     {
         alarmRef.DisableAlarm();
 
-        alarmsIndexAvailable.Add(GetAlarmIndex(alarmRef));
+        alarmsAvailable.Add(alarmRef);
 
         alarmsOn--;
 
@@ -91,7 +90,7 @@ public class AlarmsManager : MonoBehaviour
 
     public void TryEnableAlarm(Alarm alarm)
     {
-        int id = GetAvailableAlarmIndex(alarm);
+        int id = alarmsAvailable.IndexOf(alarm);
 
         if (id >= 0)
         {
@@ -111,16 +110,16 @@ public class AlarmsManager : MonoBehaviour
 
     public void TryEnableRandomAlarm()
     {
-        if (alarmsIndexAvailable.Count > 0)
-            EnableAlarmAt(Random.Range(0, alarmsIndexAvailable.Count));
+        if (alarmsAvailable.Count > 0)
+            EnableAlarmAt(Random.Range(0, alarmsAvailable.Count));
     }
 
 
     public void EnableAlarmAt(int index)
     {
-        alarms[alarmsIndexAvailable[index]].EnableAlarm();
+        alarmsAvailable[index].EnableAlarm();
 
-        alarmsIndexAvailable.RemoveAt(index);
+        alarmsAvailable.RemoveAt(index);
 
         alarmsOn++;
 
@@ -129,32 +128,22 @@ public class AlarmsManager : MonoBehaviour
         OnNewAlarmOn?.Invoke();
     }
 
-    public void SetAlarmAvailable(Alarm alarm)
+    public void SetNewAlarmAvailable(Alarm alarm)
     {
-        int index = GetAlarmIndex(alarm);
+        if (disabledAlarms.Contains(alarm))
+            disabledAlarms.Remove(alarm);
 
-        disabledAlarms.Remove(alarm);
+        if (!alarmsAvailable.Contains(alarm))
+            alarmsAvailable.Add(alarm);
+        else
+            Debug.LogWarning("For some reason, alarm ("+alarm+") is already available");
 
-        alarmsIndexAvailable.Add(index);
+
+        //Enable edition
+        alarm.Enable();
+        alarm.DisableAlarmWithoutAnimation();
+        
     }
-
-    //public void EnableAllAlarms()
-    //{
-    //    int index = 0;
-    //    for (int i = 0; i < disabledAlarms.Count; i++)
-    //    {
-    //        index = GetAlarmIndex(disabledAlarms[i]);
-
-    //        disabledAlarms[i].Enable();
-    //        //disabledAlarms[i].UnlockDoorWhitoutActions();
-
-    //        alarmsIndexAvailable.Add(index);
-    //    }
-
-    //    disabledAlarms.Clear();
-    //    disabledAlarms.Capacity = 0;
-    //}
-
 
     public int GetAlarmsActiveValue()
     {
@@ -175,19 +164,14 @@ public class AlarmsManager : MonoBehaviour
 
     public int GetAvailableAlarmIndex(Alarm alarmRef)
     {
-        int indexRef = GetAlarmIndex(alarmRef);
+        int indexRef = alarmsAvailable.IndexOf(alarmRef);
+
 
         if (indexRef >= 0)
-        {
-            for (int i = 0; i < alarmsIndexAvailable.Count; i++)
-            {
-                if (alarmsIndexAvailable[i] == indexRef)
-                    return i;
-            }
+            return indexRef;
+        else
             return -1;
-        }
-
-        return -1;
+        
     }
 
 

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Alarm : HoldTime, IHasActiveState
 {
   
-    [SerializeField] private bool active = true;
+    [SerializeField] private bool canBeActive = true;
 
     [SerializeField] private InputArea2D inputArea;
     //[SerializeField] private SpriteRenderer sprite;
@@ -64,7 +64,7 @@ public class Alarm : HoldTime, IHasActiveState
 
     private void OnInput(bool pressed)
     {
-        if (!active) return;
+        if (!canBeActive) return;
 
         if (pressed && holding==false)
         {
@@ -112,7 +112,7 @@ public class Alarm : HoldTime, IHasActiveState
 
     public void EnableAlarm()
     {
-        if (!active) return;
+        if (!canBeActive) return;
 
         OnAlarmEnabled?.Invoke(this,true) ;
         //sprite.color = onEnableColor;
@@ -127,7 +127,7 @@ public class Alarm : HoldTime, IHasActiveState
 
     public void DisableAlarm()
     {
-        if (!active) return;
+        if (!canBeActive) return;
 
         OnAlarmEnabled?.Invoke(this,false);
         //sprite.color = onDisableColor;   
@@ -165,18 +165,18 @@ public class Alarm : HoldTime, IHasActiveState
         return alarmOn;
     }
 
-    public bool IsEnabled()
+    public bool CanBeActive()
     {
-        return active;
+        return canBeActive;
     }
 
     public void Disable()
     {
-        active= false;
+        canBeActive= false;
     }
 
     public void Enable()
     {
-        active = true;
+        canBeActive = true;
     }
 }

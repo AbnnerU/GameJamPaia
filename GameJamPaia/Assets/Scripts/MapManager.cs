@@ -267,7 +267,7 @@ public class MapManager : MonoBehaviour
 
         avaliableRooms.Add(disabledRooms[id]);
 
-        alarmsManager.SetAlarmAvailable(disabledRooms[id].roomAlarm);
+        alarmsManager.SetNewAlarmAvailable(disabledRooms[id].roomAlarm);
 
         disabledRooms[id].Enable();
 
@@ -306,7 +306,7 @@ public class MapManager : MonoBehaviour
 
         if (neighborTop < 0 && neighborDown < 0 && neighborRight < 0 && neighborLeft < 0)
         {
-            print("ENABLE ROOM FAIL.");
+            print("ENABLE ROOM FAIL. No neighbor");
             return false;
         }
 
@@ -353,11 +353,11 @@ public class MapManager : MonoBehaviour
 
             if (door)
             {
-                doorsManager.EnableDoor(door);
+                doorsManager.SetNewAvailableDoor(door);
 
                 Door2D neighborDoor = roomsInfo[neighborIndex].GetDoorByDirection(neighborDoorDirection);
 
-                doorsManager.EnableDoor(neighborDoor);
+                doorsManager.SetNewAvailableDoor(neighborDoor);
 
                 return true;
 
@@ -474,7 +474,7 @@ public class MapManager : MonoBehaviour
 
         foreach (Room r in avaliableRooms)
         {
-            if (r.roomAlarm.IsEnabled() == false)
+            if (r.roomAlarm.CanBeActive() == false)
                 roomOptions.Add(r);
         }
 
@@ -583,7 +583,7 @@ public class MapManager : MonoBehaviour
                 {
                     Room roomRef = roomsInfo[i];
 
-                    if (roomRef.roomAlarm.IsEnabled())
+                    if (roomRef.roomAlarm.CanBeActive())
                     {
                         if (roomRef.roomActive)
                             roomRef.roomAlarm.Enable();
@@ -601,7 +601,7 @@ public class MapManager : MonoBehaviour
 
                         for (int y = 0; y < roomRef.roomDoors.Length; y++)
                         {
-                            if (roomRef.roomDoors[y].doorRef.IsEnabled())
+                            if (roomRef.roomDoors[y].doorRef.CanBeActive())
                             {
                                 if (roomRef.roomActive)
                                     roomRef.roomDoors[y].doorRef.Enable();

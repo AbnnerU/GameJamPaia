@@ -255,6 +255,93 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region GameLoop
+
+    IEnumerator DoorsLockedGameplayLoop()
+    {
+        while (active)
+        {
+            yield return new WaitForSeconds(Random.Range(minLockNewDoorDelay, maxLockNewDoorDelay));
+
+            //if (doorsManager.DoorsLockedValue() < maxLockedDoorsAmount)
+            //{
+            doorsManager.TryLockRandomDoor();
+            //}
+
+        }
+    }
+
+    IEnumerator PowerUpGameplayLoop()
+    {
+        while (active)
+        {
+            yield return new WaitForSeconds(Random.Range(minPowerUpDelay, maxPowerUpDelay));
+
+            SpawnPowerUp();
+        }
+    }
+
+
+    IEnumerator AlarmsActivationGameplayLoop()
+    {
+        float delayTime = 0;
+        float currentDelayTime = 0;
+
+        while (active)
+        {
+            delayTime = Random.Range(minAlarmDelay, maxAlarmDelay);
+            currentDelayTime = 0;
+            do
+            {
+                if (pauseNextAlarmActivation == false)
+                    currentDelayTime += Time.deltaTime;
+
+                yield return null;
+            } while (currentDelayTime < delayTime);
+
+            alarmsManager.TryEnableRandomAlarm();
+
+        }
+    }
+
+    private void TrySpawnEnemy(int scoreValue)
+    {
+        for (int i = 0; i < enemySpawnConfig.enemySpawned.Length; i++)
+        {
+            if (enemySpawnConfig.enemySpawned[i].spawned == false && scoreValue >= enemySpawnConfig.enemySpawned[i].onScoreRef)
+            {
+                enemySpawnConfig.enemySpawned[i].spawned = true;
+                SpawnEnemy();
+            }
+        }
+    }
+
+    private void SpawnPowerUp()
+    {
+        Vector3 pos = mapManager.GetRandomAvalibleRoomPosition();
+        float x = Random.Range(2, 3.5f);
+        float y = Random.Range(2, 3.5f);
+
+        GameObject p = PoolManager.SpawnObject(powerUpPrefab, pos + new Vector3(x, y, 0), Quaternion.identity);
+
+        if (!powerUpList.Contains(p))
+        {
+            powerUpList.Add(p);
+
+            p.GetComponent<OnTriggerUnlockAllDoors2D>().WhenCollected += DisablePowerUpHud;
+            p.GetComponent<DisableAfterTime>().OnTimeOut += DisablePowerUpHud;
+        }
+
+        mapManager.ChangePowerUpHudActiveStateOnPosition(pos, true);
+    }
+
+    private void DisablePowerUpHud(Vector3 position)
+    {
+        mapManager.ChangePowerUpHudActiveStateOnPosition(position, false);
+    }
+
+    #endregion
+
     private void GameScore_OnScoreChange(int newValue)
     {
         TrySpawnEnemy(newValue);
@@ -300,93 +387,6 @@ public class GameManager : MonoBehaviour
             enemySpawnConfig.enemySpawned[i] = s;
         }
     }
-
-    #region GameLoop
-
-    IEnumerator DoorsLockedGameplayLoop()
-    {
-        while (active)
-        {
-            yield return new WaitForSeconds(Random.Range(minLockNewDoorDelay, maxLockNewDoorDelay));
-
-            //if (doorsManager.DoorsLockedValue() < maxLockedDoorsAmount)
-            //{
-                doorsManager.TryLockRandomDoor();
-            //}
-
-        }
-    }
-
-    IEnumerator PowerUpGameplayLoop()
-    {
-        while (active)
-        {
-            yield return new WaitForSeconds(Random.Range(minPowerUpDelay, maxPowerUpDelay));
-
-            SpawnPowerUp();
-        }
-    }
-
-
-    IEnumerator AlarmsActivationGameplayLoop()
-    {
-        float delayTime=0;
-        float currentDelayTime=0;
-      
-        while (active)
-        {
-            delayTime = Random.Range(minAlarmDelay, maxAlarmDelay);
-            currentDelayTime = 0;
-            do
-            {
-                if (pauseNextAlarmActivation == false)
-                    currentDelayTime += Time.deltaTime ;
-
-                yield return null;
-            } while (currentDelayTime < delayTime);
-
-            alarmsManager.TryEnableRandomAlarm();
-           
-        }
-    }
-
-    private void TrySpawnEnemy(int scoreValue)
-    {
-        for(int i = 0; i < enemySpawnConfig.enemySpawned.Length; i++)
-        {
-            if (enemySpawnConfig.enemySpawned[i].spawned ==false && scoreValue >= enemySpawnConfig.enemySpawned[i].onScoreRef)
-            {
-                enemySpawnConfig.enemySpawned[i].spawned = true;
-                SpawnEnemy();
-            }
-        }
-    }
-
-    private void SpawnPowerUp()
-    {
-        Vector3 pos = mapManager.GetRandomAvalibleRoomPosition();
-        float x = Random.Range(2, 3.5f);
-        float y = Random.Range(2, 3.5f);
-
-        GameObject p = PoolManager.SpawnObject(powerUpPrefab, pos + new Vector3(x, y, 0), Quaternion.identity);
-
-        if (!powerUpList.Contains(p))
-        {
-            powerUpList.Add(p);
-
-            p.GetComponent<OnTriggerUnlockAllDoors2D>().WhenCollected += DisablePowerUpHud;
-            p.GetComponent<DisableAfterTime>().OnTimeOut += DisablePowerUpHud;
-        }
-
-        mapManager.ChangePowerUpHudActiveStateOnPosition(pos, true);
-    }
-
-    private void DisablePowerUpHud(Vector3 position)
-    {
-        mapManager.ChangePowerUpHudActiveStateOnPosition(position, false);
-    }
-
-    #endregion
 
     private void SpawnEnemy()
     {
@@ -450,10 +450,8 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < roomProgressions.Length; i++)
         {
-            print("______OIIIIIIIIIIIIIIIIIIIIII__________");
             if (roomProgressions[i].applied == false && scoreValue >= roomProgressions[i].onReachScore)
             {
-                print("______AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA__________");
                 roomProgressions[i].applied = true;
 
                 mapManager.EnableRandomRoom();
@@ -463,7 +461,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
     private void GameOver()
     {
@@ -494,8 +491,6 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(GameOverTransition());
     }
-
-
   
     IEnumerator GameOverTransition()
     {

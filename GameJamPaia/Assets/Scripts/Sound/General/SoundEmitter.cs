@@ -31,7 +31,7 @@ public class SoundEmitter : MonoBehaviour
     {
         float finalVolume = audioConfig.volume * (volumePercentage / 100);
 
-        print("Pre apply config: " + audioConfig.minDistance);
+        //print("Pre apply config: " + audioConfig.minDistance);
 
         ApplyConfigs(audioConfig);
 
@@ -60,8 +60,8 @@ public class SoundEmitter : MonoBehaviour
         _audioSource.maxDistance = config.maxDistance;
         _audioSource.panStereo = config.StereoPan;
 
-        print("Pos apply config: " + config.minDistance);
-        print("Audio source: " + _audioSource.minDistance);
+       // print("Pos apply config: " + config.minDistance);
+       // print("Audio source: " + _audioSource.minDistance);
 
     }
 

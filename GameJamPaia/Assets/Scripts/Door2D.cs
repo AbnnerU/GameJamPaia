@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Door2D : MonoBehaviour, IHasActiveState
 {
-    [SerializeField] private bool active = true;
+    [SerializeField] private bool canBeActive = true;
     [SerializeField] private bool locked=false;
     [SerializeField] private string targetTag = "Player";
     [SerializeField] private TransformToChange[] onTriggerDoorUpdatePositions;
@@ -26,8 +26,7 @@ public class Door2D : MonoBehaviour, IHasActiveState
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        if(!active) return;
+        if(!canBeActive) return;
 
         if (locked) return;
 
@@ -55,7 +54,7 @@ public class Door2D : MonoBehaviour, IHasActiveState
 
     public void LockDoor()
     {
-        if (!active) return;
+        if (!canBeActive) return;
 
         if (locked) return;
 
@@ -73,7 +72,7 @@ public class Door2D : MonoBehaviour, IHasActiveState
 
     public void UnlockDoor()
     {
-        if (!active) return;
+        if (!canBeActive) return;
 
         if (!locked) return; 
 
@@ -91,7 +90,7 @@ public class Door2D : MonoBehaviour, IHasActiveState
 
     public void UnlockDoorWhitoutActions()
     {
-        if (!active) return;
+        if (!canBeActive) return;
 
         if (!locked) return;
 
@@ -106,28 +105,28 @@ public class Door2D : MonoBehaviour, IHasActiveState
         return locked; 
     }
 
-    public bool IsEnabled()
+    public bool CanBeActive()
     {
-        return active;
+        return canBeActive;
     }
 
     public void Disable()
     {
-        active = false;
+        canBeActive = false;
 
         OnChangeDoorActiveState?.Invoke(false);
     }
 
     public void Enable()
     {
-        active = true;
+        canBeActive = true;
 
         OnChangeDoorActiveState?.Invoke(true);
     }
 
     public void SendUpdateStateEvent()
     {
-        OnChangeDoorActiveState?.Invoke(active);
+        OnChangeDoorActiveState?.Invoke(canBeActive);
     }
 
  

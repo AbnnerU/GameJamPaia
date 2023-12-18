@@ -9,17 +9,17 @@ public class DoorsManager : MonoBehaviour
     [SerializeField] private bool setDisabledDoorAsNotAvailableIndex=true;
     [SerializeField] private Door2D[] doors;
     private List<Door2D> disabledDoors;
-    private List<int> doorsIndexAvailable;
+    private List<Door2D> doorsAvailable;
 
     private int currentDoorsLockedValue = 0;
     private void Awake()
     {
-        doorsIndexAvailable = new List<int>(doors.Length);
+        doorsAvailable = new List<Door2D>(doors.Length);
         disabledDoors = new List<Door2D>();
 
         for (int i = 0; i < doors.Length; i++)
         {
-            doorsIndexAvailable.Add(i);
+            doorsAvailable.Add(doors[i]);
 
             doors[i].OnUnlockDoor += Door_OnUnlockDoor;
         }
@@ -27,20 +27,20 @@ public class DoorsManager : MonoBehaviour
        
         if (setDisabledDoorAsNotAvailableIndex)
         {
-            List<int> temp = new List<int>();
+            List<Door2D> temp = new List<Door2D>();
 
-            for (int i=0; i< doorsIndexAvailable.Count; i++)
+            for (int i=0; i< doorsAvailable.Count; i++)
             {
-                if (doors[doorsIndexAvailable[i]].IsEnabled() == false)
+                if (doorsAvailable[i].CanBeActive() == false)
                 {
-                    temp.Add(i);
-                    disabledDoors.Add(doors[doorsIndexAvailable[i]]);
+                    temp.Add(doorsAvailable[i]);
+                    disabledDoors.Add(doorsAvailable[i]);
                 }
             }
 
             for(int i=0; i< temp.Count; i++)
             {
-                doorsIndexAvailable.Remove(temp[i]);
+                doorsAvailable.Remove(temp[i]);
             }
             
         }
@@ -50,9 +50,9 @@ public class DoorsManager : MonoBehaviour
 
     public void TryLockRandomDoor()
     {
-        if (doorsIndexAvailable.Count > 0)
+        if (doorsAvailable.Count > 0)
         {
-            LockDoorAt(Random.Range(0, doorsIndexAvailable.Count));
+            LockDoorAt(Random.Range(0, doorsAvailable.Count));
         }
     }
 
@@ -75,11 +75,11 @@ public class DoorsManager : MonoBehaviour
     public void LockDoorAt(int index)
     {
         //print("Index:" + doors[doorsIndexAvailable[index]]);
-        if (doors[doorsIndexAvailable[index]].IsEnabled() == false) return;
+        if (doorsAvailable[index].CanBeActive() == false) return;
 
-        doors[doorsIndexAvailable[index]].LockDoor();
+        doorsAvailable[index].LockDoor();
 
-        doorsIndexAvailable.RemoveAt(index);
+        doorsAvailable.RemoveAt(index);
 
         currentDoorsLockedValue++;
     }
@@ -98,19 +98,13 @@ public class DoorsManager : MonoBehaviour
 
     public int GetAvailableDoorIndex(Door2D doorRef)
     {
-        int indexRef = GetDoorIndex(doorRef);
+        int indexRef = doorsAvailable.IndexOf(doorRef);
 
-        if (indexRef >= 0)
-        {
-            for (int i = 0; i < doorsIndexAvailable.Count; i++)
-            {
-                if (doorsIndexAvailable[i] == indexRef)
-                    return i;
-            }
+        if (indexRef >= 0)       
+            return indexRef;
+        else
             return -1;
-        }
-
-        return -1;
+        
     }
 
     public void SendActiveStateEvent()
@@ -121,16 +115,18 @@ public class DoorsManager : MonoBehaviour
         }
     }
 
-    public void EnableDoor(Door2D door)
+    public void SetNewAvailableDoor(Door2D door)
     {
-        int index = GetDoorIndex(door);
+        if(disabledDoors.Contains(door))
+            disabledDoors.Remove(door);
 
-        doors[index].Enable();
-        doors[index].UnlockDoorWhitoutActions();
+        if (!doorsAvailable.Contains(door))
+            doorsAvailable.Add(door);
+        else
+            Debug.LogWarning("For some reason, the door (" + door + ") is already an available door");
 
-        doorsIndexAvailable.Add(index);
-
-        disabledDoors.Remove(door);
+        door.Enable();
+        door.UnlockDoorWhitoutActions();
 
     }
 

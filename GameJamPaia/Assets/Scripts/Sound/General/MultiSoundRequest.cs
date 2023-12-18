@@ -10,7 +10,7 @@ public class MultiSoundRequest : MonoBehaviour
         if (requests[id].positionReference != null)
         {
             requests[id].channel.AudioRequest(requests[id].audioConfig, requests[id].positionReference.position);
-            print("Multi audio request: " + requests[id].audioConfig.minDistance);
+            //print("Multi audio request: " + requests[id].audioConfig.minDistance);
         }
         else
             requests[id].channel.AudioRequest(requests[id].audioConfig, Vector3.zero);
