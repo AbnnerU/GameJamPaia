@@ -48,7 +48,7 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     protected BTSelector rootSelector;
 
-    protected bool spriteActive = true;
+    protected bool passingNavMeshLink = false;
 
     protected virtual void Awake()
     {
@@ -287,17 +287,17 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     public virtual void AgentIsOnNavMeshLink(bool isOnNavMeshLink)
     {
-        if (spriteActive && isOnNavMeshLink)
+        if (!passingNavMeshLink && isOnNavMeshLink)
         {
-            spriteObj.SetActive(false);
-            spriteActive = false;
+           // spriteObj.SetActive(false);
+            passingNavMeshLink = true;
 
             StartCoroutine(PassOffMeshLink());
         }
-        else if (!spriteActive && !isOnNavMeshLink)
+        else if (passingNavMeshLink && !isOnNavMeshLink)
         {
-            spriteObj.SetActive(true);
-            spriteActive = true;
+            //spriteObj.SetActive(true);
+            passingNavMeshLink = false;
 
             StopAllCoroutines();
             //particlesRef.Stop();
