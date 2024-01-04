@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3509d21f41e87949aa62ac97da208cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
+  canBeActive: 1
   locked: 0
   targetTag: Player
   onTriggerDoorUpdatePositions:
@@ -227,9 +227,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7248294675941817392}
-  - component: {fileID: 2228711465501025937}
   - component: {fileID: 8444461056036034626}
-  - component: {fileID: 2503457068740421629}
+  - component: {fileID: 2230849066806621622}
   m_Layer: 0
   m_Name: Locked Behaviour
   m_TagString: Untagged
@@ -252,21 +251,6 @@ Transform:
   m_Father: {fileID: 1056418961315092205}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2228711465501025937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3049100425027829667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fd3d81761b9f45488090d76456b373a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputManager: {fileID: 0}
-  colliderRef: {fileID: 8444461056036034626}
-  targetTag: Player
 --- !u!58 &8444461056036034626
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -302,7 +286,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &2503457068740421629
+--- !u!114 &2230849066806621622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -311,11 +295,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3049100425027829667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac744a1a8adcb154fbaf5d14256e5625, type: 3}
+  m_Script: {fileID: 11500000, guid: 27da2e7c7969dfc44a0f8b3c8e3badfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   holdTime: 0.7
-  inputArea: {fileID: 2228711465501025937}
+  colliderRef: {fileID: 8444461056036034626}
+  targetTag: Player
   onInputAreaPerformed:
   - {fileID: 8700777995883134665}
   - {fileID: 8281518757924290441}

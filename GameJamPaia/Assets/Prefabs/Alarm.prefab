@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 665305276584957938}
   - component: {fileID: 665305276584957936}
   - component: {fileID: 665305276584957943}
-  - component: {fileID: 665305276584957937}
+  - component: {fileID: 3742386101394021771}
   - component: {fileID: 2213522291905753443}
   m_Layer: 0
   m_Name: Alarm
@@ -227,8 +227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdTime: 1
-  active: 1
-  inputArea: {fileID: 665305276584957937}
+  canBeActive: 1
+  triggerArea: {fileID: 3742386101394021771}
   anim: {fileID: 2052431950519880564}
   soundRequest: {fileID: 2213522291905753443}
   progressCnavas: {fileID: 1087729577393196997}
@@ -241,7 +241,7 @@ MonoBehaviour:
   onEnableSoundId: 1
   onDisableAnimation: Clock_TurnOff01
   onDisableSoundId: 0
---- !u!114 &665305276584957937
+--- !u!114 &3742386101394021771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,10 +250,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 665305276584957939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fd3d81761b9f45488090d76456b373a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bc13c75b1d2ee047833a68fd8bd2012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputManager: {fileID: 0}
   colliderRef: {fileID: 665305276584957936}
   targetTag: Player
 --- !u!114 &2213522291905753443

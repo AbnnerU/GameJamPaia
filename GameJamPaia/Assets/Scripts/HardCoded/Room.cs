@@ -12,6 +12,9 @@ public class Room : MonoBehaviour,IHasActiveState
     public RectTransform roomHudRectRef;
     public Image roomHudImageRef;
 
+    [Header("Track")]
+    public AudioConfig roomTrack;
+
     [Header("Alarm")]
     public Alarm roomAlarm;
     public Image alarmHudImageRef;
@@ -71,6 +74,11 @@ public class Room : MonoBehaviour,IHasActiveState
         }
 
         return null;
+    }
+
+    public AudioConfig GetRoomTrack()
+    {
+        return roomTrack;
     }
 
 }

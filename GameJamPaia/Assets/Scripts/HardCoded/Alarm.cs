@@ -9,7 +9,7 @@ public class Alarm : HoldTime, IHasActiveState
   
     [SerializeField] private bool canBeActive = true;
 
-    [SerializeField] private InputArea2D inputArea;
+    [SerializeField] private OnTriggerSignal2D triggerArea;
     //[SerializeField] private SpriteRenderer sprite;
     [SerializeField] private Animator anim;
     [SerializeField] private MultiSoundRequest soundRequest;
@@ -56,17 +56,17 @@ public class Alarm : HoldTime, IHasActiveState
             scoreRef = GameObject.FindGameObjectWithTag(scoreTag).GetComponent<GameScore>();
         }
 
-        inputArea.OnInputPerformed += OnInput;
+        triggerArea.OnTargetInArea += TargetInArea;
 
         progressCnavas.enabled = false;
         progressFill.fillAmount = 0;
     }
 
-    private void OnInput(bool pressed)
+    private void TargetInArea(bool isTargetInsideArea)
     {
         if (!canBeActive) return;
 
-        if (pressed && holding==false)
+        if (isTargetInsideArea && holding==false)
         {
             holding = true;
 
@@ -74,7 +74,7 @@ public class Alarm : HoldTime, IHasActiveState
 
             StartCoroutine(HoldTime());
         }
-        else if(!pressed && holding == true)
+        else if(!isTargetInsideArea && holding == true)
         {
             holding = false;
             progressCnavas.enabled = false;
@@ -116,7 +116,7 @@ public class Alarm : HoldTime, IHasActiveState
 
         OnAlarmEnabled?.Invoke(this,true) ;
         //sprite.color = onEnableColor;
-        inputArea.Enable();
+        triggerArea.Enable();
         soundRequest.ExecuteRequest(onEnableSoundId);
         holding = false;
        
@@ -131,7 +131,7 @@ public class Alarm : HoldTime, IHasActiveState
 
         OnAlarmEnabled?.Invoke(this,false);
         //sprite.color = onDisableColor;   
-        inputArea.Disable();
+        triggerArea.Disable();
         progressCnavas.enabled = false;
         soundRequest.ExecuteRequest(onDisableSoundId);
         soundRequest.StopRequest(onEnableSoundId);
@@ -153,7 +153,7 @@ public class Alarm : HoldTime, IHasActiveState
     {
         OnAlarmEnabled?.Invoke(this, false);
         //sprite.color = onDisableColor;   
-        inputArea.Disable();
+        triggerArea.Disable();
         progressCnavas.enabled = false;
         holding = false;
 

@@ -5,23 +5,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InputAreaAction2D : HoldTime { 
-    [SerializeField] private InputArea2D inputArea;
-    //[SerializeField] private float holdTime;
+public class StandInAreaActions2D :HoldTime
+{
+    //[SerializeField] private InputManager inputManager;
+    [SerializeField] private Collider2D colliderRef;
+    [SerializeField] private string targetTag;
     [SerializeField] private GameAction[] onInputAreaPerformed;
     [SerializeField] private GameAction[] onInputAreaCancel;
 
     [Header("Progress Bar")]
     [SerializeField] private Canvas progressCnavas;
     [SerializeField] private Image progressFill;
+    //private bool targetInArea;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        inputArea.OnInputPerformed += InputArea_OnInputPerformed;
+    public Action<bool> OnInputPerformed;
+    public Action OnInteract;
+
+    private void Awake()
+    { 
+        if (colliderRef == null)
+            colliderRef = GetComponent<Collider2D>();
     }
 
-    private void InputArea_OnInputPerformed(bool value)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(targetTag))
+        {
+            TargetInArea(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag(targetTag))
+        {
+            TargetInArea(false);
+        }
+    }
+
+    private void TargetInArea(bool value)
     {
         if (value)
         {
@@ -32,9 +54,9 @@ public class InputAreaAction2D : HoldTime {
                     onInputAreaPerformed[i].DoAction();
                 }
             }
-            else           
+            else
                 StartCoroutine(HoldTime());
-            
+
         }
         else
         {
@@ -45,12 +67,11 @@ public class InputAreaAction2D : HoldTime {
 
             for (int i = 0; i < onInputAreaCancel.Length; i++)
             {
-                onInputAreaCancel[i].DoAction();    
+                onInputAreaCancel[i].DoAction();
             }
         }
 
     }
-
 
     IEnumerator HoldTime()
     {
@@ -79,8 +100,17 @@ public class InputAreaAction2D : HoldTime {
         }
     }
 
-    private void OnDestroy()
+    public void Disable()
     {
-        inputArea.OnInputPerformed -= InputArea_OnInputPerformed;
+        colliderRef.enabled = false;
+        StopAllCoroutines();
+        progressCnavas.enabled = false;
+        progressFill.fillAmount = 0;
     }
+
+    public void Enable()
+    {
+        colliderRef.enabled = true;
+    }
+
 }

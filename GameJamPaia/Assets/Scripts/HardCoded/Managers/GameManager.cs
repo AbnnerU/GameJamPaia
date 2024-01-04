@@ -400,7 +400,7 @@ public class GameManager : MonoBehaviour
 
                 g.GetComponent<IHasBehaviourTree>().Setup();
 
-                mapManager.SetRandomRoom(g.transform, Vector3.zero);
+                mapManager.SetObjectInRandomRoom(g.transform, Vector3.zero);
 
                 g.GetComponent<IHasBehaviourTree>().StartBehaviourTree();
                 break;

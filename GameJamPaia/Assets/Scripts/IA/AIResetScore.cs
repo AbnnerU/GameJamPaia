@@ -58,7 +58,7 @@ public class AIResetScore : AIBasicBehaviour
             targetAnimator.PlayAnimation(releasePlayerAnimation);
 
             mapManager.RandomRoomNoRepeatAndAlarmOff(target, Vector3.zero, out id);
-            mapManager.SetRoom(cameraTransform, new Vector3(0, 0, -10), id);
+            mapManager.SetObjectInRoom(cameraTransform, new Vector3(0, 0, -10), id);
 
 
             scoreRef.RemoveAll();
