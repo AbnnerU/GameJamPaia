@@ -145,6 +145,7 @@
     <Compile Include="Assets\Scripts\IA\Main nodes\BTInverter.cs" />
     <Compile Include="Assets\Scripts\GameActions\OnTriggerEnterAction2D.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\PoolManager.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\RoomHud.cs" />
     <Compile Include="Assets\Scripts\Interface\IHasBehaviourTree.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeCollider2DActiveStateAction.cs" />
     <Compile Include="Assets\Scripts\Interface\IAIState.cs" />

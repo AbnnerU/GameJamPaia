@@ -9,10 +9,13 @@ using Unity.Burst;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
+
 public class MapManager : MonoBehaviour
 {
     [SerializeField] private bool active;
-    [SerializeField] private bool configOnStart;
+    [SerializeField] private Transform player;
+    [SerializeField] private Transform camera;
+    //[SerializeField] private bool configOnStart;
     [SerializeField] private Vector2 mapArea = new Vector2(5, 5);
     [SerializeField] private Vector2 roomsDistance;
     [SerializeField] private Vector2 startPosition;
@@ -21,139 +24,53 @@ public class MapManager : MonoBehaviour
     [SerializeField] private RectTransform enemyIconParent;
     [SerializeField] private AgentConfig[] enemyInfo;
     [Header("Rooms")]
+    [SerializeField] private int[] roomsToStartDisabled;
+    [SerializeField] private GameObject roomsHudPrefab;
+    [SerializeField] private Transform hudPrefabParent;
     [SerializeField] private GameObject[] roomsPrefabOptions;
     [SerializeField] private Vector2 areaSize;
     [SerializeField] private Room[] mapRooms;
     [SerializeField] private List<Room> avaliableRooms;
     [SerializeField] private List<Room> disabledRooms;
-    private RoomDoorsInfo[] roomsDoors;
+
     private DoorsManager doorsManager;
     private AlarmsManager alarmsManager;
+
+    //public Action OnMapSetupCompleted;
 
     private void Awake()
     {
         SetupMap();
-
-        if (configOnStart) Configurate();
+        Configurate();
 
         doorsManager = FindObjectOfType<DoorsManager>();
         alarmsManager = FindObjectOfType<AlarmsManager>();
 
         avaliableRooms = new List<Room>();
+
         disabledRooms = new List<Room>();
 
-        int doorAmount = 0;
-        int id = 0;
-
         for (int i = 0; i < mapRooms.Length; i++)
         {
-            doorAmount += mapRooms[i].roomDoors.Length;
+            avaliableRooms.Add(mapRooms[i]);
         }
 
-        roomsDoors = new RoomDoorsInfo[doorAmount];
 
-        for (int i = 0; i < mapRooms.Length; i++)
+        for (int i = 0; i < roomsToStartDisabled.Length; i++)
         {
-            for (int y = 0; y < mapRooms[i].roomDoors.Length; y++)
-            {
-                roomsDoors[id] = mapRooms[i].roomDoors[y];
+            DisableRoom(roomsToStartDisabled[i]);
 
-                id++;
-            }
+            DisableDoorsOfTheNeighbors(mapRooms[roomsToStartDisabled[i]]);
+
+
+            avaliableRooms.Remove(mapRooms[roomsToStartDisabled[i]]);
+
+            disabledRooms.Add(mapRooms[roomsToStartDisabled[i]]);
         }
 
-        Alarm[] alarms = FindObjectsOfType<Alarm>();
-
-        foreach (var a in alarms)
-            a.OnAlarmEnabled += Alarms_OnAlarmEnabledUpdate;
-
-        foreach (var d in roomsDoors)
-        {
-            d.doorRef.OnLockDoor += Doors_OnDoorLock;
-            d.doorRef.OnUnlockDoor += Doors_OnDoorUnluck;
-        }
-
-        foreach (Room d in mapRooms)
-        {
-            if (d.roomActive)
-                avaliableRooms.Add(d);
-            else
-                disabledRooms.Add(d);
-        }
-
-        DisableAllDoorsHud();
-
-        DisableAllCoinsHud();
-
-        DisableAllPowerUpHud();
-    }
-
-    private void Configurate()
-    {
-        if (mapRooms.Length > 0)
-        {
-            for (int i = 0; i < mapRooms.Length; i++)
-            {
-                Room roomRef = mapRooms[i];
-
-                if (roomRef.roomAlarm.CanBeActive())
-                {
-                    if (roomRef.roomActive)
-                        roomRef.roomAlarm.Enable();
-                    else
-                        roomRef.roomAlarm.Disable();
-                }
-
-                GameObject roomHudRef = GameObject.Find("HUD " + roomRef.name);
-                if (roomHudRef != null)
-                {
-                    roomRef.roomHudRectRef = roomHudRef.GetComponent<RectTransform>();
-                    roomRef.roomHudImageRef = roomHudRef.GetComponent<Image>();
-
-                    Image[] children = roomHudRef.GetComponentsInChildren<Image>();
-
-                    for (int y = 0; y < roomRef.roomDoors.Length; y++)
-                    {
-                        if (roomRef.roomDoors[y].doorRef.CanBeActive())
-                        {
-                            if (roomRef.roomActive)
-                                roomRef.roomDoors[y].doorRef.Enable();
-                            else
-                                roomRef.roomDoors[y].doorRef.Disable();
-                        }
-
-                        for (int c = 0; c < children.Length; c++)
-                        {
-                            if (children[c].name.Contains(roomRef.roomDoors[y].doorRef.name))
-                            {
-                                roomRef.roomDoors[y].doorHudImageRef = children[c];
-                                break;
-                            }
-                        }
-                    }
-
-                    for (int y = 0; y < children.Length; y++)
-                    {
-                        if (children[y].name.Contains("Alarm"))
-                            roomRef.alarmHudImageRef = children[y];
-                    }
-
-                    for (int y = 0; y < children.Length; y++)
-                    {
-                        if (children[y].name.Contains("Coin"))
-                            roomRef.coinHudImageRef = children[y];
-                    }
-
-                    for (int y = 0; y < children.Length; y++)
-                    {
-                        if (children[y].name.Contains("PowerUp"))
-                            roomRef.powerUpHudImageRef = children[y];
-                    }
-                }
+        SetUpDoors();
 
 
-            }
-        }
     }
 
     private void SetupMap()
@@ -195,16 +112,164 @@ public class MapManager : MonoBehaviour
 
 
 
-        for (int y = 0; y < mapArea.x; y++)
+        for (int y = 0; y < mapArea.y; y++)
         {
-            for (int x = 0; x < mapArea.y; x++)
+            position.y = startPosition.y + (y * roomsDistance.y);
+            for (int x = 0; x < mapArea.x; x++)
             {
                 mapRooms[id].transform.position = new Vector3(startPosition.x + (x * roomsDistance.x), position.y, 0);
+                id++;
             }
-
-            position.y = startPosition.y + (y * roomsDistance.y);
         }
 
+        for (int i = 0; i < mapRooms.Length; i++)
+        {
+            GameObject obj = Instantiate(roomsHudPrefab, hudPrefabParent);
+
+            RoomHud roomHud = obj.GetComponent<RoomHud>();
+
+            mapRooms[i].SetUpRoomHud(roomHud);
+        }
+
+    }
+
+    private void Configurate()
+    {
+        if (mapRooms.Length > 0)
+        {
+            int id = 0;
+
+            for (int y = 0; y < mapArea.y; y++)
+            {
+                for (int x = 0; x < mapArea.x; x++)
+                {
+                    mapRooms[id].DisableAllHuds();
+
+                    if (y == 0) mapRooms[id].RemoveDoor(DoorDirection.DOWN);
+
+                    if (x == 0) mapRooms[id].RemoveDoor(DoorDirection.LEFT);
+
+                    if (x == mapArea.x - 1) mapRooms[id].RemoveDoor(DoorDirection.RIGHT);
+
+                    if (y == mapArea.y - 1) mapRooms[id].RemoveDoor(DoorDirection.UP);
+
+                    id++;
+                }
+            }
+        }
+    }
+
+    private void DisableDoorsOfTheNeighbors(Room roomRef)
+    {
+        if (roomRef.roomActive == true) return;
+        print("OII");
+
+        int roomId = GetRoomId(roomRef);
+
+        if (roomId < 0)
+        {
+            Debug.LogError("Room " + roomRef + " dont exist");
+            return;
+        }
+
+        int max = (int)mapArea.x;
+
+        int neighborTop = roomId + max;
+        int neighborDown = roomId - max;
+        int neighborLeft = roomId - 1;
+        int neighborRight = roomId + 1;
+
+        int roomLine = roomId / 5;
+
+        if (neighborTop < 0 || neighborTop > mapRooms.Length - 1) neighborTop = -1;
+
+        if (neighborDown < 0 || neighborDown > mapRooms.Length - 1) neighborDown = -1;
+
+        if (neighborLeft < 0 || neighborLeft > mapRooms.Length - 1 || (int)(neighborLeft / 5) != roomLine) neighborLeft = -1;
+
+        if (neighborRight < 0 || neighborRight > mapRooms.Length - 1 || (int)(neighborRight / 5) != roomLine) neighborRight = -1;
+
+
+        if (neighborTop < 0 && neighborDown < 0 && neighborRight < 0 && neighborLeft < 0)
+        {
+            print("No neighbor");
+            return;
+        }
+
+        //bool haveSomeNeighborActive = false;
+
+        if (neighborTop >= 0)
+        {
+            print("VIZINHO DO TOPO: " + neighborTop);
+            TryDisableNeighborDoors(roomRef, neighborTop, DoorDirection.UP, DoorDirection.DOWN);
+        }
+
+        if (neighborDown >= 0)
+        {
+            print("VIZINHO DE BAIXO: " + neighborDown);
+            TryDisableNeighborDoors(roomRef, neighborDown, DoorDirection.DOWN, DoorDirection.UP);
+        }
+
+        if (neighborLeft >= 0)
+        {
+            print("VIZINHO DA ESQUERDA: " + neighborLeft);
+            TryDisableNeighborDoors(roomRef, neighborLeft, DoorDirection.LEFT, DoorDirection.RIGHT);
+        }
+
+        if (neighborRight >= 0)
+        {
+            print("VIZINHO DA DIREITA: " + neighborRight);
+            TryDisableNeighborDoors(roomRef, neighborRight, DoorDirection.RIGHT, DoorDirection.LEFT);
+        }
+
+        //if (haveSomeNeighborActive)
+        //    return true;
+        //else
+        //{
+        //    print("None neighbor active");
+        //    return false;
+        //}
+    }
+
+    private void TryDisableNeighborDoors(Room roomRef, int neighborIndex, DoorDirection roomRefDoorDirection, DoorDirection neighborDoorDirection)
+    {
+        if (mapRooms[neighborIndex].roomActive == true)
+        {
+            Door2D door = roomRef.GetDoorByDirection(roomRefDoorDirection);
+
+            if (door)
+            {
+                door.Disable();
+
+                Door2D neighborDoor = mapRooms[neighborIndex].GetDoorByDirection(neighborDoorDirection);
+
+                neighborDoor.Disable();
+
+            }
+            else
+            {
+                print("Doors not finded");
+            }
+        }
+        else
+        {
+            print(neighborIndex + "disabled");
+        }
+    }
+
+    private void SetUpDoors()
+    {
+        RoomDoorsInfo[] roomDoors;
+        for(int i = 0; i < mapRooms.Length; i++)
+        {
+            roomDoors = mapRooms[i].roomDoors;
+
+            for(int d=0; d<roomDoors.Length; d++)
+            {
+                roomDoors[d].doorRef.SetTeleportTransform(0, camera);
+                roomDoors[d].doorRef.SetTeleportTransform(1, player);
+            }
+        }
     }
 
     private void Update()
@@ -302,81 +367,15 @@ public class MapManager : MonoBehaviour
 
     }
 
-    private void Doors_OnDoorUnluck(Door2D d)
+    public void DisableRoom(int id)
     {
-        for (int i = 0; i < roomsDoors.Length; i++)
-        {
-            if (roomsDoors[i].doorRef == d)
-            {
-                roomsDoors[i].doorHudImageRef.enabled = false;
-                break;
-            }
-        }
-    }
+        if (mapRooms.Length <= 0) return;
 
-    private void Doors_OnDoorLock(Door2D d)
-    {
-        for (int i = 0; i < roomsDoors.Length; i++)
-        {
-            if (roomsDoors[i].doorRef == d)
-            {
-                roomsDoors[i].doorHudImageRef.enabled = true;
-                break;
-            }
-        }
-    }
+        mapRooms[id].Disable();
 
-    private void Alarms_OnAlarmEnabledUpdate(Alarm alarm, bool enabled)
-    {
-        for (int i = 0; i < mapRooms.Length; i++)
-        {
-            if (mapRooms[i].roomAlarm == alarm)
-            {
-                mapRooms[i].alarmHudImageRef.enabled = enabled;
-                break;
-            }
-        }
-    }
+        avaliableRooms.Remove(mapRooms[id]);
+        disabledRooms.Add(mapRooms[id]);
 
-    private void DisableAllDoorsHud()
-    {
-        for (int i = 0; i < mapRooms.Length; i++)
-        {
-            for (int y = 0; y < mapRooms[i].roomDoors.Length; y++)
-            {
-                mapRooms[i].roomDoors[y].doorHudImageRef.enabled = false;
-            }
-        }
-    }
-
-    private void DisableAllCoinsHud()
-    {
-        for (int i = 0; i < mapRooms.Length; i++)
-        {
-            mapRooms[i].coinHudImageRef.enabled = false;
-        }
-    }
-
-    private void DisableAllPowerUpHud()
-    {
-        for (int i = 0; i < mapRooms.Length; i++)
-        {
-            mapRooms[i].powerUpHudImageRef.enabled = false;
-        }
-    }
-
-    private void DisableAllDoorsAndAlarmsHud()
-    {
-        for (int i = 0; i < mapRooms.Length; i++)
-        {
-
-            mapRooms[i].alarmHudImageRef.enabled = false;
-
-            for (int y = 0; y < mapRooms[i].roomDoors.Length; y++)
-            {
-                mapRooms[i].roomDoors[y].doorHudImageRef.enabled = false;
-            }
-        }
     }
 
     public void EnableRandomRoom()
@@ -387,7 +386,7 @@ public class MapManager : MonoBehaviour
         {
             id = Random.Range(0, disabledRooms.Count);
 
-        } while (UpdateDoors(disabledRooms[id]) == false);
+        } while (TryEnableRoom(disabledRooms[id]) == false);
 
 
         avaliableRooms.Add(disabledRooms[id]);
@@ -399,11 +398,11 @@ public class MapManager : MonoBehaviour
         disabledRooms.RemoveAt(id);
     }
 
-    private bool UpdateDoors(Room roomRef)
+    private bool TryEnableRoom(Room roomRef)
     {
         int roomId = GetRoomId(roomRef);
 
-        print("-------------- RANDOM ROOM :" + roomId + " --------------");
+        print("-------------- Room to enable :" + roomId + " --------------");
 
         if (roomId < 0)
         {
@@ -411,7 +410,7 @@ public class MapManager : MonoBehaviour
             return false;
         }
 
-        int max = 5;
+        int max = (int)mapArea.x;
 
         int neighborTop = roomId + max;
         int neighborDown = roomId - max;
@@ -440,25 +439,25 @@ public class MapManager : MonoBehaviour
         if (neighborTop >= 0)
         {
             print("VIZINHO DO TOPO: " + neighborTop);
-            if (ValidateNeighborDoors(roomRef, neighborTop, DoorDirection.UP, DoorDirection.DOWN)) haveSomeNeighborActive = true;
+            if (TryEnableNeighborDoors(roomRef, neighborTop, DoorDirection.UP, DoorDirection.DOWN)) haveSomeNeighborActive = true;
         }
 
         if (neighborDown >= 0)
         {
             print("VIZINHO DE BAIXO: " + neighborDown);
-            if (ValidateNeighborDoors(roomRef, neighborDown, DoorDirection.DOWN, DoorDirection.UP)) haveSomeNeighborActive = true;
+            if (TryEnableNeighborDoors(roomRef, neighborDown, DoorDirection.DOWN, DoorDirection.UP)) haveSomeNeighborActive = true;
         }
 
         if (neighborLeft >= 0)
         {
             print("VIZINHO DA ESQUERDA: " + neighborLeft);
-            if (ValidateNeighborDoors(roomRef, neighborLeft, DoorDirection.LEFT, DoorDirection.RIGHT)) haveSomeNeighborActive = true;
+            if (TryEnableNeighborDoors(roomRef, neighborLeft, DoorDirection.LEFT, DoorDirection.RIGHT)) haveSomeNeighborActive = true;
         }
 
         if (neighborRight >= 0)
         {
             print("VIZINHO DA DIREITA: " + neighborRight);
-            if (ValidateNeighborDoors(roomRef, neighborRight, DoorDirection.RIGHT, DoorDirection.LEFT)) haveSomeNeighborActive = true;
+            if (TryEnableNeighborDoors(roomRef, neighborRight, DoorDirection.RIGHT, DoorDirection.LEFT)) haveSomeNeighborActive = true;
         }
 
         if (haveSomeNeighborActive)
@@ -470,7 +469,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    private bool ValidateNeighborDoors(Room roomRef, int neighborIndex, DoorDirection roomRefDoorDirection, DoorDirection neighborDoorDirection)
+    private bool TryEnableNeighborDoors(Room roomRef, int neighborIndex, DoorDirection roomRefDoorDirection, DoorDirection neighborDoorDirection)
     {
         if (mapRooms[neighborIndex].roomActive == true)
         {
@@ -497,55 +496,6 @@ public class MapManager : MonoBehaviour
         {
             print(neighborIndex + "disabled");
             return false;
-        }
-    }
-
-    private int GetRoomId(Room room)
-    {
-        for (int i = 0; i < mapRooms.Length; i++)
-        {
-            if (mapRooms[i] == room)
-                return i;
-        }
-
-        return -1;
-    }
-
-
-    //public void EnableAllRooms()
-    //{
-    //    for(int i=0; i < roomsInfo.Length; i++)
-    //    {
-    //        roomsInfo[i].Enable();
-    //    }
-
-    //    foreach(Room d in disabledRooms)
-    //        avaliableRooms.Add(d);
-
-    //    disabledRooms.Clear();
-    //    disabledRooms.Capacity = 0;
-    //}
-
-    public void LockDoorsOnRoom(int roomId)
-    {
-        Room r = avaliableRooms[roomId];
-
-        if (r != null)
-        {
-            for (int i = 0; i < r.roomDoors.Length; i++)
-            {
-                doorsManager.TryLookDoor(r.roomDoors[i].doorRef);
-            }
-        }
-    }
-
-    public void EneableAlarmOnRoom(int roomId)
-    {
-        Room r = avaliableRooms[roomId];
-
-        if (r != null)
-        {
-            alarmsManager.TryEnableAlarm(r.roomAlarm);
         }
     }
 
@@ -692,20 +642,102 @@ public class MapManager : MonoBehaviour
         return avaliableRooms[index].roomRefCenter.position;
     }
 
+    public void LockDoorsOnRoom(int roomId)
+    {
+        Room r = avaliableRooms[roomId];
+
+        if (r != null)
+        {
+            for (int i = 0; i < r.roomDoors.Length; i++)
+            {
+                doorsManager.TryLookDoor(r.roomDoors[i].doorRef);
+            }
+        }
+    }
+
+    public void EneableAlarmOnRoom(int roomId)
+    {
+        Room r = avaliableRooms[roomId];
+
+        if (r != null)
+        {
+            alarmsManager.TryEnableAlarm(r.roomAlarm);
+        }
+    }
+
+    private int GetRoomId(Room room)
+    {
+        for (int i = 0; i < mapRooms.Length; i++)
+        {
+            if (mapRooms[i] == room)
+                return i;
+        }
+
+        return -1;
+    }
 
     public Vector2 GetAreaSize()
     {
         return areaSize;
     }
 
-    //private void OnValidate()
-    //{
-    //    if (tryAutoConfig)
-    //    {
+    public Door2D[] GetDoorsInRoom(int id)
+    {
+        if (id < 0 || id >= mapRooms.Length) return null;
 
-    //    }
-    //}
+        int index = avaliableRooms.IndexOf(mapRooms[id]);
 
+        if (index < 0) return null;
+
+        RoomDoorsInfo[] roomDoorsInfo = avaliableRooms[index].roomDoors;
+
+        Door2D[] doors = new Door2D[roomDoorsInfo.Length];
+
+        for (int i = 0; i < doors.Length; i++)
+        {
+            doors[i] = roomDoorsInfo[i].doorRef;
+        }
+
+        return doors;
+    }
+
+    public Alarm GetAlarmInRoom(int id)
+    {
+        if (id < 0 || id >= mapRooms.Length) return null;
+
+        int index = avaliableRooms.IndexOf(mapRooms[id]);
+
+        if (index < 0) return null;
+
+        return avaliableRooms[index].roomAlarm;
+    }
+
+    public List<Door2D> GetAllDoors()
+    {
+        List<Door2D> temp = new List<Door2D>();
+
+        for (int i = 0; i < mapRooms.Length; i++)
+        {
+            for (int d = 0; d < mapRooms[i].roomDoors.Length; d++)
+            {
+                temp.Add(mapRooms[i].roomDoors[d].doorRef);
+            }
+        }
+
+        return temp;
+    }
+
+    public List<Alarm> GetAllAlarms()
+    {
+        List<Alarm> temp = new List<Alarm>();
+
+        for (int i = 0; i < mapRooms.Length; i++)
+        {
+            temp.Add(mapRooms[i].roomAlarm);
+        }
+
+        return temp;
+    }
 
     [BurstCompile]
     public struct MarkerParallelJob : IJobParallelFor

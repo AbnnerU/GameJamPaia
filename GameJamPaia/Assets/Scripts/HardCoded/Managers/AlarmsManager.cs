@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 public class AlarmsManager : MonoBehaviour
 {
     [SerializeField] private bool setDisabledAlarmsAsNotAvailableIndex = true;
+    [SerializeField]private MapManager mapManager;
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private Alarm[] alarms;
     private List<Alarm> disabledAlarms;
     private List<Alarm> alarmsAvailable;
@@ -22,6 +24,13 @@ public class AlarmsManager : MonoBehaviour
 
     private void Awake()
     {
+        gameManager.OnSetupCompleted += GameManager_OnMapSetupCompleted;
+    }
+
+    private void GameManager_OnMapSetupCompleted()
+    {
+        alarms = mapManager.GetAllAlarms().ToArray();
+
         alarmsAvailable = new List<Alarm>(alarms.Length);
         disabledAlarms = new List<Alarm>();
 
@@ -54,7 +63,6 @@ public class AlarmsManager : MonoBehaviour
             }
 
         }
-
     }
 
     private void Start()

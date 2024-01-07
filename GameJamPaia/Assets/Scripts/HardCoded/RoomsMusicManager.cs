@@ -4,6 +4,7 @@ public class RoomsMusicManager : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private MapManager mapManager;
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private SoundInterpolation soundInterpolation;
     [SerializeField] private EventSignal eventSignal;
     [SerializeField] private Door2D[] allDoors;
@@ -13,6 +14,13 @@ public class RoomsMusicManager : MonoBehaviour
 
     private void Awake()
     {
+        gameManager.OnSetupCompleted += GameManager_OnMapSetupCompleted; 
+    }
+
+    private void GameManager_OnMapSetupCompleted()
+    {
+        allDoors = mapManager.GetAllDoors().ToArray();
+
         areaSize = mapManager.GetAreaSize() / 2;
 
         eventSignal.OnSendSignal += UpdateMusic;

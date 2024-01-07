@@ -585,6 +585,7 @@ GameObject:
   - component: {fileID: 5681000177420442321}
   - component: {fileID: 5681000177420442351}
   - component: {fileID: 5681000177420442350}
+  - component: {fileID: 5699862869276793117}
   m_Layer: 5
   m_Name: HUD Room
   m_TagString: Untagged
@@ -606,11 +607,11 @@ RectTransform:
   m_Children:
   - {fileID: 5681000175895099810}
   - {fileID: 6972006581442465807}
-  - {fileID: 5681000177007771284}
-  - {fileID: 5681000177275694337}
-  - {fileID: 5681000176367848516}
-  - {fileID: 5681000176786855593}
   - {fileID: 446258800854237554}
+  - {fileID: 5681000177275694337}
+  - {fileID: 5681000176786855593}
+  - {fileID: 5681000176367848516}
+  - {fileID: 5681000177007771284}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -657,3 +658,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5699862869276793117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5681000177420442320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 535d5eda0c956f34291a1b9d0f83c4a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomImage: {fileID: 5681000177420442350}
+  alarmImage: {fileID: 5681000175895099808}
+  coinImage: {fileID: 3291118953448102610}
+  powerupImage: {fileID: 7349611633764030859}
+  roomDoorsImages:
+  - doorImage: {fileID: 5681000177275694367}
+    doorDirection: 0
+  - doorImage: {fileID: 5681000176786855591}
+    doorDirection: 1
+  - doorImage: {fileID: 5681000176367848514}
+    doorDirection: 2
+  - doorImage: {fileID: 5681000177007771282}
+    doorDirection: 3

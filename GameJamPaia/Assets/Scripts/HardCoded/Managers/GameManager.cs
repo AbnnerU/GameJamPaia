@@ -41,8 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MultiSoundRequest[] perksSound;
 
     [Header("Tutorial")]
-    [SerializeField] private Door2D[] doorsStartLocked;
-    [SerializeField] private Alarm alarmStartEnabled;
+    [SerializeField] private int roomToStartTutorial;
 
     [Header("Balance")]
     [SerializeField] private BalanceValues balanceValues;
@@ -57,6 +56,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> powerUpList = new List<GameObject>();
 
     public Action OnEndTutorial;
+    public Action OnSetupCompleted;
     private EnemySpawn enemySpawnConfig;
 
     private bool startSpawningPowerUp = false;
@@ -79,8 +79,6 @@ public class GameManager : MonoBehaviour
     private AlarmsDelayConfig[] alarmsDelayProgression;
     [SerializeField]private RoomProgression[] roomProgressions;
     //--------------------------------------
-
-
 
     private void Awake()
     {
@@ -106,12 +104,17 @@ public class GameManager : MonoBehaviour
   
     private void Start()
     {
-        for(int i=0;i<doorsStartLocked.Length;i++)
-            doorsManager.LockDoorAt(doorsManager.GetAvailableDoorIndex(doorsStartLocked[i]));
+        OnSetupCompleted?.Invoke();
 
-        alarmsManager.EnableAlarmAt(alarmsManager.GetAvailableAlarmIndex(alarmStartEnabled));
+        Door2D[] doorsForTutorial = mapManager.GetDoorsInRoom(roomToStartTutorial);
+        Alarm alarmForTutorial = mapManager.GetAlarmInRoom(roomToStartTutorial);
 
-        alarmStartEnabled.AlarmInputCompleted += TutorialEnd;
+        for (int i=0;i< doorsForTutorial.Length;i++)
+            doorsManager.LockDoorAt(doorsManager.GetAvailableDoorIndex(doorsForTutorial[i]));
+
+        alarmsManager.EnableAlarmAt(alarmsManager.GetAvailableAlarmIndex(alarmForTutorial));
+
+        alarmForTutorial.AlarmInputCompleted += TutorialEnd;
 
         doorsManager.SendActiveStateEvent();
     }

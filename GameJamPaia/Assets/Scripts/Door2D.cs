@@ -129,10 +129,13 @@ public class Door2D : MonoBehaviour, IHasActiveState
         OnChangeDoorActiveState?.Invoke(canBeActive);
     }
 
- 
+    public void SetTeleportTransform(int id, Transform transformRef)
+    {
+        onTriggerDoorUpdatePositions[id]._transform = transformRef;
+    }
 
     [Serializable]
-    private struct TransformToChange
+    private class TransformToChange
     {
         public Transform _transform;
         public Transform target;
