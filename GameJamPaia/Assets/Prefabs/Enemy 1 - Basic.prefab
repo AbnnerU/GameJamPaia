@@ -9897,6 +9897,7 @@ MonoBehaviour:
   playOnStart: 0
   cameraTransform: {fileID: 0}
   agentCollider: {fileID: 13849148727128666}
+  damage: 25
   target: {fileID: 0}
   targetCollider: {fileID: 0}
   targetMovement: {fileID: 0}

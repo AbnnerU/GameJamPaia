@@ -125,6 +125,7 @@
     <Compile Include="Assets\Scripts\Abstract\BTnode.cs" />
     <Compile Include="Assets\Scripts\IA\AIResetScore.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Balance\AlarmsProgression.cs" />
+    <Compile Include="Assets\Scripts\Abstract\HealthBasics.cs" />
     <Compile Include="Assets\Scripts\PlayAnimationArray.cs" />
     <Compile Include="Assets\Scripts\Sound\General\VolumeSlider.cs" />
     <Compile Include="Assets\Scripts\Score\GenericScoreVisual.cs" />
@@ -153,13 +154,17 @@
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeSpriteActiveStateAction.cs" />
     <Compile Include="Assets\Scripts\Interface\IHasActiveState.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\SceneLoadManager.cs" />
+    <Compile Include="Assets\Scripts\IA\Nodes\BTIsTargetAlive.cs" />
     <Compile Include="Assets\Scripts\Sound\OnTriggerAnimation.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameAction.cs" />
+    <Compile Include="Assets\Scripts\Health\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Perks\IncreaseMaxAlarmNumberUpgrade.cs" />
     <Compile Include="Assets\Scripts\Input\InputArea2D.cs" />
+    <Compile Include="Assets\Scripts\Health\HealthManager.cs" />
     <Compile Include="Assets\Scripts\OnStartSceneLoad.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\General\StandArea2D.cs" />
+    <Compile Include="Assets\Scripts\IA\Nodes\BTDoDamageToTarget.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsOnAIState.cs" />
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerUnlockAllDoors2D.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Balance\EnableRoomProgression.cs" />
@@ -167,6 +172,7 @@
     <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprint.cs" />
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerSendToRandomLocation.cs" />
+    <Compile Include="Assets\Scripts\Health\Events\HealthCustomEvents.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Room.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundRequestHandler.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsManager.cs" />

@@ -5119,9 +5119,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 2
+      minMaxState: 0
       minColor: {r: 0.8679245, g: 0.7133274, b: 0.68287647, a: 1}
-      maxColor: {r: 0.6962264, g: 0.7735849, b: 0.76102895, a: 1}
+      maxColor: {r: 1, g: 0.32098764, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10223,6 +10223,10 @@ GameObject:
   - component: {fileID: 3977281207701733605}
   - component: {fileID: 31584808}
   - component: {fileID: 6177146088224961011}
+  - component: {fileID: 925350083}
+  - component: {fileID: 1324661078510851701}
+  - component: {fileID: 925350084}
+  - component: {fileID: 3515609398886754614}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -10407,6 +10411,69 @@ MonoBehaviour:
   channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
   audioConfig: {fileID: 11400000, guid: 5f78a82354172b24eb0bd45c01cc4223, type: 2}
   positionReference: {fileID: 0}
+--- !u!81 &925350083
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221687289810548820}
+  m_Enabled: 1
+--- !u!114 &1324661078510851701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221687289810548820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 957f5827017d64946bc81d857a6a7293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  isHittable: 1
+  releaseOnDeath: 0
+  resetHealthOnEnable: 0
+--- !u!114 &925350084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221687289810548820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca7c17579ae4bd4181ad99bf9231bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBasics: {fileID: 1324661078510851701}
+  slider: {fileID: 0}
+--- !u!114 &3515609398886754614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221687289810548820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c89a25b7a1c85f47be160b63877e38f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthEventsRef: {fileID: 0}
+  OnRespawned:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRecibeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHeal:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8221687289947016775
 GameObject:
   m_ObjectHideFlags: 0
@@ -10594,6 +10661,9 @@ MonoBehaviour:
   requests:
   - channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
     audioConfig: {fileID: 11400000, guid: 1d99742b4360ac243b6a91bddd5af217, type: 2}
+    positionReference: {fileID: 0}
+  - channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+    audioConfig: {fileID: 11400000, guid: fa45e0d475616704d9e74720d2bbde97, type: 2}
     positionReference: {fileID: 0}
 --- !u!1 &8221687290642840349
 GameObject:

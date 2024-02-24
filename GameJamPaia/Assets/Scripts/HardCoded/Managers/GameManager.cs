@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject powerUpPrefab;
     [SerializeField] private bool active = true;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField]private HealthManager healthManager;
     [Header("Alarms")]
     [SerializeField] private AlarmsManager alarmsManager;
     [SerializeField] private Image alarmsActiveBar;
@@ -89,7 +90,7 @@ public class GameManager : MonoBehaviour
         alarmsManager.OnAlarmDisableStart += AlarmManager_OnAlarmDisableStart;
         alarmsManager.OnAlarmDisableCancel += AlarmManager_OnAlarmDisableCancel;
         alarmsManager.OnUpdateAlarmsOnCount += AlarmManager_OnAlarmsOnCountUpdate;
-
+        healthManager.OnDeath += GameOver;
         gameScoreRef.OnScoreChange += GameScore_OnScoreChange;
 
         SetupEnemySpawn();
@@ -467,6 +468,8 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        StopAllCoroutines();
+
         alarmsManager.DisableAllAlarmsSound();
 
         roomMusicManager.TurnOffMusic();
@@ -489,8 +492,6 @@ public class GameManager : MonoBehaviour
         active = false;
 
         highScore.TrySetNewHighScore();
-
-        StopAllCoroutines();
 
         StartCoroutine(GameOverTransition());
     }
