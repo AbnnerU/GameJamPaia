@@ -9907,6 +9907,7 @@ MonoBehaviour:
   behaviorTree: {fileID: 6617581792320150912}
   spriteObj: {fileID: 6617581793214855176}
   executionInterval: 0.1
+  speed: 0.3
   spawnParticle: {fileID: 2834020834894816444}
   spawnDelay: 3.85
   sprites:

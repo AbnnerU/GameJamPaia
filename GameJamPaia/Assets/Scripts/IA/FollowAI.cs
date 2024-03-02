@@ -34,7 +34,7 @@ public class FollowAI : MonoBehaviour, IAgentMovementState
 
     public void StartBehaviourTree()
     { 
-        BTFollowTarget bTFollowTarget = new BTFollowTarget(target, agent, this, minDistance, followTargetUpdateTime);
+        BTFollowTarget bTFollowTarget = new BTFollowTarget(target, agent, this, minDistance, followTargetUpdateTime,2);
         BTWaitForSeconds bTWaitForSeconds = new BTWaitForSeconds(1);
         BTSequence btFollowTargetSequence = new BTSequence(new List<BTnode> {
             bTFollowTarget, 

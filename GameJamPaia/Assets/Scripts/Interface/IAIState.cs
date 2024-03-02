@@ -12,5 +12,6 @@ public enum AIState
     FOLLOWTARGET,
     HITTEDTARGET,
     STOPPED, 
-    STUNNED
+    STUNNED,
+    SHOOTING
 }

@@ -14,9 +14,9 @@ namespace Assets.Scripts.BT
         private Vector3 pointPosition;
         private float distance;
         private float updateInterval;
+        private float speed;
 
-
-        public BTFollowTarget(Transform target, NavMeshAgent agent, IAgentMovementState agentMovementState,  float distance, float updateInterval)
+        public BTFollowTarget(Transform target, NavMeshAgent agent, IAgentMovementState agentMovementState,  float distance, float updateInterval, float speed)
         {
             this.target = target;
             this.agent = agent;
@@ -25,6 +25,7 @@ namespace Assets.Scripts.BT
             this.agentMovementState = agentMovementState;
 
             agentTransform = agent.transform;
+            this.speed = speed;
         }
 
 
@@ -113,6 +114,7 @@ namespace Assets.Scripts.BT
 
             agent.stoppingDistance = distance;
 
+            agent.speed = speed;
             float currentUpdateInterval;
 
             if (agent.isOnOffMeshLink) agent.CompleteOffMeshLink();

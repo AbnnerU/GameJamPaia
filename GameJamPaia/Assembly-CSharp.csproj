@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Sound\OnEnableSoundRequest.cs" />
     <Compile Include="Assets\Scripts\IA\AITurnOnAlarm.cs" />
     <Compile Include="Assets\Scripts\Door2D.cs" />
+    <Compile Include="Assets\Scripts\Interface\IAIShooter.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTWaitForSeconds.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTSequence.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTDoAction.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Assets\Scripts\GameActions\Actions\MultiChangeTransformPositionAction.cs" />
     <Compile Include="Assets\Scripts\HardCoded\SimpleAnimationManager.cs" />
     <Compile Include="Assets\Scripts\Shield.cs" />
+    <Compile Include="Assets\Scripts\IA\AIShooter.cs" />
     <Compile Include="Assets\Scripts\Abstract\UpgradeBase.cs" />
     <Compile Include="Assets\Scripts\Perks\InteractionSpeedUpgrade.cs" />
     <Compile Include="Assets\Scripts\Door2DSpriteManager.cs" />
@@ -124,11 +126,13 @@
     <Compile Include="Assets\Scripts\Sound\General\SoundsSettings.cs" />
     <Compile Include="Assets\Scripts\Abstract\BTnode.cs" />
     <Compile Include="Assets\Scripts\IA\AIResetScore.cs" />
+    <Compile Include="Assets\Scripts\IA\Nodes\BTIsTargetNear.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Balance\AlarmsProgression.cs" />
     <Compile Include="Assets\Scripts\Abstract\HealthBasics.cs" />
     <Compile Include="Assets\Scripts\PlayAnimationArray.cs" />
     <Compile Include="Assets\Scripts\Sound\General\VolumeSlider.cs" />
     <Compile Include="Assets\Scripts\Score\GenericScoreVisual.cs" />
+    <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\Abstract\AIBasicBehaviour.cs" />
     <Compile Include="Assets\Scripts\General\EventSignal.cs" />
     <Compile Include="Assets\Scripts\General\OnTriggerSignal2D.cs" />
@@ -144,6 +148,7 @@
     <Compile Include="Assets\Scripts\GameActions\Actions\RequestNewSoundArrayAction.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTSelector.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTInverter.cs" />
+    <Compile Include="Assets\Scripts\IA\Nodes\BTDodge.cs" />
     <Compile Include="Assets\Scripts\GameActions\OnTriggerEnterAction2D.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\PoolManager.cs" />
     <Compile Include="Assets\Scripts\HardCoded\RoomHud.cs" />
@@ -161,6 +166,7 @@
     <Compile Include="Assets\Scripts\Perks\IncreaseMaxAlarmNumberUpgrade.cs" />
     <Compile Include="Assets\Scripts\Input\InputArea2D.cs" />
     <Compile Include="Assets\Scripts\Health\HealthManager.cs" />
+    <Compile Include="Assets\Scripts\IA\Nodes\BTAICanShoot.cs" />
     <Compile Include="Assets\Scripts\OnStartSceneLoad.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\General\StandArea2D.cs" />

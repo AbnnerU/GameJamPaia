@@ -4,20 +4,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, IAIState
+public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, IAIState, IAIShooter
 {
+    [SerializeField] private bool drawGizmos;
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected AIState currentState = AIState.SPAWNING;
     [SerializeField] protected bool playOnStart;
     [SerializeField] protected Transform cameraTransform;
     [SerializeField] protected Collider2D agentCollider;
-    [SerializeField] protected int damage;
     [Header("Player Info")]
     [SerializeField] protected Transform target;
     [SerializeField] protected Collider2D targetCollider;
     [SerializeField] protected PlayerMovement targetMovement;
     [SerializeField] protected SimpleAnimationManager targetAnimator;
     [SerializeField] protected string targetTag = "player";
+    [Header("Shoot")]
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private int projectileDamage;
+    [SerializeField] private float reloadTime;
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private float gravityValue = Physics.gravity.y;
+    [SerializeField] private float projectileRadius;
+    [SerializeField] private LayerMask projectileLayerMask;
+    [SerializeField] private bool useGroundLayer;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float shootDelay;
+    [SerializeField] private float timeStoppedAfterShoot;
     [Header("BT")]
     [SerializeField] protected BehaviorTree behaviorTree;
     [SerializeField] protected GameObject spriteObj;
@@ -27,24 +40,19 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     [SerializeField] protected ParticleSystem spawnParticle;
     [SerializeField] protected float spawnDelay = 2;
     [SerializeField] protected SpriteRenderer[] sprites;
-    [Header("Shield")]
-    [SerializeField] protected Shield shield;
-    [SerializeField] protected float stunTime = 2;
-    [SerializeField] protected ParticleSystem stunEffect;
     [Header("FollowConfig")]
     [SerializeField] protected float followTargetUpdateTime;
     [SerializeField] protected float minDistance;
     [SerializeField] protected float passOffMeshLinkDelay;
-    [Header("Teleport")]
-    [SerializeField] protected MapManager mapManager;
-    [SerializeField] protected GameManager gameManager;
-    [SerializeField] protected string teleportPlayerAnimation;
-    [SerializeField] protected float teleportPlayerAnimationDuration;
-    [SerializeField] protected string releasePlayerAnimation;
-    [SerializeField] protected float releasePlayerAnimationDuration;
     [SerializeField] protected Transform particlesTransform;
     [SerializeField] protected ParticleSystem particlesRef;
+    [Header("Dodge")]
+    [SerializeField] private float distanceToDodge;
+    [SerializeField] private float dodgeRadius;
+    [SerializeField] private float dodgeSpeed;
+    [SerializeField] private float timeStoppedAfterDodge;
 
+    private Transform _transform;
     protected HealthManager targetHealth;
     //protected Transform[] transformsArray;
     //protected Vector3[] offSetArray;
@@ -53,10 +61,12 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     protected bool passingNavMeshLink = false;
 
+    protected bool canShoot = true;
+
     protected virtual void Awake()
     {
         //transformsArray = new Transform[2];
-       // offSetArray = new Vector3[2];
+        // offSetArray = new Vector3[2];
     }
 
     protected virtual void Start()
@@ -70,6 +80,10 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     public virtual void Setup()
     {
+        canShoot = true;
+
+        _transform = transform;
+
         agent.updateRotation = false;
         agent.updateUpAxis = false;
 
@@ -78,11 +92,11 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         if (cameraTransform == null)
             cameraTransform = Camera.main.transform;
 
-        if (mapManager == null)
-            mapManager = FindAnyObjectByType<MapManager>();
+        //if (mapManager == null)
+        //    mapManager = FindAnyObjectByType<MapManager>();
 
-        if (gameManager == null)
-            gameManager = FindObjectOfType<GameManager>();
+        //if (gameManager == null)
+        //    gameManager = FindObjectOfType<GameManager>();
 
         if (target == null)
             target = GameObject.FindGameObjectWithTag(targetTag).transform;
@@ -93,26 +107,30 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         if (targetMovement == null)
             targetMovement = target.GetComponent<PlayerMovement>();
 
-        if (shield == null)
-            shield = FindObjectOfType<Shield>();
+        //if (shield == null)
+        //    shield = FindObjectOfType<Shield>();
 
         if (targetCollider == null)
             targetCollider = target.GetComponent<Collider2D>();
 
         targetHealth = target.GetComponent<HealthManager>();
 
-        mapManager.AddNewAgent(agent.transform);
+        //mapManager.AddNewAgent(agent.transform);
 
         currentState = AIState.SPAWNING;
     }
 
-    public virtual void StartBehaviourTree()
+
+    public void StartBehaviourTree()
     {
         BTDoAction btEnableAgentColliderAction = new BTDoAction(() => SetColliderActive(true));
-        BTDoAction btDisableAgentColliderAction = new BTDoAction(() =>SetColliderActive(false));
+        BTDoAction btDisableAgentColliderAction = new BTDoAction(() => SetColliderActive(false));
 
         BTIsTargetAlive bTIsTargetAlive = new BTIsTargetAlive(targetHealth);
         BTInverter btIsTargetDead = new BTInverter(bTIsTargetAlive);
+        BTIsTargetNear bTIsTargetNear = new BTIsTargetNear(_transform, target, distanceToDodge);
+        BTInverter btIsTargetFar = new BTInverter(bTIsTargetNear);
+        BTStopAgent bTStopAgent = new BTStopAgent(agent);
 
         #region Spawn
         BTIsOnAIState btIsOnSpawningState = new BTIsOnAIState(this, AIState.SPAWNING);
@@ -135,90 +153,58 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         #endregion
 
 
-        #region Stunned
-        BTIsOnAIState btIsOnStunnedState = new BTIsOnAIState(this, AIState.STUNNED);
-        BTStopAgent bTStopAgent = new BTStopAgent(agent);
-        BTDoAction btStunEffectAction = new BTDoAction(() => StunEffect());
-        BTWaitForSeconds btStunnedTime = new BTWaitForSeconds(stunTime);
-        BTSetAIState btSetFollowAIState = new BTSetAIState(this, AIState.FOLLOWTARGET);
-        BTSequence btStunnedSequence = new BTSequence(new List<BTnode>
+
+        BTDodge bTDodge = new BTDodge(agent.transform, agent, dodgeRadius, speed, dodgeSpeed, 0.5f, 0.01f, this);
+        BTWaitForSeconds btTimeStoppedAfterDodge = new BTWaitForSeconds(timeStoppedAfterDodge);
+        BTSetAIState btSetFollowTargetAIState = new BTSetAIState(this, AIState.FOLLOWTARGET);
+        BTSequence btDodgeSequence = new BTSequence(new List<BTnode>
         {
-            btIsOnStunnedState,
-            bTStopAgent,
-            btStunEffectAction,
-            btDisableAgentColliderAction,
-            btStunnedTime,
-            btEnableAgentColliderAction,
-            btSetFollowAIState
-        });
-        #endregion
-
-        #region Hit
-        BTIsOnAIState bTIsOnHittedTargetState = new BTIsOnAIState(this, AIState.HITTEDTARGET);
-        BTDoAction bTTeleportPlayerAnimation = new BTDoAction(() => TargetWasCaughtAnimation());
-        BTDoDamageToTarget bTDoDamageToTarget = new BTDoDamageToTarget(targetHealth, damage);
-
-        BTSetAIState btSetStoppedAIState = new BTSetAIState(this, AIState.STOPPED);
-       
-        BTWaitForSeconds bTWaitTeleportPlayerAnimation = new BTWaitForSeconds(teleportPlayerAnimationDuration);
-        BTDoAction bTTeleportTargetAction = new BTDoAction(() => ReleaseTargetAnimations());
-        BTWaitForSeconds bTWaitReleasePlayerAnimation = new BTWaitForSeconds(releasePlayerAnimationDuration);
-        BTDoAction bTUnpauseAlarmsAction = new BTDoAction(() => UnpauseAlrams());
-
-        BTSequence bTHitTargetSequence = new BTSequence(new List<BTnode> {
-            bTIsTargetAlive,
-            bTWaitTeleportPlayerAnimation,
-            bTTeleportTargetAction,
-            bTWaitReleasePlayerAnimation,
-            bTUnpauseAlarmsAction,
-            btSetFollowAIState
+            bTIsTargetNear,
+            bTDodge,
+            btTimeStoppedAfterDodge,
+            btSetFollowTargetAIState
         });
 
-        BTSequence btKilledTargetSequence= new BTSequence(new List<BTnode>
+        BTIsOnAIState btIsOnShootingState = new BTIsOnAIState(this, AIState.SHOOTING);
+        BTAICanShoot bTAICanShoot = new BTAICanShoot(this);
+        BTWaitForSeconds btDelayToShoot = new BTWaitForSeconds(shootDelay);
+        BTDoAction btShoot = new BTDoAction(() => Shoot());
+        BTWaitForSeconds btTimeStoppedAfterShoot = new BTWaitForSeconds(timeStoppedAfterShoot);
+        BTSequence btShootingSequence = new BTSequence(new List<BTnode>
         {
-            btIsTargetDead,
-            btSetStoppedAIState
+            btIsTargetFar,
+            btIsOnShootingState,
+            bTAICanShoot,
+            btDelayToShoot,
+            btShoot,
+            btTimeStoppedAfterShoot,
+            btSetFollowTargetAIState
         });
-
-        BTSelector btHitTargetActionOptions = new BTSelector(new List<BTnode>
-        {
-            btKilledTargetSequence,
-            bTHitTargetSequence
-        });
-
-        BTSequence bTTeleportPlayerSequence = new BTSequence(new List<BTnode>
-        {
-            bTIsTargetAlive,
-            bTIsOnHittedTargetState,
-            bTStopAgent,
-            bTTeleportPlayerAnimation,
-            bTDoDamageToTarget,
-            btHitTargetActionOptions    
-        });
-
-        #endregion
 
         BTIsColliderEnabled bTIsColliderEnabled = new BTIsColliderEnabled(targetCollider);
         BTIsOnAIState btIsOnFollowTargetState = new BTIsOnAIState(this, AIState.FOLLOWTARGET);
         BTFollowTarget bTFollowTarget = new BTFollowTarget(target, agent, this, minDistance, followTargetUpdateTime, speed);
-        BTConditionalSequence bTFollowTargetCondicionalSequence = new BTConditionalSequence(new List<BTnode> { btIsOnFollowTargetState, bTIsColliderEnabled }, bTFollowTarget);
-
+        BTConditionalSequence bTFollowTargetCondicionalSequence = new BTConditionalSequence(new List<BTnode> { btIsOnFollowTargetState, bTIsColliderEnabled, btIsTargetFar }, bTFollowTarget);
+        BTSetAIState btSetShootingAIState = new BTSetAIState(this, AIState.SHOOTING);
         BTSequence btFollowTargetSequence = new BTSequence(new List<BTnode> {
             bTIsTargetAlive,
+            btIsTargetFar,
             btIsOnFollowTargetState,
             bTIsColliderEnabled,
             btEnableAgentColliderAction,
-            bTFollowTargetCondicionalSequence
+            bTFollowTargetCondicionalSequence,
+            btSetShootingAIState,
+            bTStopAgent
+            
         });
 
-
-        //----Root----
         rootSelector = new BTSelector(new List<BTnode>
         {
+              btDodgeSequence,
             btSpawnSequence,
-            btStunnedSequence,
-            bTTeleportPlayerSequence,
+            btShootingSequence,
             btFollowTargetSequence
+          
         });
 
         behaviorTree.SetActive(true);
@@ -228,12 +214,12 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         behaviorTree.SetExecutionInterval(executionInterval);
 
         behaviorTree.StartCoroutine(behaviorTree.Begin());
-
     }
+
 
     protected virtual void ChangeRendersActiveState(bool active)
     {
-        for(int i=0; i< sprites.Length; i++)
+        for (int i = 0; i < sprites.Length; i++)
             sprites[i].enabled = active;
     }
 
@@ -248,54 +234,54 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
         agentCollider.enabled = active;
     }
 
-    protected virtual void StunEffect()
-    {
-        //print("Pika");
-        stunEffect.Play();
-    }
+    //protected virtual void StunEffect()
+    //{
+    //    //print("Pika");
+    //    stunEffect.Play();
+    //}
 
-    protected virtual void TargetWasCaughtAnimation()
-    {
-        if (targetAnimator)
-        {
-            targetMovement.Disable();
-            targetCollider.enabled = false;
-            targetAnimator.SetAnimationManagerActive(false);
-            targetAnimator.PlayAnimation(teleportPlayerAnimation);
+    //protected virtual void TargetWasCaughtAnimation()
+    //{
+    //    if (targetAnimator)
+    //    {
+    //        targetMovement.Disable();
+    //        targetCollider.enabled = false;
+    //        targetAnimator.SetAnimationManagerActive(false);
+    //        targetAnimator.PlayAnimation(teleportPlayerAnimation);
 
-            gameManager.PauseAlarmsLoop(true);
-        }
-    }
+    //        gameManager.PauseAlarmsLoop(true);
+    //    }
+    //}
 
-    protected virtual void ReleaseTargetAnimations()
-    {
-        if (target && mapManager && gameManager)
-        {
-            int id = 0;
-            targetAnimator.PlayAnimation(releasePlayerAnimation);
+    //protected virtual void ReleaseTargetAnimations()
+    //{
+    //    if (target && mapManager && gameManager)
+    //    {
+    //        int id = 0;
+    //        targetAnimator.PlayAnimation(releasePlayerAnimation);
 
-            mapManager.RandomRoomNoRepeatAndAlarmOff(target, Vector3.zero, out id);
-            mapManager.SetObjectInRoom(cameraTransform, new Vector3(0, 0, -10), id);
-        }
-    }
+    //        mapManager.RandomRoomNoRepeatAndAlarmOff(target, Vector3.zero, out id);
+    //        mapManager.SetObjectInRoom(cameraTransform, new Vector3(0, 0, -10), id);
+    //    }
+    //}
 
-    protected virtual void UnpauseAlrams()
-    {
-        if (gameManager)
-        {
-            gameManager.PauseAlarmsLoop(false);
+    //protected virtual void UnpauseAlrams()
+    //{
+    //    if (gameManager)
+    //    {
+    //        gameManager.PauseAlarmsLoop(false);
 
-            targetMovement.Enable();
-            targetCollider.enabled = true;
-            targetAnimator.SetAnimationManagerActive(true);
-        }
-    }
+    //        targetMovement.Enable();
+    //        targetCollider.enabled = true;
+    //        targetAnimator.SetAnimationManagerActive(true);
+    //    }
+    //}
 
     public virtual void AgentIsOnNavMeshLink(bool isOnNavMeshLink)
     {
         if (!passingNavMeshLink && isOnNavMeshLink)
         {
-           // spriteObj.SetActive(false);
+            // spriteObj.SetActive(false);
             passingNavMeshLink = true;
 
             StartCoroutine(PassOffMeshLink());
@@ -337,7 +323,7 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
         } while (currentTime < passOffMeshLinkDelay);
 
-        
+
         agent.CompleteOffMeshLink();
         SetColliderActive(true);
     }
@@ -354,22 +340,56 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(targetTag) && currentState != AIState.HITTEDTARGET && currentState!=AIState.STUNNED && targetCollider.enabled && !passingNavMeshLink)
+        if (collision.CompareTag(targetTag) && currentState != AIState.HITTEDTARGET && currentState != AIState.STUNNED && targetCollider.enabled && !passingNavMeshLink)
         {
-            if (shield.IsShieldActive())
-            {
-                currentState = AIState.STUNNED;             
-                shield.HitShield();
-                agent.isStopped = true;
-                SetColliderActive(false);
-            }
-            else
-            {
-                currentState = AIState.HITTEDTARGET;
-            }
+           
         }
     }
 
+    public void Shoot()
+    {
+        if (canShoot)
+        {
+            Vector3 direction = (target.position - shootPoint.position);
+            direction.Normalize();
 
+            Vector3 speed = direction * projectileSpeed;
 
+            GameObject obj = PoolManager.SpawnObject(projectilePrefab, shootPoint.position, Quaternion.identity);
+
+            Projectile projectile = obj.GetComponent<Projectile>();
+
+            if (projectile != null)
+            {
+                projectile.EnableProjectile(shootPoint.position, speed, Vector3.up * gravityValue, projectileLayerMask, useGroundLayer, groundLayer, projectileRadius, projectileDamage, targetTag);
+            }
+            else
+            {
+                print("Object dont have Projectile script");
+            }
+
+            StartCoroutine(Reload());
+        }
+    }
+
+    IEnumerator Reload()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(reloadTime);
+        canShoot = true;
+    }
+
+    public bool CanShoot()
+    {
+        return canShoot;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (drawGizmos)
+        {
+            Gizmos.DrawSphere(transform.position, distanceToDodge);
+        }
+
+    }
 }
