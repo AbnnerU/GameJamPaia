@@ -121,11 +121,13 @@ namespace Assets.Scripts.BT
 
             while (target != null && agent != null && agent.enabled == true && agent.isStopped == false && target.gameObject.activeSelf == true)
             {
-
+                Debug.Log(agent.pathStatus);
                currentUpdateInterval = 0;
                 if (agent.pathPending == false && agent.remainingDistance < distance)
                 {                 
                     status = BTstatus.SUCCESS;
+
+                    
 
                     Debug.Log("Arrived"+" | "+agent.remainingDistance);
 

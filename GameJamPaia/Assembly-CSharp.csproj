@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\IA\Main nodes\BTConditionalSequence.cs" />
     <Compile Include="Assets\Scripts\Abstract\HoldTime.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundRequest.cs" />
+    <Compile Include="Assets\Scripts\IA\Nodes\BTStickToTheTarget.cs" />
     <Compile Include="Assets\Scripts\Score\ColletableAddScore.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Audio\AudioConfig.cs" />
     <Compile Include="Assets\Scripts\General\OnTriggerEnterSpawnPrefab.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Assets\Scripts\IA\Nodes\BTWaitForSeconds.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTSequence.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTDoAction.cs" />
+    <Compile Include="Assets\Scripts\IA\Nodes\BTIsBlindEffectActive.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BehaviorTree.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameScore.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\ObjectPool.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Assets\Scripts\GameActions\Actions\SoundInterpolationAction.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\Singleton.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Audio\AudioChannel.cs" />
+    <Compile Include="Assets\Scripts\IA\Nodes\BTIsPathCompleteStatus.cs" />
     <Compile Include="Assets\Scripts\HardCoded\BuyUpgrade.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsAgentOnNavMeshLink.cs" />
     <Compile Include="Assets\Scripts\General\DisableAfterTime.cs" />
@@ -117,8 +120,10 @@
     <Compile Include="Assets\Input\InputController.cs" />
     <Compile Include="Assets\Scripts\General\ColliderHandler2D.cs" />
     <Compile Include="Assets\Scripts\Abstract\ManagerBase.cs" />
+    <Compile Include="Assets\Scripts\IA\Nodes\BTIsAIStateDifferentOf.cs" />
     <Compile Include="Assets\Scripts\Sound\SondInterpolationRequest.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundEmitter.cs" />
+    <Compile Include="Assets\Scripts\IA\AIBlinder.cs" />
     <Compile Include="Assets\Scripts\Interface\IAgentMovementState.cs" />
     <Compile Include="Assets\Scripts\IA\AIDoorLock.cs" />
     <Compile Include="Assets\Scripts\IA\FollowAI.cs" />
@@ -143,6 +148,7 @@
     <Compile Include="Assets\Scripts\Input\InputAreaAction2D.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsColliderEnabled.cs" />
     <Compile Include="Assets\Scripts\Sound\SoundInterpolation.cs" />
+    <Compile Include="Assets\Scripts\VisionClamp.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\LoadingScene.cs" />
     <Compile Include="Assets\Scripts\HardCoded\EnemyActions.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\RequestNewSoundArrayAction.cs" />

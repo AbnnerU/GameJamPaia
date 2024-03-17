@@ -4,34 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, IAIState, IAIShooter
+public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, IAIState
 {
-    [SerializeField] private bool drawGizmos;
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected AIState currentState = AIState.SPAWNING;
     [SerializeField] protected bool playOnStart;
     [SerializeField] protected Transform cameraTransform;
     [SerializeField] protected Collider2D agentCollider;
     [SerializeField] protected MapManager mapManager;
+    [SerializeField] private VisionClamp visionClamp;
     [Header("Player Info")]
     [SerializeField] protected Transform target;
     [SerializeField] protected Collider2D targetCollider;
     [SerializeField] protected PlayerMovement targetMovement;
     [SerializeField] protected SimpleAnimationManager targetAnimator;
     [SerializeField] protected string targetTag = "player";
-    [Header("Shoot")]
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform shootPoint;
-    [SerializeField] private int projectileDamage;
-    [SerializeField] private float reloadTime;
-    [SerializeField] private float projectileSpeed;
-    [SerializeField] private float gravityValue = Physics.gravity.y;
-    [SerializeField] private float projectileRadius;
-    [SerializeField] private LayerMask projectileLayerMask;
-    [SerializeField] private bool useGroundLayer;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float shootDelay;
-    [SerializeField] private float timeStoppedAfterShoot;
     [Header("BT")]
     [SerializeField] protected BehaviorTree behaviorTree;
     [SerializeField] protected GameObject spriteObj;
@@ -41,17 +28,24 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     [SerializeField] protected ParticleSystem spawnParticle;
     [SerializeField] protected float spawnDelay = 2;
     [SerializeField] protected SpriteRenderer[] sprites;
+    [Header("Shield")]
+    [SerializeField] protected Shield shield;
+    [SerializeField] protected float stunTime = 2;
+    [SerializeField] protected ParticleSystem stunEffect;
     [Header("FollowConfig")]
     [SerializeField] protected float followTargetUpdateTime;
     [SerializeField] protected float minDistance;
-    [SerializeField] protected float passOffMeshLinkDelay;
-    [SerializeField] protected Transform particlesTransform;
-    [SerializeField] protected ParticleSystem particlesRef;
-    [Header("Dodge")]
-    [SerializeField] private float distanceToDodge;
-    [SerializeField] private float dodgeRadius;
-    [SerializeField] private float dodgeSpeed;
-    [SerializeField] private float timeStoppedAfterDodge;
+    [SerializeField] private float startFollowDelay;
+    [SerializeField] protected Vector3 stickOnTargetOffset;
+    [SerializeField] private Animator anim;
+    [SerializeField] private string sawTheTargetAnimation;
+
+
+    [Header("Random Point")]
+    [SerializeField] private float goToRandomPointRadius;
+    [SerializeField] private float randomPointSpeed;
+    [SerializeField] private float distanceToTarget;
+
 
     private Transform _transform;
     protected HealthManager targetHealth;
@@ -62,7 +56,6 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
 
     protected bool passingNavMeshLink = false;
 
-    protected bool canShoot = true;
 
     protected virtual void Awake()
     {
@@ -81,7 +74,6 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
 
     public virtual void Setup()
     {
-        canShoot = true;
 
         _transform = transform;
 
@@ -96,6 +88,9 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         if (mapManager == null)
             mapManager = FindAnyObjectByType<MapManager>();
 
+        if (visionClamp == null)
+            visionClamp = FindAnyObjectByType<VisionClamp>();
+
         //if (gameManager == null)
         //    gameManager = FindObjectOfType<GameManager>();
 
@@ -108,8 +103,8 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         if (targetMovement == null)
             targetMovement = target.GetComponent<PlayerMovement>();
 
-        //if (shield == null)
-        //    shield = FindObjectOfType<Shield>();
+        if (shield == null)
+            shield = FindObjectOfType<Shield>();
 
         if (targetCollider == null)
             targetCollider = target.GetComponent<Collider2D>();
@@ -129,9 +124,12 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
 
         BTIsTargetAlive bTIsTargetAlive = new BTIsTargetAlive(targetHealth);
         BTInverter btIsTargetDead = new BTInverter(bTIsTargetAlive);
-        BTIsTargetNear bTIsTargetNear = new BTIsTargetNear(_transform, target, distanceToDodge);
-        BTInverter btIsTargetFar = new BTInverter(bTIsTargetNear);
         BTStopAgent bTStopAgent = new BTStopAgent(agent);
+        BTSetAIState btSetFollowAIState = new BTSetAIState(this, AIState.FOLLOWTARGET);
+        BTIsTargetNear bTIsTargetNear = new BTIsTargetNear(_transform, target, distanceToTarget);
+        BTInverter btIsTargetFar = new BTInverter(bTIsTargetNear);
+        BTDoAction btEnableBlindEffect = new BTDoAction(() => BlindEffect(true));
+        BTDoAction btDisableBlindEffect = new BTDoAction(() => BlindEffect(false));
 
         #region Spawn
         BTIsOnAIState btIsOnSpawningState = new BTIsOnAIState(this, AIState.SPAWNING);
@@ -154,58 +152,83 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         #endregion
 
 
-
-        BTDodge bTDodge = new BTDodge(agent.transform, agent, dodgeRadius, speed, dodgeSpeed, 0.5f, 0.01f, this);
-        BTWaitForSeconds btTimeStoppedAfterDodge = new BTWaitForSeconds(timeStoppedAfterDodge);
-        BTSetAIState btSetFollowTargetAIState = new BTSetAIState(this, AIState.FOLLOWTARGET);
-        BTSequence btDodgeSequence = new BTSequence(new List<BTnode>
+        #region Stunned
+        BTIsOnAIState btIsOnStunnedState = new BTIsOnAIState(this, AIState.STUNNED);
+        BTDoAction btStunEffectAction = new BTDoAction(() => StunEffect());
+        BTWaitForSeconds btStunnedTime = new BTWaitForSeconds(stunTime);
+        BTSequence btStunnedSequence = new BTSequence(new List<BTnode>
         {
-            bTIsTargetNear,
-            bTDodge,
-            btTimeStoppedAfterDodge,
-            btSetFollowTargetAIState
+            btIsOnStunnedState,
+            btDisableBlindEffect,
+            bTStopAgent,
+            btStunEffectAction,
+            btDisableAgentColliderAction,
+            btStunnedTime,
+            btEnableAgentColliderAction
         });
+        #endregion
 
-        BTIsOnAIState btIsOnShootingState = new BTIsOnAIState(this, AIState.SHOOTING);
-        BTAICanShoot bTAICanShoot = new BTAICanShoot(this);
-        BTWaitForSeconds btDelayToShoot = new BTWaitForSeconds(shootDelay);
-        BTDoAction btShoot = new BTDoAction(() => Shoot());
-        BTWaitForSeconds btTimeStoppedAfterShoot = new BTWaitForSeconds(timeStoppedAfterShoot);
-        BTSequence btShootingSequence = new BTSequence(new List<BTnode>
-        {
-            btIsTargetFar,
-            btIsOnShootingState,
-            bTAICanShoot,
-            btDelayToShoot,
-            btShoot,
-            btTimeStoppedAfterShoot,
-            btSetFollowTargetAIState
-        });
 
+        #region IsTargetInArea
+        BTIsPathCompleteStatus bTIsPathCompleteStatus = new BTIsPathCompleteStatus(target, agent);
         BTIsColliderEnabled bTIsColliderEnabled = new BTIsColliderEnabled(targetCollider);
         BTIsOnAIState btIsOnFollowTargetState = new BTIsOnAIState(this, AIState.FOLLOWTARGET);
+        BTDoAction btSawTargetAction = new BTDoAction(() => SawTargetAnimation());
+        BTWaitForSeconds btStartFollowDelay = new BTWaitForSeconds(startFollowDelay);
+        BTConditionalSequence btStartFollowCondicionalSequence = new BTConditionalSequence(new List<BTnode> { btIsOnFollowTargetState, bTIsPathCompleteStatus }, btStartFollowDelay);
         BTFollowTarget bTFollowTarget = new BTFollowTarget(target, agent, this, minDistance, followTargetUpdateTime, speed);
-        BTConditionalSequence bTFollowTargetCondicionalSequence = new BTConditionalSequence(new List<BTnode> { btIsOnFollowTargetState, bTIsColliderEnabled, btIsTargetFar }, bTFollowTarget);
-        BTSetAIState btSetShootingAIState = new BTSetAIState(this, AIState.SHOOTING);
+        BTConditionalSequence bTFollowTargetCondicionalSequence = new BTConditionalSequence(new List<BTnode> { btIsOnFollowTargetState, bTIsColliderEnabled, bTIsPathCompleteStatus }, bTFollowTarget);
         BTSequence btFollowTargetSequence = new BTSequence(new List<BTnode> {
+            bTIsPathCompleteStatus,
             bTIsTargetAlive,
-            btIsTargetFar,
-            btIsOnFollowTargetState,
             bTIsColliderEnabled,
+            btSetFollowTargetState,
+            btSawTargetAction,
+            btStartFollowCondicionalSequence,
             btEnableAgentColliderAction,
-            bTFollowTargetCondicionalSequence,
-            btSetShootingAIState,
-            bTStopAgent
-
+            bTFollowTargetCondicionalSequence
         });
+
+        #endregion
+
+
+        #region Stick
+        BTStickToTheTarget bTStickToTheTarget = new BTStickToTheTarget(target, _transform, stickOnTargetOffset, 0);
+        BTIsOnAIState btIsOnHittedTargetState = new BTIsOnAIState(this, AIState.HITTEDTARGET);
+        BTConditionalSequence bTStickCondicionalSequence = new BTConditionalSequence(new List<BTnode> { bTIsPathCompleteStatus, bTIsColliderEnabled, bTIsTargetAlive }, bTStickToTheTarget);
+        BTSequence btStickSequence = new BTSequence(new List<BTnode>
+        {
+            bTIsPathCompleteStatus,
+            btIsOnHittedTargetState,
+            btEnableBlindEffect,
+            bTStickCondicionalSequence
+        });
+        #endregion 
+
+
+        #region TargetOutsideArea
+        BTInverter bTIsNotPathCompleteStatus = new BTInverter(bTIsPathCompleteStatus);
+        BTIsAIStateDifferentOf bTIsAIStateDifferentOfStopped = new BTIsAIStateDifferentOf(this, AIState.STOPPED);
+        BTSetAIState btSetStoppedState = new BTSetAIState(this, AIState.STOPPED);
+        BTDodge bTDodge = new BTDodge(_transform, agent, goToRandomPointRadius, randomPointSpeed, speed, 1, 0.1f, this);
+        BTConditionalSequence btGoToRandomPointCondicionalSequence = new BTConditionalSequence(new List<BTnode> { bTIsNotPathCompleteStatus }, bTDodge);
+        BTSequence btGoToRandomPointSequence = new BTSequence(new List<BTnode>
+        {
+            bTIsNotPathCompleteStatus,
+            bTIsAIStateDifferentOfStopped,
+            btDisableBlindEffect,
+            btGoToRandomPointCondicionalSequence,
+            btSetStoppedState,
+            bTStopAgent
+        });
+        #endregion
 
         rootSelector = new BTSelector(new List<BTnode>
         {
             btSpawnSequence,
-             btDodgeSequence,
-            btShootingSequence,
-            btFollowTargetSequence
-
+            btFollowTargetSequence,
+            btStickSequence,
+            btGoToRandomPointSequence
         });
 
         behaviorTree.SetActive(true);
@@ -222,6 +245,19 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     {
         for (int i = 0; i < sprites.Length; i++)
             sprites[i].enabled = active;
+    }
+
+    private void BlindEffect(bool setActive)
+    {
+        if (setActive)
+            visionClamp.Enable();
+        else
+            visionClamp.Disable();
+    }
+
+    private void SawTargetAnimation()
+    {
+        anim.Play(sawTheTargetAnimation, 0, 0);
     }
 
     protected virtual void Spawn()
@@ -280,54 +316,55 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
 
     public virtual void AgentIsOnNavMeshLink(bool isOnNavMeshLink)
     {
-        if (!passingNavMeshLink && isOnNavMeshLink)
-        {
-            // spriteObj.SetActive(false);
-            passingNavMeshLink = true;
+        //
+        //if (!passingNavMeshLink && isOnNavMeshLink)
+        //{
+        //    // spriteObj.SetActive(false);
+        //    passingNavMeshLink = true;
 
-            StartCoroutine(PassOffMeshLink());
-        }
-        else if (passingNavMeshLink && !isOnNavMeshLink)
-        {
-            //spriteObj.SetActive(true);
-            passingNavMeshLink = false;
+        //    StartCoroutine(PassOffMeshLink());
+        //}
+        //else if (passingNavMeshLink && !isOnNavMeshLink)
+        //{
+        //    //spriteObj.SetActive(true);
+        //    passingNavMeshLink = false;
 
-            StopAllCoroutines();
-            //particlesRef.Stop();
-        }
+        //    StopAllCoroutines();
+        //    //particlesRef.Stop();
+        //}
     }
 
-    protected IEnumerator PassOffMeshLink()
-    {
-        SetColliderActive(false);
-        float currentTime = 0;
-        Vector3 offMeshEndPosition = agent.currentOffMeshLinkData.endPos;
+    //protected IEnumerator PassOffMeshLink()
+    //{
+    //    SetColliderActive(false);
+    //    float currentTime = 0;
+    //    Vector3 offMeshEndPosition = agent.currentOffMeshLinkData.endPos;
 
-        particlesTransform.position = offMeshEndPosition;
-        particlesRef.Play();
+    //    particlesTransform.position = offMeshEndPosition;
+    //    particlesRef.Play();
 
-        do
-        {
-            currentTime += Time.deltaTime;
+    //    do
+    //    {
+    //        currentTime += Time.deltaTime;
 
-            if (agent.currentOffMeshLinkData.endPos != offMeshEndPosition && currentState == AIState.FOLLOWTARGET)
-            {
-                SetColliderActive(true);
-                yield break;
-            }
-            else if (currentState == AIState.STUNNED)
-            {
-                yield break;
-            }
+    //        if (agent.currentOffMeshLinkData.endPos != offMeshEndPosition && currentState == AIState.FOLLOWTARGET)
+    //        {
+    //            SetColliderActive(true);
+    //            yield break;
+    //        }
+    //        else if (currentState == AIState.STUNNED)
+    //        {
+    //            yield break;
+    //        }
 
-            yield return null;
+    //        yield return null;
 
-        } while (currentTime < passOffMeshLinkDelay);
+    //    } while (currentTime < passOffMeshLinkDelay);
 
 
-        agent.CompleteOffMeshLink();
-        SetColliderActive(true);
-    }
+    //    agent.CompleteOffMeshLink();
+    //    SetColliderActive(true);
+    //}
 
     public AIState GetCurrentAIState()
     {
@@ -339,58 +376,35 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         currentState = newState;
     }
 
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(targetTag) && currentState != AIState.HITTEDTARGET && currentState != AIState.STUNNED && targetCollider.enabled && !passingNavMeshLink)
+        if (collision.CompareTag(targetTag) && currentState == AIState.FOLLOWTARGET && targetCollider.enabled && !passingNavMeshLink)
         {
-
-        }
-    }
-
-    public void Shoot()
-    {
-        if (canShoot)
-        {
-            Vector3 direction = (target.position - shootPoint.position);
-            direction.Normalize();
-
-            Vector3 speed = direction * projectileSpeed;
-
-            GameObject obj = PoolManager.SpawnObject(projectilePrefab, shootPoint.position, Quaternion.identity);
-
-            Projectile projectile = obj.GetComponent<Projectile>();
-
-            if (projectile != null)
+            if (shield.IsShieldActive())
             {
-                projectile.EnableProjectile(shootPoint.position, speed, Vector3.up * gravityValue, projectileLayerMask, useGroundLayer, groundLayer, projectileRadius, projectileDamage, targetTag);
+                currentState = AIState.STUNNED;
+                shield.HitShield();
+                agent.isStopped = true;
+                SetColliderActive(false);
             }
             else
             {
-                print("Object dont have Projectile script");
+                currentState = AIState.HITTEDTARGET;
             }
-
-            StartCoroutine(Reload());
         }
     }
 
-    IEnumerator Reload()
+
+    protected virtual void StunEffect()
     {
-        canShoot = false;
-        yield return new WaitForSeconds(reloadTime);
-        canShoot = true;
+        //print("Pika");
+        stunEffect.Play();
     }
 
-    public bool CanShoot()
-    {
-        return canShoot;
-    }
+
 
     private void OnDrawGizmos()
     {
-        if (drawGizmos)
-        {
-            Gizmos.DrawSphere(transform.position, distanceToDodge);
-        }
 
     }
 }
