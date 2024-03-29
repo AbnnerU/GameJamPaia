@@ -14,7 +14,7 @@ public class HealthManager : HealthBasicsEvents, IHittable
         isAlive = true;
     }
 
-    public void OnHit(int damage)
+    public void OnHit(float damage)
     {
         if (isHittable )
         {

@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Perks\ShieldUpgrade.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Balance\BalanceValues.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeDoorLockedStateAction.cs" />
+    <Compile Include="Assets\Scripts\Areas\TeleportArea.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTSetAIState.cs" />
     <Compile Include="Assets\Scripts\Movement\PlayerMovement.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Assets\Scripts\IA\Main nodes\BTInverter.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTDodge.cs" />
     <Compile Include="Assets\Scripts\GameActions\OnTriggerEnterAction2D.cs" />
+    <Compile Include="Assets\Scripts\Areas\BlackHoleArea.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\PoolManager.cs" />
     <Compile Include="Assets\Scripts\HardCoded\RoomHud.cs" />
     <Compile Include="Assets\Scripts\Interface\IHasBehaviourTree.cs" />
@@ -183,7 +185,9 @@
     <Compile Include="Assets\Scripts\General\ParticleHandler.cs" />
     <Compile Include="Assets\Scripts\Sound\OnTriggerSound.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprint.cs" />
+    <Compile Include="Assets\Scripts\Areas\SlowArea.cs" />
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerSendToRandomLocation.cs" />
+    <Compile Include="Assets\Scripts\Areas\DamageArea.cs" />
     <Compile Include="Assets\Scripts\Health\Events\HealthCustomEvents.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Room.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundRequestHandler.cs" />

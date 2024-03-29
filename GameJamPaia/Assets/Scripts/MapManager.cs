@@ -545,22 +545,31 @@ public class MapManager : MonoBehaviour
     {
         Room currentRoom = GetRoomOfPosition(reference.position);
 
+        print("Current Room: " + currentRoom);
+
         List<Room> roomOptions = new List<Room>();
 
         foreach (Room r in avaliableRooms)
         {
-            if (r.roomAlarm.CanBeActive() == false)
+            if (r.roomAlarm.AlarmOn() == false)
                 roomOptions.Add(r);
         }
 
+        print("Room options: " + roomOptions.Count);
 
         if (currentRoom)
         {
             if (roomOptions.Contains(currentRoom))
+            {
+                print("Current Room removed");
                 roomOptions.Remove(currentRoom);
+            }
+
         }
 
         int index = Random.Range(0, roomOptions.Count);
+
+        print("Options choose: " + index);
 
         reference.position = roomOptions[index].roomRefCenter.position + offset;
 

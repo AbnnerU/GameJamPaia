@@ -8,6 +8,7 @@ public class MovementSprint : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private InputManager inputs;
+    [SerializeField] private bool percentage;
     [SerializeField] private float newSpeedValue;
     [SerializeField] private float sprintDuration;
     [SerializeField] private float sprintRechargeTime;
@@ -41,11 +42,41 @@ public class MovementSprint : MonoBehaviour
     {
         canUse = false;
 
-        playerMovement.SetNewSpeed(newSpeedValue);
+        if (percentage)
+        {
+            float current = playerMovement.GetSpeed();
+            float percentage = newSpeedValue / 100;
+            current = current * percentage;
+
+            playerMovement.SetNewSpeed(current);
+        }
+        else
+        {
+            playerMovement.SetNewSpeed(newSpeedValue);
+        }
 
         OnSprintActive?.Invoke(true);
 
-        yield return new WaitForSeconds(sprintDuration);
+        float currentTime = 0;
+
+        if (percentage)
+        {
+            float current = playerMovement.GetSpeed();
+            //float percentage = newSpeedValue / 100;
+            current = current * (1f + (newSpeedValue / 100f));
+
+            playerMovement.SetNewSpeed(current);
+        }
+
+        do
+        {
+            currentTime += Time.deltaTime;
+
+            yield return null;
+
+        } while (currentTime < sprintDuration);
+
+        //yield return new WaitForSeconds(sprintDuration);
 
         OnSprintActive?.Invoke(false);
 
@@ -53,8 +84,9 @@ public class MovementSprint : MonoBehaviour
 
         WhenItGoesIntoRechargeTime?.Invoke(sprintRechargeTime);
 
-        yield return new WaitForSeconds(sprintRechargeTime);  
-        
+
+        yield return new WaitForSeconds(sprintRechargeTime);
+
         canUse = true;
     }
 

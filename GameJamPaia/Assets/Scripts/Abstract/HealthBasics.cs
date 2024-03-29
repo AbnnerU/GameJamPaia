@@ -11,10 +11,10 @@ public abstract class HealthBasicsEvents : HealthEvents
 
 public abstract class HealthBasics : MonoBehaviour
 {
-    [SerializeField] protected int maxHealth;
+    [SerializeField] protected float maxHealth;
     [SerializeField] protected bool isHittable;
 
-    protected int currentHealth;
+    protected float currentHealth;
 
     protected bool isAlive=true;
 
@@ -28,12 +28,12 @@ public abstract class HealthBasics : MonoBehaviour
         return isAlive;
     }
 
-    public int GetMaxHealth()
+    public float GetMaxHealth()
     {
         return maxHealth;
     }
 
-    public int GetCurrentHealth()
+    public float GetCurrentHealth()
     {
         return currentHealth;
     }
@@ -106,7 +106,7 @@ public interface IHittable
 {
     void ResetHealth();
 
-    void OnHit(int damage);
+    void OnHit(float damage);
 
     void WhenKilled();
 }

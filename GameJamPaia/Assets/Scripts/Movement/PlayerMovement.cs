@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour, IHasActiveState
 {
-    [SerializeField] private bool active=true;
+    [SerializeField] private bool active = true;
     [SerializeField] private InputManager input;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed;
@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
 
     private void Awake()
     {
-        if(rb == null)
+        if (rb == null)
             rb = GetComponent<Rigidbody2D>();
 
         input.OnMoveInput += Input_OnMoveInput;
@@ -33,14 +33,14 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
 
     private void FixedUpdate()
     {
-        if(!active) return;
+        if (!active) return;
 
         Move();
     }
 
     private void Move()
     {
-       rb.velocity = inputDirection * (speed * Time.deltaTime);
+        rb.velocity = inputDirection * (speed * Time.deltaTime);
     }
 
     public void SetDefaultSpeed()
@@ -48,9 +48,19 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
         speed = defaultSpeed;
     }
 
+    public float GetDefaultSpeed()
+    {
+        return defaultSpeed;
+    }
+
     public void SetNewSpeed(float newSpeed)
     {
         speed = newSpeed;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
     }
 
     public void Disable()
