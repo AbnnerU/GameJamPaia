@@ -1,10 +1,14 @@
 
 using UnityEngine;
 
-public class SlowArea : MonoBehaviour
+public class MovementModifierArea : MonoBehaviour
 {
     [SerializeField] private string targetTag;
-    [SerializeField] private float slowPercentage;
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private float accelerationSpeed;
+    [SerializeField] private float decelerationSpeed;
+
+    //[SerializeField] private float slowPercentage;
     private PlayerMovement[] objectsInside;
 
     private void Awake()
@@ -79,7 +83,7 @@ public class SlowArea : MonoBehaviour
                 {
                     RegisterObject(movement);
 
-                    ApplySlow(movement);
+                    Modify(movement);
                 }
             }
         }
@@ -105,16 +109,13 @@ public class SlowArea : MonoBehaviour
         }
     }
 
-    private void ApplySlow(PlayerMovement reference)
+    private void Modify(PlayerMovement reference)
     {
         for (int i = 0; i < objectsInside.Length; i++)
         {
             if (objectsInside[i] == reference)
             {
-                float current = objectsInside[i].GetMaxSpeed();
-                float slow = current * (1f - (slowPercentage / 100f));
-
-                objectsInside[i].SetNewMaxSpeed(slow);
+                objectsInside[i].SetNewMovementValues(maxSpeed, accelerationSpeed, decelerationSpeed);
                 return;
             }
         }

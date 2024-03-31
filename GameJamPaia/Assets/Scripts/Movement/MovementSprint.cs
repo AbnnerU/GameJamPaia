@@ -9,7 +9,9 @@ public class MovementSprint : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private InputManager inputs;
     [SerializeField] private bool percentage;
-    [SerializeField] private float newSpeedValue;
+    [SerializeField] private float newMaxSpeedValue;
+    [SerializeField] private float newAccelerationValue;
+    [SerializeField]private float newDecelerationValue;
     [SerializeField] private float sprintDuration;
     [SerializeField] private float sprintRechargeTime;
 
@@ -44,29 +46,20 @@ public class MovementSprint : MonoBehaviour
 
         if (percentage)
         {
-            float current = playerMovement.GetSpeed();
-            float percentage = newSpeedValue / 100;
+            float current = playerMovement.GetMaxSpeed();
+            float percentage = newMaxSpeedValue / 100;
             current = current * percentage;
 
-            playerMovement.SetNewSpeed(current);
+            playerMovement.SetNewMovementValues(current, newAccelerationValue, newDecelerationValue);
         }
         else
         {
-            playerMovement.SetNewSpeed(newSpeedValue);
+            playerMovement.SetNewMovementValues(newMaxSpeedValue, newAccelerationValue, newDecelerationValue);
         }
 
         OnSprintActive?.Invoke(true);
 
         float currentTime = 0;
-
-        if (percentage)
-        {
-            float current = playerMovement.GetSpeed();
-            //float percentage = newSpeedValue / 100;
-            current = current * (1f + (newSpeedValue / 100f));
-
-            playerMovement.SetNewSpeed(current);
-        }
 
         do
         {
@@ -80,7 +73,7 @@ public class MovementSprint : MonoBehaviour
 
         OnSprintActive?.Invoke(false);
 
-        playerMovement.SetDefaultSpeed();
+        playerMovement.SetDefaultValues();
 
         WhenItGoesIntoRechargeTime?.Invoke(sprintRechargeTime);
 

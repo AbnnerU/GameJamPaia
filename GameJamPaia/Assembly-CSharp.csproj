@@ -93,6 +93,8 @@
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\HardCoded\RoomsMusicManager.cs" />
     <Compile Include="Assets\Scripts\General\StandInAreaActions2D.cs" />
+    <Compile Include="Assets\Scripts\Areas\MovementModifierArea.cs" />
+    <Compile Include="Assets\Scripts\NegativeEffects.cs" />
     <Compile Include="Assets\Scripts\Score\HighScore.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Managers\DoorsManager.cs" />
     <Compile Include="Assets\Scripts\IA\AITeleporter.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Assets\Scripts\Shield.cs" />
     <Compile Include="Assets\Scripts\IA\AIShooter.cs" />
     <Compile Include="Assets\Scripts\Abstract\UpgradeBase.cs" />
+    <Compile Include="Assets\Scripts\Areas\NegativeEffect_Stun.cs" />
     <Compile Include="Assets\Scripts\Perks\InteractionSpeedUpgrade.cs" />
     <Compile Include="Assets\Scripts\Door2DSpriteManager.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Map.cs" />
@@ -189,6 +192,7 @@
     <Compile Include="Assets\Scripts\HardCoded\OnTriggerSendToRandomLocation.cs" />
     <Compile Include="Assets\Scripts\Areas\DamageArea.cs" />
     <Compile Include="Assets\Scripts\Health\Events\HealthCustomEvents.cs" />
+    <Compile Include="Assets\Scripts\Areas\ObjectSpawner2D.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Room.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundRequestHandler.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsManager.cs" />

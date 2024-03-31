@@ -10218,6 +10218,7 @@ GameObject:
   - component: {fileID: 8221687289810548822}
   - component: {fileID: 8221687289810548823}
   - component: {fileID: 8221687289810548817}
+  - component: {fileID: 5182550063017737769}
   - component: {fileID: 8221687289810548816}
   - component: {fileID: 8221687289810548818}
   - component: {fileID: 3977281207701733605}
@@ -10226,7 +10227,6 @@ GameObject:
   - component: {fileID: 925350083}
   - component: {fileID: 1324661078510851701}
   - component: {fileID: 925350084}
-  - component: {fileID: 3515609398886754614}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -10324,6 +10324,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5182550063017737769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221687289810548820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54def5c61a65b3945b718a2ce7a17afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 8221687289810548816}
 --- !u!114 &8221687289810548816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10339,7 +10352,10 @@ MonoBehaviour:
   active: 1
   input: {fileID: 0}
   rb: {fileID: 8221687289810548823}
-  speed: 200
+  slipFactor: 1
+  acceleration: 2000
+  deceleration: 1000
+  maxSpeed: 5
 --- !u!114 &8221687289810548818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10354,7 +10370,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 8221687289810548816}
   inputs: {fileID: 0}
-  newSpeedValue: 400
+  percentage: 1
+  newMaxSpeedValue: 200
+  newAccelerationValue: 4000
+  newDecelerationValue: 2000
   sprintDuration: 1
   sprintRechargeTime: 5
 --- !u!114 &3977281207701733605
@@ -10449,31 +10468,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBasics: {fileID: 1324661078510851701}
   slider: {fileID: 0}
---- !u!114 &3515609398886754614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8221687289810548820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c89a25b7a1c85f47be160b63877e38f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthEventsRef: {fileID: 0}
-  OnRespawned:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls: []
-  OnRecibeDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHeal:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &8221687289947016775
 GameObject:
   m_ObjectHideFlags: 0

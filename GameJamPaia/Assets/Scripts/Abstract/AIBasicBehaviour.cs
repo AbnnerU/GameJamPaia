@@ -16,6 +16,7 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     [SerializeField] protected Transform target;
     [SerializeField] protected Collider2D targetCollider;
     [SerializeField] protected PlayerMovement targetMovement;
+    [SerializeField] protected NegativeEffects negativeEffects;
     [SerializeField] protected SimpleAnimationManager targetAnimator;
     [SerializeField] protected string targetTag = "player";
     [Header("BT")]
@@ -92,6 +93,9 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
         if (targetMovement == null)
             targetMovement = target.GetComponent<PlayerMovement>();
+
+        if (negativeEffects == null)
+            negativeEffects = target.GetComponent<NegativeEffects>();
 
         if (shield == null)
             shield = FindObjectOfType<Shield>();
@@ -258,6 +262,7 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     {
         if (targetAnimator)
         {
+            negativeEffects.CancelAll();
             targetMovement.Disable();
             targetCollider.enabled = false;
             targetAnimator.SetAnimationManagerActive(false);

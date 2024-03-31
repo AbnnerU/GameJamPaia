@@ -13,6 +13,7 @@ public class AIDoorLock : AIBasicBehaviour
                 return;
             }
 
+            negativeEffects.CancelAll();
             targetMovement.Disable();
             targetCollider.enabled = false;
             targetAnimator.SetAnimationManagerActive(false);
