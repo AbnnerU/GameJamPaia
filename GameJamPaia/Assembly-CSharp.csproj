@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Save.cs" />
     <Compile Include="Assets\Scripts\Perks\ShieldUpgrade.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Balance\BalanceValues.cs" />
+    <Compile Include="Assets\Scripts\Areas\StuckArea.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeDoorLockedStateAction.cs" />
     <Compile Include="Assets\Scripts\Areas\TeleportArea.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTSetAIState.cs" />
@@ -94,7 +95,6 @@
     <Compile Include="Assets\Scripts\HardCoded\RoomsMusicManager.cs" />
     <Compile Include="Assets\Scripts\General\StandInAreaActions2D.cs" />
     <Compile Include="Assets\Scripts\Areas\MovementModifierArea.cs" />
-    <Compile Include="Assets\Scripts\NegativeEffects.cs" />
     <Compile Include="Assets\Scripts\Score\HighScore.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Managers\DoorsManager.cs" />
     <Compile Include="Assets\Scripts\IA\AITeleporter.cs" />
@@ -110,6 +110,8 @@
     <Compile Include="Assets\Scripts\HardCoded\Map.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Alarm.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\RequestNewSoundAction.cs" />
+    <Compile Include="Assets\Scripts\Negative effects\NegativeEffects.cs" />
+    <Compile Include="Assets\Scripts\Areas\LockRoomTrap.cs" />
     <Compile Include="Assets\Scripts\Input\InputManager.cs" />
     <Compile Include="Assets\Scripts\Movement\MovementSprintVisual.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\ObjectPoolContainer.cs" />
@@ -127,11 +129,13 @@
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsAIStateDifferentOf.cs" />
     <Compile Include="Assets\Scripts\Sound\SondInterpolationRequest.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundEmitter.cs" />
+    <Compile Include="Assets\Scripts\Areas\HealArea.cs" />
     <Compile Include="Assets\Scripts\IA\AIBlinder.cs" />
     <Compile Include="Assets\Scripts\Interface\IAgentMovementState.cs" />
     <Compile Include="Assets\Scripts\IA\AIDoorLock.cs" />
     <Compile Include="Assets\Scripts\IA\FollowAI.cs" />
     <Compile Include="Assets\Scripts\HardCoded\RestartButtonSounds.cs" />
+    <Compile Include="Assets\Scripts\Turret.cs" />
     <Compile Include="Assets\Scripts\Sound\General\SoundsSettings.cs" />
     <Compile Include="Assets\Scripts\Abstract\BTnode.cs" />
     <Compile Include="Assets\Scripts\IA\AIResetScore.cs" />
@@ -174,6 +178,7 @@
     <Compile Include="Assets\Scripts\Sound\OnTriggerAnimation.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameAction.cs" />
     <Compile Include="Assets\Scripts\Health\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\Negative effects\NegativeEffects_StuckHudVisual.cs" />
     <Compile Include="Assets\Scripts\Perks\IncreaseMaxAlarmNumberUpgrade.cs" />
     <Compile Include="Assets\Scripts\Input\InputArea2D.cs" />
     <Compile Include="Assets\Scripts\Health\HealthManager.cs" />

@@ -10219,6 +10219,7 @@ GameObject:
   - component: {fileID: 8221687289810548823}
   - component: {fileID: 8221687289810548817}
   - component: {fileID: 5182550063017737769}
+  - component: {fileID: 7520007280268193555}
   - component: {fileID: 8221687289810548816}
   - component: {fileID: 8221687289810548818}
   - component: {fileID: 3977281207701733605}
@@ -10250,7 +10251,7 @@ Transform:
   - {fileID: 8565900299536134717}
   - {fileID: 139025767}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8221687289810548823
 Rigidbody2D:
@@ -10337,6 +10338,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 8221687289810548816}
+--- !u!114 &7520007280268193555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221687289810548820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb951f5601ad0c4b85842c22a969ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  negativeEffects: {fileID: 5182550063017737769}
+  hudGroup: {fileID: 0}
+  slider: {fileID: 0}
 --- !u!114 &8221687289810548816
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthManager : HealthBasicsEvents, IHittable
+public class HealthManager : HealthBasicsEvents, IHittable, IHealable
 {
     [SerializeField] private bool releaseOnDeath;
 
@@ -28,6 +28,20 @@ public class HealthManager : HealthBasicsEvents, IHittable
 
                 WhenKilled();
             }
+        }
+    }
+
+    void IHealable.OnHeal(int healValue)
+    {
+        if (isAlive)
+        {
+            currentHealth += healValue;
+
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+            OnHeal?.Invoke();
         }
     }
 
@@ -58,4 +72,6 @@ public class HealthManager : HealthBasicsEvents, IHittable
         if (resetHealthOnEnable && isAlive==false)
             ResetHealth();
     }
+
+   
 }

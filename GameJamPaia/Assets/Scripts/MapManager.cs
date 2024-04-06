@@ -162,7 +162,6 @@ public class MapManager : MonoBehaviour
     private void DisableDoorsOfTheNeighbors(Room roomRef)
     {
         if (roomRef.roomActive == true) return;
-        print("OII");
 
         int roomId = GetRoomId(roomRef);
 
