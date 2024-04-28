@@ -136,4 +136,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: Player
   blackHoleCenter: {fileID: 3114974366096067028}
-  attractionForce: 50
+  attractionForce: 25
