@@ -15,9 +15,8 @@ public class SceneLoadManager : MonoBehaviour
 
         //SceneManager.sceneLoaded += SceneManager_sceneLoaded;
     }
-
-    //private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
-    //{
-
-    //}
+    public void QuitManager()
+    {
+        Application.Quit();
+    }
 }
