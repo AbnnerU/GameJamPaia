@@ -271,7 +271,7 @@ Transform:
   - {fileID: 5602048575829100603}
   - {fileID: 5596600339062141937}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5602048575472064104
 MonoBehaviour:
@@ -921,12 +921,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: ad9cd9e6f579d6947a84ee8677f11868,
-        type: 3}
     - target: {fileID: 7865633206489955898, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
       propertyPath: onTriggerDoorUpdatePositions.Array.data[0].target
@@ -1193,12 +1187,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: ad9cd9e6f579d6947a84ee8677f11868,
-        type: 3}
     - target: {fileID: 7082015238173661197, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1353,12 +1341,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: ad9cd9e6f579d6947a84ee8677f11868,
-        type: 3}
     - target: {fileID: 7082015238173661197, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1513,12 +1495,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: ad9cd9e6f579d6947a84ee8677f11868,
-        type: 3}
     - target: {fileID: 7865633206489955898, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
       propertyPath: onTriggerDoorUpdatePositions.Array.data[0].target

@@ -9857,7 +9857,7 @@ Transform:
   - {fileID: 2834020834894816445}
   - {fileID: 4074665672011440996}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &6617581792320150914
 NavMeshAgent:
@@ -9902,6 +9902,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetCollider: {fileID: 0}
   targetMovement: {fileID: 0}
+  negativeEffects: {fileID: 0}
   targetAnimator: {fileID: 0}
   targetTag: Player
   behaviorTree: {fileID: 6617581792320150912}
@@ -10112,7 +10113,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 16d010849d64dd449907a20c59bf2820, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10281,7 +10282,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 16d010849d64dd449907a20c59bf2820, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

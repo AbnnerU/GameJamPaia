@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f1487f89fe95f634396473fb798b43b0
+guid: 80413bca2ea311843bb06ff1d667f643
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 350
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -104,7 +104,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -119,34 +131,38 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Clock_UpPart
+      name: Door
       rect:
         serializedVersion: 2
-        x: 281
-        y: 425
-        width: 200
-        height: 80
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 63
+        y: 47
+        width: 299
+        height: 418
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -185, y: -234.5}
+        - {x: -185, y: 234.5}
+        - {x: 185, y: 234.5}
+        - {x: 185, y: -234.5}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5aaaeb84a70dc1744a0c6bd8c1983213
-      internalID: 1613661987
+      spriteID: cc90137dfc465df48823c54ed506ac36
+      internalID: -831786322
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Clock_Body
+      name: Chains
       rect:
         serializedVersion: 2
-        x: 40
-        y: 75
-        width: 216
-        height: 245
+        x: 524
+        y: 17
+        width: 441
+        height: 495
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,29 +170,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4aa6d9addb70354c88645b9cda33240
-      internalID: 1126216050
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Clock_Middle
-      rect:
-        serializedVersion: 2
-        x: 405
-        y: 227
-        width: 21
-        height: 92
-      alignment: 9
-      pivot: {x: 0.50000143, y: 0.15014035}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1cbea749622eabc44927e1f5fe134a6b
-      internalID: -626593712
+      spriteID: 8334870ac4f16ef4b9a379d80f105094
+      internalID: 2086736099
       vertices: []
       indices: 
       edges: []
@@ -192,9 +187,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Clock_Body: 1126216050
-      Clock_Middle: -626593712
-      Clock_UpPart: 1613661987
+      Chains: 2086736099
+      Door: -831786322
+      Door_ShiteSheet_2: -480173126
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

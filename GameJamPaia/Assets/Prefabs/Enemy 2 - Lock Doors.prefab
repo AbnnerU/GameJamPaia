@@ -4949,7 +4949,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d00ab9234a4998b429b03a42f27c1aaf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5033,7 +5033,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d00ab9234a4998b429b03a42f27c1aaf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5117,7 +5117,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d00ab9234a4998b429b03a42f27c1aaf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5186,7 +5186,7 @@ Transform:
   - {fileID: 7869147140357491604}
   - {fileID: 5723393491363620605}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &6892697019398397734
 NavMeshAgent:
@@ -5231,6 +5231,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetCollider: {fileID: 0}
   targetMovement: {fileID: 0}
+  negativeEffects: {fileID: 0}
   targetAnimator: {fileID: 0}
   targetTag: Player
   behaviorTree: {fileID: 6892697019398397732}

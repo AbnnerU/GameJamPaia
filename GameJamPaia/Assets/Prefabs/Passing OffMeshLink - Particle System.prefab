@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &1016585976429001187
 ParticleSystem:
@@ -1545,7 +1545,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 75e4b80d3c82c45488077f4ecec3bbbf, type: 3}
+    - sprite: {fileID: 2044856113, guid: a42f65a4dd227be4dbe30e435e8aaeb2, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:

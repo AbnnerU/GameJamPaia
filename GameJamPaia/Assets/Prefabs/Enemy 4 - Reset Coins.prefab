@@ -5033,6 +5033,7 @@ MonoBehaviour:
   target: {fileID: 0}
   targetCollider: {fileID: 0}
   targetMovement: {fileID: 0}
+  negativeEffects: {fileID: 0}
   targetAnimator: {fileID: 0}
   targetTag: Player
   behaviorTree: {fileID: 5932625376068725816}
@@ -10110,7 +10111,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 16d010849d64dd449907a20c59bf2820, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10133,7 +10134,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 7b86ea7edc942f740b6e1999e3f79253, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 5.12, y: 5.12}

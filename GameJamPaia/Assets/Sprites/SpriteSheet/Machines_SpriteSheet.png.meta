@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: de7427de99f0e344d9bf45cec3ce1215
+guid: f7848e6ebadbf7e45940a5c0538ddf96
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 400
+  spritePixelsToUnits: 250
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,11 +69,11 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
-    compressionQuality: 100
+    compressionQuality: 50
     crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
@@ -104,7 +104,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -119,43 +131,101 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Angel03_Legs
+      name: Machines_SpriteSheet_0
       rect:
         serializedVersion: 2
-        x: 49
-        y: 25
-        width: 122
-        height: 278
-      alignment: 9
-      pivot: {x: 0.49386442, y: 0.9038876}
+        x: 112
+        y: 288
+        width: 216
+        height: 439
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -130, y: 247}
+        - {x: -130, y: -247}
+        - {x: 130, y: -247}
+        - {x: 130, y: 247}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc8cf7f0385b13441a841c67977698e6
-      internalID: -2079904096
+      spriteID: 93e9bdfcca33df2449e8a720ff9de471
+      internalID: -800165678
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Angel03_Body
+      name: Machines_SpriteSheet_1
       rect:
         serializedVersion: 2
-        x: 272
-        y: 198
-        width: 202
-        height: 296
-      alignment: 9
-      pivot: {x: 0.49629453, y: 0.14343308}
+        x: 604
+        y: 288
+        width: 292
+        height: 465
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -176.5, y: 265.5}
+        - {x: -176.5, y: -265.5}
+        - {x: 176.5, y: -265.5}
+        - {x: 176.5, y: 265.5}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b16a2d485e0e3fe44a7df1936073b8d7
-      internalID: -1330009256
+      spriteID: 82d08340be27dee46a6bc9ae806a2712
+      internalID: 1099674277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Machines_SpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 271
+        width: 157
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -119, y: 270}
+        - {x: -119, y: -267}
+        - {x: 119, y: -270}
+        - {x: 119, y: 270}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8646294ab24532248a4351148315e9e8
+      internalID: 4457435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Machines_SpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 1597
+        y: 320
+        width: 339
+        height: 375
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -194, y: 223.5}
+        - {x: -191, y: -226.5}
+        - {x: 196, y: -226.5}
+        - {x: 194, y: 223.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 961b7c3c7b437a74e9d18d49f4998f4a
+      internalID: 1679106907
       vertices: []
       indices: 
       edges: []
@@ -171,8 +241,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Angel03_Legs: -2079904096
-      Angel03_Body: -1330009256
+      Machines_SpriteSheet_3: 1679106907
+      Machines_SpriteSheet_1: 1099674277
+      Machines_SpriteSheet_2: 4457435
+      Machines_SpriteSheet_0: -800165678
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a95943349e0976348812a141d27ba369
+guid: f1487f89fe95f634396473fb798b43b0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -115,9 +115,118 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Clock_UpPart
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 425
+        width: 231
+        height: 87
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 115.5, y: -9.5}
+        - {x: 115.5, y: 43.5}
+        - {x: 43.5, y: 43.5}
+        - {x: -81.5, y: 43.5}
+        - {x: -115.5, y: 43.5}
+        - {x: -115.5, y: 0.5}
+        - {x: -115.5, y: -43.5}
+        - {x: -91.5, y: -43.5}
+        - {x: -19.5, y: -11.5}
+        - {x: 21.5, y: -12.5}
+        - {x: 49.5, y: -23.5}
+        - {x: 65.5, y: -33.5}
+        - {x: 95.5, y: -43.5}
+        - {x: 115.5, y: -43.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aaaeb84a70dc1744a0c6bd8c1983213
+      internalID: 1613661987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clock_Body
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 75
+        width: 216
+        height: 245
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 132.5, y: 144}
+        - {x: 1.5, y: 144}
+        - {x: 5, y: 103.5}
+        - {x: -8, y: 104.5}
+        - {x: -9.5, y: 144}
+        - {x: -132.5, y: 144}
+        - {x: -132.5, y: -144}
+        - {x: 132.5, y: -144}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4aa6d9addb70354c88645b9cda33240
+      internalID: 1126216050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clock_Middle
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 227
+        width: 21
+        height: 92
+      alignment: 9
+      pivot: {x: 0.50000143, y: 0.15014035}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cbea749622eabc44927e1f5fe134a6b
+      internalID: -626593712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -128,7 +237,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Clock_Body: 1126216050
+      Clock_Middle: -626593712
+      Clock_UpPart: 1613661987
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

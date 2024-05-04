@@ -163,7 +163,7 @@ Transform:
   - {fileID: 4987152004554165930}
   - {fileID: 4981134534296991072}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4987152003943371001
 MonoBehaviour:
@@ -923,10 +923,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
+      propertyPath: m_Size.x
+      value: 0.8542857
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.1942858
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ad9cd9e6f579d6947a84ee8677f11868,
+      objectReference: {fileID: -831786322, guid: 80413bca2ea311843bb06ff1d667f643,
         type: 3}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7865633206489955898, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
       propertyPath: onTriggerDoorUpdatePositions.Array.data[0].target
@@ -1195,10 +1210,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
+      propertyPath: m_Size.x
+      value: 0.8537277
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.1942856
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ad9cd9e6f579d6947a84ee8677f11868,
         type: 3}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7082015238173661197, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1355,10 +1385,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
+      propertyPath: m_Size.x
+      value: 0.8537277
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.1942856
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ad9cd9e6f579d6947a84ee8677f11868,
         type: 3}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7865633206489955898, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
       propertyPath: onTriggerDoorUpdatePositions.Array.data[0].target
@@ -1505,10 +1550,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
+      propertyPath: m_Size.x
+      value: 0.8537277
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.1942856
+      objectReference: {fileID: 0}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ad9cd9e6f579d6947a84ee8677f11868,
         type: 3}
+    - target: {fileID: 3807334747645637287, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7082015238173661197, guid: 7d9ab4317ccf1f54389084e4583b5a2d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
