@@ -5,19 +5,54 @@ using UnityEngine.UI;
 
 public class MenuEffect : MonoBehaviour
 {
-    public Sprite spriteBase;
-    public Sprite[] spriteRandom;
-    public Image spriteFieds;
-    public void Start() => InvokeRepeating(nameof(SyncTimer), 1, Random.Range(1f, 4f));
-    public void SyncTimer()
+    [SerializeField]private Texture textureBase;
+    [SerializeField] private Texture[] textureRandom;
+    [SerializeField] private Image spriteFieds;
+    [SerializeField] private Material material;
+
+    private bool usingTextureBase = true;
+
+    public void Start()
     {
-        if (spriteFieds.sprite = spriteBase)
-        {
-            spriteFieds.sprite = spriteRandom[Random.Range(0,5)];
-        }
-        else
-        {
-            spriteFieds.sprite = spriteBase;
-        }
+        material = spriteFieds.material;
+
+        material.SetTexture("_BaseMap", textureBase);
+
+        usingTextureBase = true;
+
+        //InvokeRepeating(nameof(SyncTimer), 1, Random.Range(1f, 4f));
     }
+
+    public void SetRandomTexture()
+    {
+        material.SetTexture("_BaseMap", textureRandom[Random.Range(0, 5)]);
+
+        usingTextureBase = false;
+    }
+
+    public void SetBaseTexture()
+    {
+        material.SetTexture("_BaseMap", textureBase);
+
+        usingTextureBase = true;
+    }
+
+    //public void SyncTimer()
+    //{
+    //    if (usingTextureBase)
+    //    {
+    //        material.SetTexture("_BaseMap", textureRandom[Random.Range(0, 5)]);
+
+
+    //        print("oi");
+
+    //        usingTextureBase = false;
+    //    }
+    //    else
+    //    {
+    //        material.SetTexture("_BaseMap", textureBase);
+
+    //        usingTextureBase = true;
+    //    }
+    //}
 }
