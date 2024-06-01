@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameScore gameScoreRef;
     [SerializeField] private HighScore highScore;
+    [SerializeField]private FakeCoinManager fakeCoinManager;
     [SerializeField]private AudioChannel audioChannel;
     [SerializeField] private GameObject powerUpPrefab;
     [SerializeField] private bool active = true;

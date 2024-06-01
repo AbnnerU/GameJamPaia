@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\IA\Main nodes\BehaviorTree.cs" />
     <Compile Include="Assets\Scripts\Abstract\GameScore.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\ObjectPool.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\Managers\FakeCoinManager.cs" />
     <Compile Include="Assets\Scripts\Sound\General\MultiSoundRequest.cs" />
     <Compile Include="Assets\Scripts\HardCoded\Managers\AlarmsManager.cs" />
     <Compile Include="Assets\Scripts\Save.cs" />

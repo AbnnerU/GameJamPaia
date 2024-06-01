@@ -1,21 +1,25 @@
+
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Random = UnityEngine.Random;
 
 public class LockRoomTrap : MonoBehaviour
 {
+    [SerializeField] private bool startActive;
     [SerializeField] private bool drawGizmos;
     [SerializeField] private string targetTag;
     [SerializeField] private MapManager mapManager;
     [SerializeField] private Room roomRef;
 
     [Header("Trap")]
-    [SerializeField] private OnTriggerEnter2DSignal trap;
-    [SerializeField] private Renderer trapRenderer;
-    [SerializeField] private Collider2D trapCollider;
+    [SerializeField] private OnTriggerEnter2DSignal[] trap;
+    [SerializeField] private Renderer[] trapRenderer;
+    [SerializeField] private Collider2D[] trapCollider;
+    [SerializeField] private bool useRandomTrapPosition;
+    [SerializeField] private Transform trapReandomAreaStartPoint;
+    [SerializeField] private Vector2 trapRandomArea;
 
     [Header("DoorBlock")]
     [SerializeField] private GameObject doorBlockPrefab;
@@ -26,22 +30,37 @@ public class LockRoomTrap : MonoBehaviour
     [SerializeField] private Transform deactivatorSpawnStartPoint;
     [SerializeField] private Vector2 deactivatorSpawnArea;
 
+    [Header("Active Trap Again")]
+    [SerializeField] private bool autoResetTrap;
+    [SerializeField] private bool useDelayToReset;
+    [SerializeField] private float resetDelay;
 
-    private GameObject[] doorsBlocks;
-    private GameObject[] deactivators;
+    enum TrapState { DISABLED, ACTIVE, TRIGGERED, WAITINGDELAY };
 
-    private Vector2 area;
+    private TrapState currentTrapState;
+
+    private Transform[] doorsBlocks;
+    private Transform[] deactivators;
+
+    private Vector2 deactivatorArea;
+    private Vector2 trapsArea;
 
     private int currentDeactivatorsTriggeredNumber = 0;
+
+    public Action OnTrapTriggered;
+    public Action OnTrapDisabled;
 
     private void Awake()
     {
         if (mapManager == null)
             mapManager = FindObjectOfType<MapManager>();
 
-        trap.OnSendSignal += TriggeredTrap;
+        for (int i = 0; i < trap.Length; i++)
+            trap[i].OnSendSignal += TriggeredTrap;
 
-        area = deactivatorSpawnArea / 2;
+        deactivatorArea = deactivatorSpawnArea / 2;
+
+        trapsArea = trapRandomArea / 2;
     }
 
     private void Start()
@@ -52,28 +71,49 @@ public class LockRoomTrap : MonoBehaviour
 
         RoomDoorsInfo[] doors = roomRef.roomDoors;
 
-        doorsBlocks = new GameObject[doors.Length];
+        doorsBlocks = new Transform[doors.Length];
 
         for (int i = 0; i < doors.Length; i++)
         {
             Vector2 pos = doors[i].doorRef.transform.position;
 
-            doorsBlocks[i] = Instantiate(doorBlockPrefab, pos, Quaternion.identity);
+            doorsBlocks[i] = Instantiate(doorBlockPrefab, pos, Quaternion.identity).transform;
 
-            doorsBlocks[i].SetActive(false);
+            doorsBlocks[i].gameObject.SetActive(false);
         }
 
-        deactivators = new GameObject[deactivatorCount];
+        deactivators = new Transform[deactivatorCount];
 
         for (int i = 0; i < deactivatorCount; ++i)
         {
-            GameObject obj = Instantiate(trapDeactivatorPrefab, Vector2.zero, Quaternion.identity);
+            Transform obj = Instantiate(trapDeactivatorPrefab, Vector2.zero, Quaternion.identity).transform;
 
             obj.GetComponent<OnTriggerEnter2DSignal>().OnSendSignal += DeactivatorSignal;
 
             deactivators[i] = obj;
         }
 
+        if (startActive)
+            TrapsActiveState(true);
+        else
+            TrapsActiveState(false);
+
+    }
+
+    public void TryEnableTrap()
+    {
+        if (currentTrapState == TrapState.DISABLED)
+        {
+            TrapsActiveState(true);
+        }
+    }
+
+    public void TryDisableTrap()
+    {
+        if (currentTrapState == TrapState.ACTIVE)
+        {
+            TrapsActiveState(false);
+        }
     }
 
     private void DeactivatorSignal(OnTriggerEnter2DSignal signal)
@@ -85,11 +125,24 @@ public class LockRoomTrap : MonoBehaviour
         {
             for (int i = 0; i < doorsBlocks.Length; i++)
             {
-                doorsBlocks[i].SetActive(false);
+                doorsBlocks[i].gameObject.SetActive(false);
             }
 
-            trapRenderer.enabled = true;
-            trapCollider.enabled = true;
+            currentTrapState = TrapState.DISABLED;
+
+            OnTrapDisabled?.Invoke();
+
+            if (autoResetTrap)
+            {
+                if (useDelayToReset)
+                {
+                    StartCoroutine(ResetDelay());
+                }
+                else
+                {
+                    TrapsActiveState(true);
+                }
+            }
         }
     }
 
@@ -97,25 +150,80 @@ public class LockRoomTrap : MonoBehaviour
     {
         for (int i = 0; i < doorsBlocks.Length; i++)
         {
-            doorsBlocks[i].SetActive(true);
+            doorsBlocks[i].gameObject.SetActive(true);
         }
 
-        trapRenderer.enabled = false;
-        trapCollider.enabled = false;
+        TrapsActiveState(false);
 
-
-        float areaX = area.x;
-        float areaY = area.y;
+        float areaX = deactivatorArea.x;
+        float areaY = deactivatorArea.y;
 
         for (int i = 0; i < deactivatorCount; i++)
         {
             Vector3 pos = deactivatorSpawnStartPoint.position + (new Vector3(Random.Range(-areaX, areaX), Random.Range(-areaY, areaY), 0));
 
             deactivators[i].transform.position = pos;
-            deactivators[i].SetActive(true);
+            deactivators[i].gameObject.SetActive(true);
         }
 
         currentDeactivatorsTriggeredNumber = 0;
+
+        currentTrapState = TrapState.TRIGGERED;
+
+        OnTrapTriggered?.Invoke();
+
+    }
+
+
+    IEnumerator ResetDelay()
+    {
+        yield return new WaitForSeconds(resetDelay);
+        TrapsActiveState(true);
+    }
+
+    private void TrapsActiveState(bool isActive)
+    {
+        for (int i = 0; i < trapRenderer.Length; i++)
+            trapRenderer[i].enabled = isActive;
+
+
+        for (int i = 0; i < trapCollider.Length; i++)
+            trapCollider[i].enabled = isActive;
+
+        if (isActive)
+            currentTrapState = TrapState.ACTIVE;
+        else
+            currentTrapState = TrapState.DISABLED;
+
+        if (isActive && useRandomTrapPosition)
+            RandomizeTrapsPositions();
+    }
+
+    private void RandomizeTrapsPositions()
+    {
+        float areaX = trapsArea.x;
+        float areaY = trapsArea.y;
+
+        for (int i = 0; i < trap.Length; i++)
+        {
+            trap[i].transform.position = trapReandomAreaStartPoint.position + new Vector3(Random.Range(-areaX, areaX), Random.Range(-areaY, areaY), 0);
+        }
+
+    }
+
+
+    public void UpdateBlockDoorsPositions()
+    {
+        roomRef = mapManager.GetRoomOfPosition(transform.position);
+        RoomDoorsInfo[] doors = roomRef.roomDoors;
+
+        for (int i = 0; i < doors.Length; i++)
+        {
+            Vector2 pos = doors[i].doorRef.transform.position;
+
+            doorsBlocks[i].transform.position = pos;
+        }
+
     }
 
     private void OnDrawGizmos()
@@ -125,6 +233,15 @@ public class LockRoomTrap : MonoBehaviour
             if (deactivatorSpawnStartPoint)
             {
                 Gizmos.DrawWireCube(deactivatorSpawnStartPoint.position, deactivatorSpawnArea);
+            }
+
+            if (useRandomTrapPosition)
+            {
+                if (trapReandomAreaStartPoint)
+                {
+                    Gizmos.color = Color.red;
+                    Gizmos.DrawWireCube(trapReandomAreaStartPoint.position, trapRandomArea);
+                }
             }
         }
     }
