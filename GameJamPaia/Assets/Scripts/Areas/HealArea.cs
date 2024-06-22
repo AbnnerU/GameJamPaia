@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ public class HealArea : MonoBehaviour
     [SerializeField] private int healValue;
     [SerializeField] private float healDelay;
     private IHealable[] objectsInside;
+
+    public Action OnHeal;
+    public Action OnReadyToUse;
 
     private bool canHeal = true;
 
@@ -35,9 +39,13 @@ public class HealArea : MonoBehaviour
         canHeal = false;
         healable.OnHeal(healValue);
 
+        OnHeal?.Invoke();
+
         yield return new WaitForSeconds(healDelay);
 
         canHeal = true;
+
+        OnReadyToUse?.Invoke();
 
         yield break;
 
