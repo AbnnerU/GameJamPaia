@@ -148,6 +148,7 @@
     <Compile Include="Assets\Scripts\Scriptable Base\Balance\AlarmsProgression.cs" />
     <Compile Include="Assets\Scripts\Abstract\HealthBasics.cs" />
     <Compile Include="Assets\Scripts\PlayAnimationArray.cs" />
+    <Compile Include="Assets\Scripts\Negative effects\NegativeEffectc_StunVisual.cs" />
     <Compile Include="Assets\Scripts\Sound\General\VolumeSlider.cs" />
     <Compile Include="Assets\Scripts\Score\GenericScoreVisual.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />

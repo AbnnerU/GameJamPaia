@@ -13,6 +13,8 @@ public class NegativeEffects : MonoBehaviour
     public Action<NegativeEffects> OnCancelAll;
     private StuckData stuckData;
 
+    public Action<NegativeEffects> OnStunEffectStart;
+
     public void Stuck(int clickAmountToRelease)
     {
         stuckData = new StuckData();
@@ -48,6 +50,7 @@ public class NegativeEffects : MonoBehaviour
 
     public void Stun(float time)
     {
+        OnStunEffectStart?.Invoke(this);
         StartCoroutine(StunTime(time));
     }
 

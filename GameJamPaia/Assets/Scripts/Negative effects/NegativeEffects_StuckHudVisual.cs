@@ -23,7 +23,6 @@ public class NegativeEffects_StuckHudVisual : MonoBehaviour
     }
     private void StuckEffectStarted(NegativeEffects effects)
     {
-        print("SATRRRA");
 
         hudGroup.SetActive(true);
 

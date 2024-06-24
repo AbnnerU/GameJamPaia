@@ -113,7 +113,7 @@ public class ObjectSpawner2D : MonoBehaviour
                     amount++;
             }
         }
-        print("MAX:" + amount);
+
         return amount;
     }
 
