@@ -19,10 +19,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]private HealthManager healthManager;
     [Header("Alarms")]
     [SerializeField] private AlarmsManager alarmsManager;
-    [SerializeField] private Image alarmsActiveBar;
-    [SerializeField] private Animator alarmIncreaseAnimator;
-    [SerializeField] private string alarmIncreaseAnimationName;
-    [SerializeField] private string alarmsOffAnimationName;
+    [SerializeField] private Image alarmsFill;
+    [SerializeField] private Slider alarmsActiveBar;
+    [SerializeField] private Image faceImage;
+    [SerializeField] private Sprite[] faceProgression;
+    //[SerializeField] private Animator alarmIncreaseAnimator;
+    //[SerializeField] private string alarmIncreaseAnimationName;
+    //[SerializeField] private string alarmsOffAnimationName;
     [SerializeField] private AudioConfig[] alarmIncreaseSound;
     [SerializeField] private Color alarmAmountLowColor = Color.green;
     [SerializeField] private Color alarmAmountMediumColor = Color.yellow;
@@ -96,7 +99,7 @@ public class GameManager : MonoBehaviour
 
         SetupEnemySpawn();
 
-        alarmsActiveBar.fillAmount = 0;
+        alarmsActiveBar.value = 0;
 
         transitionPanel.SetActive(false);
 
@@ -190,7 +193,7 @@ public class GameManager : MonoBehaviour
     #region Alarms
     private void AlarmManager_OnNewAlarmOn()
     {
-        alarmIncreaseAnimator.Play(alarmIncreaseAnimationName, 0, 0);
+        //alarmIncreaseAnimator.Play(alarmIncreaseAnimationName, 0, 0);
 
         audioChannel?.AudioRequest(alarmIncreaseSound[Random.Range(0, alarmIncreaseSound.Length)], Vector3.zero);
     }
@@ -209,13 +212,14 @@ public class GameManager : MonoBehaviour
     {
         pauseNextAlarmActivation = false;
 
-        if(alarmsManager.GetAlarmsActiveValue() == 0)
-            alarmIncreaseAnimator.Play(alarmsOffAnimationName, 0, 0);
+        //if(alarmsManager.GetAlarmsActiveValue() == 0)
+        //    alarmIncreaseAnimator.Play(alarmsOffAnimationName, 0, 0);
     }
 
     private void AlarmManager_OnAlarmsOnCountUpdate(int value)
     {
         ChooseBarColor(value);
+        ChooseFaceImage(value);
 
         if (value >= maxAlarmsOn)
         {
@@ -240,22 +244,35 @@ public class GameManager : MonoBehaviour
         maxAlarmsOn += addValue;
 
         ChooseBarColor(alarmsManager.GetAlarmsActiveValue());
+
+        ChooseFaceImage(alarmsManager.GetAlarmsActiveValue());
     }
     public void ChooseBarColor(int value)
     {
         float percentage = (value * 100) / maxAlarmsOn;
 
-        alarmsActiveBar.fillAmount = percentage/100;
+        alarmsActiveBar.value = percentage/100;
 
        // print("Percentage: " + percentage+" | Value: "+value+" | Max:"+maxAlarmsOn);
 
-        if(percentage < 50)       
-            alarmsActiveBar.color = alarmAmountLowColor;
-        else if(value != maxAlarmsOn - 1)       
-            alarmsActiveBar.color = alarmAmountMediumColor;
-        else if(value == maxAlarmsOn - 1)      
-            alarmsActiveBar.color = alarmAmountHighColor;
+        if(percentage < 50)
+            alarmsFill.color = alarmAmountLowColor;
+        else if(value != maxAlarmsOn - 1)
+            alarmsFill.color = alarmAmountMediumColor;
+        else if(value == maxAlarmsOn - 1)
+            alarmsFill.color = alarmAmountHighColor;
         
+    }
+
+    public void ChooseFaceImage(int value)
+    {
+        float percentage = (value * 100) / maxAlarmsOn;
+
+        percentage = percentage / 100;
+
+        int imagesOptions = (int)((faceProgression.Length-1) * percentage);
+
+        faceImage.sprite = faceProgression[imagesOptions];
     }
 
     #endregion
