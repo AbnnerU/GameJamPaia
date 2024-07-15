@@ -171,6 +171,7 @@
     <Compile Include="Assets\Scripts\IA\Nodes\BTDodge.cs" />
     <Compile Include="Assets\Scripts\GameActions\OnTriggerEnterAction2D.cs" />
     <Compile Include="Assets\Scripts\Areas\BlackHoleArea.cs" />
+    <Compile Include="Assets\Scripts\HardCoded\BuyUpgradeFeedback.cs" />
     <Compile Include="Assets\Scripts\Scripts Pool\PoolManager.cs" />
     <Compile Include="Assets\Scripts\HardCoded\RoomHud.cs" />
     <Compile Include="Assets\Scripts\Interface\IHasBehaviourTree.cs" />

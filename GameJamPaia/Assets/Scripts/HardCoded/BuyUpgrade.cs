@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 public class BuyUpgrade : MonoBehaviour
@@ -22,7 +23,7 @@ public class BuyUpgrade : MonoBehaviour
     [SerializeField] private Animator upgradeAnimator;
     [SerializeField] private string onReachMaximumPurchaseAnimation;
 
-
+    public Action OnBuyed;
 
     private int currentPurschase = 0;
 
@@ -56,6 +57,8 @@ public class BuyUpgrade : MonoBehaviour
             {
                 upgradeAnimator.Play(onReachMaximumPurchaseAnimation, 0, 0);
             }
+
+            OnBuyed?.Invoke();
         }
         else
         {
