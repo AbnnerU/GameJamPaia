@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class RoomsMusicManager : MonoBehaviour
@@ -29,10 +30,7 @@ public class RoomsMusicManager : MonoBehaviour
         {
             allDoors[i].OnUpdatePositions += UpdateMusic;
         }
-    }
 
-    private void Start()
-    {
         UpdateMusic();
     }
 
@@ -42,6 +40,8 @@ public class RoomsMusicManager : MonoBehaviour
 
         if (room != null)
         {
+            print("OIIII");
+            print(room.GetRoomTrack());
             soundInterpolation.PlaySound(room.GetRoomTrack());
         }
     }

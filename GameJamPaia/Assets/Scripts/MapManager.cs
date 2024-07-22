@@ -191,7 +191,7 @@ public class MapManager : MonoBehaviour
 
         if (neighborTop < 0 && neighborDown < 0 && neighborRight < 0 && neighborLeft < 0)
         {
-            print("No neighbor");
+            //print("No neighbor");
             return;
         }
 
@@ -199,25 +199,25 @@ public class MapManager : MonoBehaviour
 
         if (neighborTop >= 0)
         {
-            print("VIZINHO DO TOPO: " + neighborTop);
+            //print("VIZINHO DO TOPO: " + neighborTop);
             TryDisableNeighborDoors(roomRef, neighborTop, DoorDirection.UP, DoorDirection.DOWN);
         }
 
         if (neighborDown >= 0)
         {
-            print("VIZINHO DE BAIXO: " + neighborDown);
+            //print("VIZINHO DE BAIXO: " + neighborDown);
             TryDisableNeighborDoors(roomRef, neighborDown, DoorDirection.DOWN, DoorDirection.UP);
         }
 
         if (neighborLeft >= 0)
         {
-            print("VIZINHO DA ESQUERDA: " + neighborLeft);
+            //print("VIZINHO DA ESQUERDA: " + neighborLeft);
             TryDisableNeighborDoors(roomRef, neighborLeft, DoorDirection.LEFT, DoorDirection.RIGHT);
         }
 
         if (neighborRight >= 0)
         {
-            print("VIZINHO DA DIREITA: " + neighborRight);
+           // print("VIZINHO DA DIREITA: " + neighborRight);
             TryDisableNeighborDoors(roomRef, neighborRight, DoorDirection.RIGHT, DoorDirection.LEFT);
         }
 

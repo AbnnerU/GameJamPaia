@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:277f82938c5609a92f8488966fc6bd50d99dab06f56e33e3dce9072480c9996d
-size 568
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda78afc1d1e7164aabf4702010781bb, type: 3}
+  m_Name: Room 2
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 15805a07fe4c9e9489b9a4cb57d07901, type: 3}
+  priority: 128
+  volume: 0.1
+  SpatialBlend: 0
+  StereoPan: 0
+  minDistance: 0
+  maxDistance: 0
+  loop: 1
