@@ -272,7 +272,12 @@ public class GameManager : MonoBehaviour
 
         int imagesOptions = (int)((faceProgression.Length-1) * percentage);
 
-        faceImage.sprite = faceProgression[imagesOptions];
+        if(imagesOptions < 0)
+            faceImage.sprite = faceProgression[0];
+        else if(imagesOptions>= faceProgression.Length)
+            faceImage.sprite = faceProgression[faceProgression.Length - 1];
+        else
+            faceImage.sprite = faceProgression[imagesOptions];
     }
 
     #endregion

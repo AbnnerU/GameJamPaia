@@ -5,14 +5,14 @@ public class SlowArea : MonoBehaviour
 {
     [SerializeField] private string targetTag;
     [SerializeField] private float slowPercentage;
-    private PlayerMovement[] objectsInside;
+    private NegativeEffects[] objectsInside;
 
     private void Awake()
     {
-        objectsInside = new PlayerMovement[0];
+        objectsInside = new NegativeEffects[0];
     }
 
-    private bool ObjectExist(PlayerMovement reference)
+    private bool ObjectExist(NegativeEffects reference)
     {
         for (int i = 0; i < objectsInside.Length; i++)
         {
@@ -25,10 +25,10 @@ public class SlowArea : MonoBehaviour
         return false;
     }
 
-    private void RegisterObject(PlayerMovement reference)
+    private void RegisterObject(NegativeEffects reference)
     {
         int length = objectsInside.Length + 1;
-        PlayerMovement[] temp = new PlayerMovement[length];
+        NegativeEffects[] temp = new NegativeEffects[length];
 
         for (int i = 0; i < objectsInside.Length; i++)
         {
@@ -40,10 +40,10 @@ public class SlowArea : MonoBehaviour
         objectsInside = temp;
     }
 
-    private void RemoveObject(PlayerMovement reference)
+    private void RemoveObject(NegativeEffects reference)
     {
         int length = objectsInside.Length - 1;
-        PlayerMovement[] temp = new PlayerMovement[length];
+        NegativeEffects[] temp = new NegativeEffects[length];
 
         for (int i = 0; i < objectsInside.Length; i++)
         {
@@ -55,13 +55,13 @@ public class SlowArea : MonoBehaviour
         objectsInside = temp;
     }
 
-    private void SetDefaultSpeed(PlayerMovement reference)
+    private void SetDefaultSpeed(NegativeEffects reference)
     {
         for (int i = 0; i < objectsInside.Length; i++)
         {
             if (objectsInside[i] == reference)
             {
-                objectsInside[i].SetDefaultValues();
+                objectsInside[i].CancelSlow();
                 return;
             }
         }
@@ -71,7 +71,7 @@ public class SlowArea : MonoBehaviour
     {
         if (collision.CompareTag(targetTag))
         {
-            PlayerMovement movement = collision.GetComponent<PlayerMovement>();
+            NegativeEffects movement = collision.GetComponent<NegativeEffects>();
 
             if (movement != null)
             {
@@ -89,7 +89,7 @@ public class SlowArea : MonoBehaviour
     {
         if (collision.CompareTag(targetTag))
         {
-            PlayerMovement movement = collision.GetComponent<PlayerMovement>();
+            NegativeEffects movement = collision.GetComponent<NegativeEffects>();
 
             if (movement != null)
             {
@@ -105,16 +105,13 @@ public class SlowArea : MonoBehaviour
         }
     }
 
-    private void ApplySlow(PlayerMovement reference)
+    private void ApplySlow(NegativeEffects reference)
     {
         for (int i = 0; i < objectsInside.Length; i++)
         {
             if (objectsInside[i] == reference)
             {
-                float current = objectsInside[i].GetMaxSpeed();
-                float slow = current * (1f - (slowPercentage / 100f));
-
-                objectsInside[i].SetNewMaxSpeed(slow);
+                objectsInside[i].ApllySlow(slowPercentage);
                 return;
             }
         }

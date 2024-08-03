@@ -128,6 +128,7 @@
     <Compile Include="Assets\Scripts\HardCoded\BuyUpgrade.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsAgentOnNavMeshLink.cs" />
     <Compile Include="Assets\Scripts\General\DisableAfterTime.cs" />
+    <Compile Include="Assets\Scripts\Areas\TeleportAreaMusicChangeSignal.cs" />
     <Compile Include="Assets\Scripts\General\OnTriggerEnter2DSignal.cs" />
     <Compile Include="Assets\Input\InputController.cs" />
     <Compile Include="Assets\Scripts\General\ColliderHandler2D.cs" />
@@ -145,11 +146,14 @@
     <Compile Include="Assets\Scripts\Sound\General\SoundsSettings.cs" />
     <Compile Include="Assets\Scripts\Abstract\BTnode.cs" />
     <Compile Include="Assets\Scripts\IA\AIResetScore.cs" />
+    <Compile Include="Assets\Scripts\Sound\OnTriggerSoundArray.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsTargetNear.cs" />
     <Compile Include="Assets\Scripts\Scriptable Base\Balance\AlarmsProgression.cs" />
     <Compile Include="Assets\Scripts\Abstract\HealthBasics.cs" />
     <Compile Include="Assets\Scripts\PlayAnimationArray.cs" />
     <Compile Include="Assets\Scripts\Negative effects\NegativeEffectc_StunVisual.cs" />
+    <Compile Include="Assets\Scripts\Negative effects\NegativeEffects_SlowVisual.cs" />
+    <Compile Include="Assets\Scripts\Negative effects\NegativeEffects_StuckVisual.cs" />
     <Compile Include="Assets\Scripts\Sound\General\VolumeSlider.cs" />
     <Compile Include="Assets\Scripts\Score\GenericScoreVisual.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
@@ -169,6 +173,7 @@
     <Compile Include="Assets\Scripts\GameActions\Actions\RequestNewSoundArrayAction.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTSelector.cs" />
     <Compile Include="Assets\Scripts\IA\Main nodes\BTInverter.cs" />
+    <Compile Include="Assets\Scripts\Negative effects\NegativeEffects_SliperyVisual.cs" />
     <Compile Include="Assets\Scripts\IA\Nodes\BTDodge.cs" />
     <Compile Include="Assets\Scripts\GameActions\OnTriggerEnterAction2D.cs" />
     <Compile Include="Assets\Scripts\Areas\BlackHoleArea.cs" />
@@ -179,6 +184,7 @@
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeCollider2DActiveStateAction.cs" />
     <Compile Include="Assets\Scripts\Interface\IAIState.cs" />
     <Compile Include="Assets\Scripts\MapManager.cs" />
+    <Compile Include="Assets\Scripts\Areas\OnHealSound.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\ChangeSpriteActiveStateAction.cs" />
     <Compile Include="Assets\Scripts\Interface\IHasActiveState.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\SceneLoadManager.cs" />

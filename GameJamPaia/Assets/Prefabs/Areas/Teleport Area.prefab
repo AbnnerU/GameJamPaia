@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6852532297152551812}
   - component: {fileID: 6852532297152551815}
   - component: {fileID: 6384422110216045648}
+  - component: {fileID: 4474592832856137277}
+  - component: {fileID: 1817772707056786330}
   m_Layer: 0
   m_Name: Teleport Area
   m_TagString: Untagged
@@ -85,6 +87,37 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5
+--- !u!114 &4474592832856137277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6852532297152551816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8fdbd258bd25f94f9883c2cbef0170e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportArea: {fileID: 6852532297152551815}
+  roomsMusicManager: {fileID: 0}
+--- !u!114 &1817772707056786330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6852532297152551816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e836088d692279b4b9735127462dc5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  uniqueInteraction: 1
+  channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+  audioConfig: {fileID: 11400000, guid: 31844200e99e0724cbd291a28bae59ac, type: 2}
+  positionReference: {fileID: 0}
 --- !u!1 &8743830790602849175
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +170,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a23671c89373bdd409e03e039b89ef5d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

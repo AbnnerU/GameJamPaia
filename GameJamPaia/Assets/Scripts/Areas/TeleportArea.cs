@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class TeleportArea : MonoBehaviour
     //[SerializeField] private float teleportDelay;
     // [SerializeField] private string teleportPlayerAnimation;
     // [SerializeField] private bool disableCollider;
-
+    public Action OnTeleport;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class TeleportArea : MonoBehaviour
         mapManager.RandomRoomNoRepeatAndAlarmOff(reference, Vector3.zero, out id);
         mapManager.SetObjectInRoom(cameraTransform, new Vector3(0, 0, -10), id);
 
+        OnTeleport?.Invoke();
     }
 
     //IEnumerator Teleport(Transform reference)

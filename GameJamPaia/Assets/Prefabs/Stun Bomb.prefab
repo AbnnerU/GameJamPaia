@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2957701734892284613}
   - component: {fileID: 2957701734892284614}
   - component: {fileID: 5026996100937025059}
+  - component: {fileID: 5246049497278539024}
   m_Layer: 0
   m_Name: Stun Bomb
   m_TagString: Untagged
@@ -121,7 +122,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.38
 --- !u!114 &2957701734892284614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,3 +153,22 @@ MonoBehaviour:
   targetTag: Player
   prefab: {fileID: 3120879579946421030, guid: 7504f1a649f500f45be9bfb076b53a49, type: 3}
   spawnPoint: {fileID: 2957701734892284612}
+--- !u!114 &5246049497278539024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2957701734892284609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c4ad8836ae12349944efb52663f98a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  uniqueInteraction: 0
+  channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+  audioConfig:
+  - {fileID: 11400000, guid: 3d30c2dbb74d928458f9df0a1acb17a3, type: 2}
+  - {fileID: 11400000, guid: ab98edafcf0ecd94c9eafaa9fba6f936, type: 2}
+  positionReference: {fileID: 2957701734892284612}

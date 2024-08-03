@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8583312791069802140}
   - component: {fileID: 8583312791069802141}
   - component: {fileID: 8583312791069802138}
+  - component: {fileID: 4078991351627046001}
   m_Layer: 0
   m_Name: Slow Area
   m_TagString: Untagged
@@ -145,3 +146,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: Player
   slowPercentage: 50
+--- !u!114 &4078991351627046001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8583312791069802139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e836088d692279b4b9735127462dc5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  uniqueInteraction: 0
+  channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+  audioConfig: {fileID: 11400000, guid: 3d943545d7b247447ba6f45894de9538, type: 2}
+  positionReference: {fileID: 0}

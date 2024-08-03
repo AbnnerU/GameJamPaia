@@ -15,6 +15,10 @@ public class NegativeEffects : MonoBehaviour
 
     public Action<NegativeEffects> OnStunEffectStart;
 
+    public Action<bool> OnSlowEffectAppliedUpdate;
+
+    public Action<bool> OnSlipperyEffectAppliedUpdate;
+
     public void Stuck(int clickAmountToRelease)
     {
         stuckData = new StuckData();
@@ -61,10 +65,45 @@ public class NegativeEffects : MonoBehaviour
             stuckData.stucked = false;
         }
 
+        CancelSlippery();
+        CancelSlow();
+
         StopAllCoroutines();
 
         OnCancelAll?.Invoke(this);
     }
+
+    public void ApllySlow(float slowPercentage)
+    {
+        float current = playerMovement.GetMaxSpeed();
+        float slow = current * (1f - (slowPercentage / 100f));
+
+        playerMovement.SetNewMaxSpeed(slow);
+
+        OnSlowEffectAppliedUpdate?.Invoke(true);
+    }
+
+    public void CancelSlow()
+    {
+        playerMovement.SetDefaultValues();
+
+        OnSlowEffectAppliedUpdate?.Invoke(false);
+    }
+
+    public void ApllySlippery(float maxSpeed, float accelerationSpeed, float decelerationSpeed)
+    {
+        playerMovement.SetNewMovementValues(maxSpeed, accelerationSpeed, decelerationSpeed);
+
+        OnSlipperyEffectAppliedUpdate?.Invoke(true);
+    }
+
+    public void CancelSlippery()
+    {
+        playerMovement.SetDefaultValues();
+
+        OnSlipperyEffectAppliedUpdate?.Invoke(false);
+    }
+
 
     IEnumerator StunTime(float time)
     {

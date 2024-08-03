@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7604185463432872613}
   - component: {fileID: 7604185463432872615}
   - component: {fileID: 7682587475531476960}
+  - component: {fileID: 7141745362254266109}
   m_Layer: 0
   m_Name: Slippery Area
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1fba879ef14a35140a608f73b776f448, type: 3}
-  m_Color: {r: 0.63836473, g: 0.9223001, b: 1, a: 1}
+  m_Color: {r: 0.63836473, g: 0.9223001, b: 1, a: 0.5882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -131,9 +132,26 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.08
+--- !u!114 &7141745362254266109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7604185463432872610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e836088d692279b4b9735127462dc5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  uniqueInteraction: 0
+  channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+  audioConfig: {fileID: 11400000, guid: 665d25b9355a78b4fba8b14f5067f72d, type: 2}
+  positionReference: {fileID: 0}

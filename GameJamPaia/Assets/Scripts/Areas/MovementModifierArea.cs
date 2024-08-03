@@ -9,14 +9,14 @@ public class MovementModifierArea : MonoBehaviour
     [SerializeField] private float decelerationSpeed;
 
     //[SerializeField] private float slowPercentage;
-    private PlayerMovement[] objectsInside;
+    private NegativeEffects[] objectsInside;
 
     private void Awake()
     {
-        objectsInside = new PlayerMovement[0];
+        objectsInside = new NegativeEffects[0];
     }
 
-    private bool ObjectExist(PlayerMovement reference)
+    private bool ObjectExist(NegativeEffects reference)
     {
         for (int i = 0; i < objectsInside.Length; i++)
         {
@@ -29,10 +29,10 @@ public class MovementModifierArea : MonoBehaviour
         return false;
     }
 
-    private void RegisterObject(PlayerMovement reference)
+    private void RegisterObject(NegativeEffects reference)
     {
         int length = objectsInside.Length + 1;
-        PlayerMovement[] temp = new PlayerMovement[length];
+        NegativeEffects[] temp = new NegativeEffects[length];
 
         for (int i = 0; i < objectsInside.Length; i++)
         {
@@ -44,10 +44,10 @@ public class MovementModifierArea : MonoBehaviour
         objectsInside = temp;
     }
 
-    private void RemoveObject(PlayerMovement reference)
+    private void RemoveObject(NegativeEffects reference)
     {
         int length = objectsInside.Length - 1;
-        PlayerMovement[] temp = new PlayerMovement[length];
+        NegativeEffects[] temp = new NegativeEffects[length];
 
         for (int i = 0; i < objectsInside.Length; i++)
         {
@@ -59,13 +59,13 @@ public class MovementModifierArea : MonoBehaviour
         objectsInside = temp;
     }
 
-    private void SetDefaultSpeed(PlayerMovement reference)
+    private void SetDefaultSpeed(NegativeEffects reference)
     {
         for (int i = 0; i < objectsInside.Length; i++)
         {
             if (objectsInside[i] == reference)
             {
-                objectsInside[i].SetDefaultValues();
+                objectsInside[i].CancelSlippery();
                 return;
             }
         }
@@ -75,7 +75,7 @@ public class MovementModifierArea : MonoBehaviour
     {
         if (collision.CompareTag(targetTag))
         {
-            PlayerMovement movement = collision.GetComponent<PlayerMovement>();
+            NegativeEffects movement = collision.GetComponent<NegativeEffects>();
 
             if (movement != null)
             {
@@ -93,7 +93,7 @@ public class MovementModifierArea : MonoBehaviour
     {
         if (collision.CompareTag(targetTag))
         {
-            PlayerMovement movement = collision.GetComponent<PlayerMovement>();
+            NegativeEffects movement = collision.GetComponent<NegativeEffects>();
 
             if (movement != null)
             {
@@ -109,13 +109,13 @@ public class MovementModifierArea : MonoBehaviour
         }
     }
 
-    private void Modify(PlayerMovement reference)
+    private void Modify(NegativeEffects reference)
     {
         for (int i = 0; i < objectsInside.Length; i++)
         {
             if (objectsInside[i] == reference)
             {
-                objectsInside[i].SetNewMovementValues(maxSpeed, accelerationSpeed, decelerationSpeed);
+                objectsInside[i].ApllySlippery(maxSpeed, accelerationSpeed, decelerationSpeed);
                 return;
             }
         }

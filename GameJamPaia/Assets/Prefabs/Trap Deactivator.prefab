@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7038480434674224853}
   - component: {fileID: 8034582660618924562}
   - component: {fileID: 5778344621488999652}
+  - component: {fileID: 7468329525720086019}
   m_Layer: 0
   m_Name: Trap Deactivator
   m_TagString: Untagged
@@ -134,3 +135,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
+--- !u!114 &7468329525720086019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256363456083708507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e836088d692279b4b9735127462dc5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  uniqueInteraction: 0
+  channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+  audioConfig: {fileID: 11400000, guid: 5c25be168ab7bb24595eaa89094388fb, type: 2}
+  positionReference: {fileID: 0}

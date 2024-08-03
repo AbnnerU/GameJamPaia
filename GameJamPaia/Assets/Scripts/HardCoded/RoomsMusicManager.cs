@@ -34,14 +34,12 @@ public class RoomsMusicManager : MonoBehaviour
         UpdateMusic();
     }
 
-    private void UpdateMusic()
+    public void UpdateMusic()
     {
         Room room = GetCurrentPlayerRoom();
 
         if (room != null)
         {
-            print("OIIII");
-            print(room.GetRoomTrack());
             soundInterpolation.PlaySound(room.GetRoomTrack());
         }
     }

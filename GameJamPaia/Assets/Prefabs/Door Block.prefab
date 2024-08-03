@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7423831848187317030}
   - component: {fileID: 3001098620078488477}
   - component: {fileID: 6043534407190509166}
+  - component: {fileID: 6887927478120173183}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -69,6 +70,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleSystems:
   - {fileID: 556776385157520979}
+--- !u!114 &6887927478120173183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189824005557546190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5dbc97d329d37740aeaebc5e3c91041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playOnStart: 0
+  channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
+  audioConfig: {fileID: 11400000, guid: b4381fed18150df41a0fd8ce59d5218b, type: 2}
+  positionReference: {fileID: 4919906494620002282}
 --- !u!1 &3779062625149505543
 GameObject:
   m_ObjectHideFlags: 0

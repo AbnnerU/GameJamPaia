@@ -4,8 +4,13 @@ using UnityEngine;
 public class DamageArea : MonoBehaviour
 {
     [SerializeField] private string targetTag;
-    [SerializeField] private float damagePerSecond;
+    [SerializeField] private float damage;
+    [SerializeField] private float delayToDoDamageAgain;
     private IHittable[] objectsInside;
+
+    private float currentTime = 0;
+
+    private bool canDoDamage = true;
 
     private void Awake()
     {
@@ -30,7 +35,7 @@ public class DamageArea : MonoBehaviour
         int length = objectsInside.Length + 1;
         IHittable[] temp = new IHittable[length];
 
-        for(int i = 0;i< objectsInside.Length;i++)
+        for (int i = 0; i < objectsInside.Length; i++)
         {
             temp[i] = objectsInside[i];
         }
@@ -74,7 +79,7 @@ public class DamageArea : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag(targetTag))
+        if (collision.CompareTag(targetTag))
         {
             IHittable hittable = collision.GetComponent<IHittable>();
 
@@ -90,14 +95,26 @@ public class DamageArea : MonoBehaviour
 
     private void Update()
     {
-        if(objectsInside.Length == 0 ) return;
-
-        float damageValue = damagePerSecond * Time.deltaTime;
-
-
-        for(int i = 0;i < objectsInside.Length;i++)
+        if (!canDoDamage)
         {
-            objectsInside[i].OnHit(damageValue);
+            currentTime += Time.deltaTime;
+            if (currentTime >= delayToDoDamageAgain)
+            {
+                canDoDamage = true;
+                currentTime = 0;
+            }
+        }
+        else
+        {
+            if (objectsInside.Length == 0) return;
+
+            for (int i = 0; i < objectsInside.Length; i++)
+            {
+                objectsInside[i].OnHit(damage);
+            }
+
+            canDoDamage = false;
+            currentTime = 0;
         }
     }
 }
