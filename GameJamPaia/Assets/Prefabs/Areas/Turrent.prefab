@@ -33,7 +33,6 @@ Transform:
   m_Children:
   - {fileID: 3295199108333068569}
   - {fileID: 3295199106880084928}
-  - {fileID: 3295199107395917877}
   - {fileID: 6579059682543990840}
   - {fileID: 7804379419290345742}
   m_Father: {fileID: 0}
@@ -55,6 +54,7 @@ MonoBehaviour:
   active: 1
   maxAllocation: 3
   verificationStartPoint: {fileID: 7804379419290345742}
+  objectToRotate: {fileID: 3295199106880084928}
   verificationRadius: 5
   layerMask:
     serializedVersion: 2
@@ -62,7 +62,7 @@ MonoBehaviour:
   targetTag: Player
   atackDamage: 10
   fireRate: 3
-  projectileSpeed: 3
+  projectileSpeed: 6
   gravityValue: 0
   projectileRadius: 0.15
   projectileLayerMask:
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 3295199106880084928}
   - component: {fileID: 3295199106880084929}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,7 +148,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.02, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3295199107395917877}
   m_Father: {fileID: 3295199106809412830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3295199106880084929
@@ -227,13 +228,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3295199107395917876}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.047, y: 0.716, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.3133392, y: 4.9066634, z: 0}
+  m_LocalScale: {x: 6.666666, y: 6.666666, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4387978566488816800}
-  m_Father: {fileID: 3295199106809412830}
+  m_Father: {fileID: 3295199106880084928}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3295199108333068568
 GameObject:

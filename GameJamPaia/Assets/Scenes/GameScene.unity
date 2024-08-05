@@ -20309,7 +20309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
-  uniqueInteraction: 1
+  uniqueInteraction: 0
   channel: {fileID: 11400000, guid: 5a580f044e5a43d45ac153143fa23c8b, type: 2}
   audioConfig:
   - {fileID: 11400000, guid: 426fccf0918f25a479c95383ef629904, type: 2}

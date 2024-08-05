@@ -17,6 +17,8 @@ public class Turret : MonoBehaviour {
 
     [SerializeField] private Transform verificationStartPoint;
 
+    [SerializeField] private Transform objectToRotate;
+
     [SerializeField] private float verificationRadius;
 
     [SerializeField] private LayerMask layerMask;
@@ -108,10 +110,12 @@ public class Turret : MonoBehaviour {
             {
                 if (targetTransform.gameObject.activeSelf)
                 {
-                    Vector3 directionVector = targetTransform.position - _transform.position;
+                    TargetStillInside();
 
-                    if (directionVector.magnitude <= verificationRadius)
+                    if (findedTarget)
                     {
+                        Vector3 directionVector = targetTransform.position - _transform.position;
+
                         Rotate(directionVector);
 
                         if (canAtack)
@@ -184,6 +188,35 @@ public class Turret : MonoBehaviour {
         }
     }
 
+    private void TargetStillInside()
+    {
+        int hitAmount = Physics2D.OverlapCircleNonAlloc(verificationStartPoint.position, verificationRadius, hitResults, layerMask, 0);
+
+        if (hitAmount > 0)
+        {
+            for (int i = 0; i < hitAmount; i++)
+            {
+                if (hitResults[i].CompareTag(targetTag))
+                {
+                    HealthManager healthManager = hitResults[i].gameObject.GetComponent<HealthManager>();
+
+                    if (healthManager)
+                    {
+                        if (healthManager.IsAlive() && hitResults[i].gameObject.activeSelf)                    
+                            return;
+                        
+                    }
+                }
+            }
+
+            findedTarget = false;
+        }
+        else
+        {
+            findedTarget = false;
+        }
+    }
+
     private void Rotate(Vector2 direction)
     {
         Vector2 directionAngle = direction.normalized;
@@ -192,8 +225,7 @@ public class Turret : MonoBehaviour {
 
         Quaternion rotationValue = Quaternion.Euler(Vector3.forward * -angle);
 
-        _transform.rotation = Quaternion.RotateTowards(transform.rotation, rotationValue, turnSpeed * Time.deltaTime);
-
+        objectToRotate.rotation = Quaternion.RotateTowards(objectToRotate.rotation, rotationValue, turnSpeed * Time.deltaTime);
     }
 
     private void Shoot()
