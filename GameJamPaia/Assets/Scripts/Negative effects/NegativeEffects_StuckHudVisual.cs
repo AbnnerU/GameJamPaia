@@ -38,6 +38,8 @@ public class NegativeEffects_StuckHudVisual : MonoBehaviour
 
     private void StuckEffect_Input(int targetValue, int currentValue)
     {
+        
+
         float percentage = ((float)(currentValue * 100) / targetValue) / 100;
 
         print(percentage);

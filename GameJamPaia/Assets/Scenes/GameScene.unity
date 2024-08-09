@@ -9287,12 +9287,12 @@ PrefabInstance:
     - target: {fileID: 8221687289810548822, guid: 75da4a0f12782f84f9ed8df0f3a36f45,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.14
+      value: 42.15
       objectReference: {fileID: 0}
     - target: {fileID: 8221687289810548822, guid: 75da4a0f12782f84f9ed8df0f3a36f45,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.2
+      value: 18.99
       objectReference: {fileID: 0}
     - target: {fileID: 8221687289810548822, guid: 75da4a0f12782f84f9ed8df0f3a36f45,
         type: 3}
@@ -16039,8 +16039,6 @@ MonoBehaviour:
     type: 2}
   enemyBalanceOptions:
   - {fileID: 11400000, guid: f548538706a3f9d42b81fd87fcfc96c9, type: 2}
-  - {fileID: 11400000, guid: 5bbebd575b6ae5d438bb96f040877eee, type: 2}
-  - {fileID: 11400000, guid: 4b7c1d772d4659c4591fee07188dce7a, type: 2}
   roomProgressions: []
 --- !u!1 &1733369600
 GameObject:
