@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cda78afc1d1e7164aabf4702010781bb, type: 3}
-  m_Name: Machine
+  m_Name: CreatureRun_AudioConfig
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: a699562a34fff5a46bfceeeee6355043, type: 3}
+  audioClip: {fileID: 8300000, guid: e499e428d909ae044a894396c1314887, type: 3}
   priority: 128
-  volume: 0.15
-  SpatialBlend: 1
+  volume: 0.2
+  SpatialBlend: 0
   StereoPan: 0
-  minDistance: 5
-  maxDistance: 10
-  loop: 1
+  minDistance: 2
+  maxDistance: 0
+  loop: 0

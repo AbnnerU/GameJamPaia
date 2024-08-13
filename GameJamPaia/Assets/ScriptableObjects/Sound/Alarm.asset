@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:92c5744ca948b1edab2c11d7cf4b51120b63b3637416dd34e7d8127bb70697ec
-size 585
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda78afc1d1e7164aabf4702010781bb, type: 3}
+  m_Name: Alarm
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 6b68c2650df763344b525342cc16bac8, type: 3}
+  priority: 128
+  volume: 0.1
+  SpatialBlend: 1
+  StereoPan: 0
+  minDistance: 1
+  maxDistance: 30
+  loop: 1

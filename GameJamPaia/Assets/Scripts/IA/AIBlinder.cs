@@ -45,6 +45,10 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     [SerializeField] private float goToRandomPointRadius;
     [SerializeField] private float randomPointSpeed;
     [SerializeField] private float distanceToTarget;
+    [Header("Sound")]
+    [SerializeField] private AudioChannel audioChannel;
+    [SerializeField] private AudioConfig[] seeTargetSound;
+    [SerializeField] private AudioConfig[] runAfterTargetSound;
 
 
     private Transform _transform;
@@ -59,8 +63,7 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
 
     protected virtual void Awake()
     {
-        //transformsArray = new Transform[2];
-        // offSetArray = new Vector3[2];
+        currentState = AIState.SPAWNING;
     }
 
     protected virtual void Start()
@@ -173,9 +176,10 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         BTIsPathCompleteStatus bTIsPathCompleteStatus = new BTIsPathCompleteStatus(target, agent);
         BTIsColliderEnabled bTIsColliderEnabled = new BTIsColliderEnabled(targetCollider);
         BTIsOnAIState btIsOnFollowTargetState = new BTIsOnAIState(this, AIState.FOLLOWTARGET);
-        BTDoAction btSawTargetAction = new BTDoAction(() => SawTargetAnimation());
+        BTDoAction btSawTargetAction = new BTDoAction(() => SawTargetAction());
         BTWaitForSeconds btStartFollowDelay = new BTWaitForSeconds(startFollowDelay);
         BTConditionalSequence btStartFollowCondicionalSequence = new BTConditionalSequence(new List<BTnode> { btIsOnFollowTargetState, bTIsPathCompleteStatus }, btStartFollowDelay);
+        BTDoAction btRunAfterTargetAction = new BTDoAction(() => RunAfterTargetAction());
         BTFollowTarget bTFollowTarget = new BTFollowTarget(target, agent, this, minDistance, followTargetUpdateTime, speed);
         BTConditionalSequence bTFollowTargetCondicionalSequence = new BTConditionalSequence(new List<BTnode> { btIsOnFollowTargetState, bTIsColliderEnabled, bTIsPathCompleteStatus }, bTFollowTarget);
         BTSequence btFollowTargetSequence = new BTSequence(new List<BTnode> {
@@ -185,6 +189,7 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
             btSetFollowTargetState,
             btSawTargetAction,
             btStartFollowCondicionalSequence,
+            btRunAfterTargetAction,
             btEnableAgentColliderAction,
             bTFollowTargetCondicionalSequence
         });
@@ -255,9 +260,20 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
             visionClamp.Disable();
     }
 
-    private void SawTargetAnimation()
+    private void SawTargetAction()
     {
         anim.Play(sawTheTargetAnimation, 0, 0);
+
+        int index = Random.Range(0,seeTargetSound.Length);
+
+        audioChannel.AudioRequest(seeTargetSound[index], _transform.position);
+    }
+
+    private void RunAfterTargetAction()
+    {
+        int index = Random.Range(0, runAfterTargetSound.Length);
+
+        audioChannel.AudioRequest(runAfterTargetSound[index], _transform.position);
     }
 
     protected virtual void Spawn()

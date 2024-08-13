@@ -6006,7 +6006,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533709855}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7927,6 +7927,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Perk 02 - +Alarms
       objectReference: {fileID: 0}
+    - target: {fileID: 1009015416994854764, guid: bf3b2122d8b642c46a112dc9f4a0650f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1009015416994854765, guid: bf3b2122d8b642c46a112dc9f4a0650f,
         type: 3}
       propertyPath: m_SortingOrder
@@ -9284,6 +9289,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8221687289810548820, guid: 75da4a0f12782f84f9ed8df0f3a36f45,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8221687289810548822, guid: 75da4a0f12782f84f9ed8df0f3a36f45,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9923,6 +9933,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Perk 04 - Interaction Speed
+      objectReference: {fileID: 0}
+    - target: {fileID: 5079270415433599094, guid: 9596546e1539d84479a5645819a222b4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5079270415433599095, guid: 9596546e1539d84479a5645819a222b4,
         type: 3}
@@ -14294,6 +14309,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Perk 01 - Shield
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304447663097504533, guid: 2677cf7e8e5c0d34c82ebe9e21f7080d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5304447663097504535, guid: 2677cf7e8e5c0d34c82ebe9e21f7080d,
         type: 3}
@@ -18782,6 +18802,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Perk 03 - Sprint
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313011669653219934, guid: 6ee959d6c659fd24dbabaf975ba1bdbe,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3313011669653219935, guid: 6ee959d6c659fd24dbabaf975ba1bdbe,
         type: 3}

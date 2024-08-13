@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6a341d03f90e8e3c155f4e6069f92dd7dbb749a290bbddfdd25a89d622105cd0
-size 1021
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70498ed5b8bea2e469537ce78427d24b, type: 3}
+  m_Name: _EnemySpawnConfig
+  m_EditorClassIdentifier: 
+  enemySpawnChance:
+  - prefab: {fileID: 8194714875294824699, guid: b1c432078e9ca7945a6e5ec9193a1ca6,
+      type: 3}
+    spawnChance: 5
+  - prefab: {fileID: 1457786742534251452, guid: 1ae8375fd62b6694dbea4af9ae68c168,
+      type: 3}
+    spawnChance: 10
+  - prefab: {fileID: 13849148727128992, guid: 73f2b3c4498326c438f08a3ac51bac8c, type: 3}
+    spawnChance: 20
+  - prefab: {fileID: 6617581792320150919, guid: beb5e3665d915624984ae19cfbdafaf0,
+      type: 3}
+    spawnChance: 30
+  - prefab: {fileID: 6892697019398397731, guid: 871cc251af07fa8499c19eb6986b049a,
+      type: 3}
+    spawnChance: 50
+  - prefab: {fileID: 5932625376068725823, guid: f10e3222a8b124741967b78f8602ed2c,
+      type: 3}
+    spawnChance: 100
+  spawnOnReachScore: c8000000f40100004c040000d0070000800c0000740e00006419000098210000f82a0000843500003c410000204e0000305c00006c6b0000

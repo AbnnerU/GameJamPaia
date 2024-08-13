@@ -45,6 +45,9 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     [SerializeField] protected float releasePlayerAnimationDuration;
     [SerializeField] protected Transform particlesTransform;
     [SerializeField] protected ParticleSystem particlesRef;
+    [Header("Sound")]
+    [SerializeField] protected AudioChannel audioChannel;
+    [SerializeField] protected AudioConfig[] passTheMeshLinkSound;
 
     protected HealthManager targetHealth;
     //protected Transform[] transformsArray;
@@ -323,6 +326,9 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
         particlesTransform.position = offMeshEndPosition;
         particlesRef.Play();
+
+        int index = Random.Range(0, passTheMeshLinkSound.Length);
+        audioChannel.AudioRequest(passTheMeshLinkSound[index], offMeshEndPosition);
 
         do
         {

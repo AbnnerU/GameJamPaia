@@ -52,6 +52,9 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     [SerializeField] private float dodgeRadius;
     [SerializeField] private float dodgeSpeed;
     [SerializeField] private float timeStoppedAfterDodge;
+    [Header("Sound")]
+    [SerializeField] protected AudioChannel audioChannel;
+    [SerializeField] protected AudioConfig[] passTheMeshLinkSound;
 
     private Transform _transform;
     protected HealthManager targetHealth;
@@ -305,6 +308,10 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
 
         particlesTransform.position = offMeshEndPosition;
         particlesRef.Play();
+
+        int index = Random.Range(0, passTheMeshLinkSound.Length);
+        audioChannel.AudioRequest(passTheMeshLinkSound[index], offMeshEndPosition);
+
 
         do
         {
