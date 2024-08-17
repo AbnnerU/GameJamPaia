@@ -13,6 +13,7 @@ public class InputArea2D : MonoBehaviour, IHasActiveState
 
     public Action<bool> OnInputPerformed;
     public Action OnInteract;
+    public Action<bool> OnTargetEnterInArea;
 
     private void Awake()
     {
@@ -30,6 +31,8 @@ public class InputArea2D : MonoBehaviour, IHasActiveState
         if (collision.CompareTag(targetTag))
         {
             targetInArea = true;
+
+            OnTargetEnterInArea?.Invoke(true);
         }
     }
 
@@ -40,6 +43,7 @@ public class InputArea2D : MonoBehaviour, IHasActiveState
             targetInArea = false;
             interacting = false;
             OnInputPerformed?.Invoke(false);
+            OnTargetEnterInArea?.Invoke(false);
         }
     }
 

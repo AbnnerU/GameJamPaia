@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cda78afc1d1e7164aabf4702010781bb, type: 3}
-  m_Name: DevilLaugh3_AudioConfig
+  m_Name: EnemySpawn_AudioConfig
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 277220e720f50fa43bce70a189d7ba01, type: 3}
+  audioClip: {fileID: 8300000, guid: 886f60681205fac41911481bef05c987, type: 3}
   priority: 128
-  volume: 0.35
-  SpatialBlend: 0
+  volume: 0.05
+  SpatialBlend: 1
   StereoPan: 0
-  minDistance: 2
-  maxDistance: 0
+  minDistance: 20
+  maxDistance: 150
   loop: 0

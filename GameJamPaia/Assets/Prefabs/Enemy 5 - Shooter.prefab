@@ -15131,7 +15131,7 @@ MonoBehaviour:
   targetMovement: {fileID: 0}
   targetAnimator: {fileID: 0}
   targetTag: Player
-  projectilePrefab: {fileID: 5513236314369863000, guid: e1ae6f5ee9c794b48bedd4c9e2720823,
+  projectilePrefab: {fileID: 6196309471774470773, guid: 7e41e79fcdd0780488ea8558b0befef7,
     type: 3}
   shootPoint: {fileID: 8194714875294824704}
   projectileDamage: 25
@@ -15173,6 +15173,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2de679393100cd94b9d196b44f293710, type: 2}
   - {fileID: 11400000, guid: 5cd0efdc46eafa5499245ba3418892b4, type: 2}
   - {fileID: 11400000, guid: fe835bb6740d3a14f89e0f7157c76170, type: 2}
+  shootSound: {fileID: 11400000, guid: e7a08b9ac679b694c96cf16d08ab57ae, type: 2}
+  spawnSound: {fileID: 11400000, guid: b53f0f87f4c6987449ee325dbfd7c928, type: 2}
 --- !u!114 &8194714875294824700
 MonoBehaviour:
   m_ObjectHideFlags: 0

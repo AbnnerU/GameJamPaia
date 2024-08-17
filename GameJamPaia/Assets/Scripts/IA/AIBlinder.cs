@@ -49,6 +49,7 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     [SerializeField] private AudioChannel audioChannel;
     [SerializeField] private AudioConfig[] seeTargetSound;
     [SerializeField] private AudioConfig[] runAfterTargetSound;
+    [SerializeField] private AudioConfig spawnSound;
 
 
     private Transform _transform;
@@ -280,6 +281,7 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     {
         SetColliderActive(false);
         spawnParticle.Play();
+        audioChannel.AudioRequest(spawnSound, _transform.position);
     }
 
     protected virtual void SetColliderActive(bool active)

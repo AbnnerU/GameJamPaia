@@ -55,6 +55,8 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     [Header("Sound")]
     [SerializeField] protected AudioChannel audioChannel;
     [SerializeField] protected AudioConfig[] passTheMeshLinkSound;
+    [SerializeField] protected AudioConfig shootSound;
+    [SerializeField] protected AudioConfig spawnSound;
 
     private Transform _transform;
     protected HealthManager targetHealth;
@@ -231,6 +233,7 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     {
         SetColliderActive(false);
         spawnParticle.Play();
+        audioChannel.AudioRequest(spawnSound, _transform.position);
     }
 
     protected virtual void SetColliderActive(bool active)
@@ -370,6 +373,8 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
             if (projectile != null)
             {
                 projectile.EnableProjectile(shootPoint.position, speed, Vector3.up * gravityValue, projectileLayerMask, useGroundLayer, groundLayer, projectileRadius, projectileDamage, targetTag);
+
+                audioChannel.AudioRequest(shootSound, shootPoint.position);
             }
             else
             {

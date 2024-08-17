@@ -48,6 +48,7 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     [Header("Sound")]
     [SerializeField] protected AudioChannel audioChannel;
     [SerializeField] protected AudioConfig[] passTheMeshLinkSound;
+    [SerializeField] protected AudioConfig spawnSound;
 
     protected HealthManager targetHealth;
     //protected Transform[] transformsArray;
@@ -248,6 +249,7 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
     {
         SetColliderActive(false);
         spawnParticle.Play();
+        audioChannel.AudioRequest(spawnSound, transform.position);
     }
 
     protected virtual void SetColliderActive(bool active)

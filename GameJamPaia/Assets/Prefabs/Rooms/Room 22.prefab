@@ -1612,6 +1612,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turrent
       objectReference: {fileID: 0}
+    - target: {fileID: 3295199106809412828, guid: d66ff7a89fa541149b97a575c93d6d22,
+        type: 3}
+      propertyPath: fireRate
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3295199106809412830, guid: d66ff7a89fa541149b97a575c93d6d22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1858,6 +1863,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Turrent (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295199106809412828, guid: d66ff7a89fa541149b97a575c93d6d22,
+        type: 3}
+      propertyPath: fireRate
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3295199106809412830, guid: d66ff7a89fa541149b97a575c93d6d22,
         type: 3}

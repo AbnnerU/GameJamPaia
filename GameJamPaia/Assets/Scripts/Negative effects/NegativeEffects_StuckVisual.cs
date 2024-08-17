@@ -13,6 +13,7 @@ public class NegativeEffects_StuckVisual : MonoBehaviour
 
         negativeEffects.OnStuckEffectStart += StuckEffectStarted;
         negativeEffects.OnStuckEffectEnd += StuckEffectEnded;
+        negativeEffects.OnCancelAll += StuckEffectEnded;
     }
 
     private void StuckEffectStarted(NegativeEffects effects)

@@ -9938,6 +9938,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2de679393100cd94b9d196b44f293710, type: 2}
   - {fileID: 11400000, guid: 5cd0efdc46eafa5499245ba3418892b4, type: 2}
   - {fileID: 11400000, guid: fe835bb6740d3a14f89e0f7157c76170, type: 2}
+  spawnSound: {fileID: 11400000, guid: b53f0f87f4c6987449ee325dbfd7c928, type: 2}
 --- !u!114 &13849148727128999
 MonoBehaviour:
   m_ObjectHideFlags: 0

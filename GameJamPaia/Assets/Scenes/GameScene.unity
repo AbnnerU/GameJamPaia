@@ -7927,16 +7927,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Perk 02 - +Alarms
       objectReference: {fileID: 0}
-    - target: {fileID: 1009015416994854764, guid: bf3b2122d8b642c46a112dc9f4a0650f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1009015416994854765, guid: bf3b2122d8b642c46a112dc9f4a0650f,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1009015416994854766, guid: bf3b2122d8b642c46a112dc9f4a0650f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9933,16 +9923,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Perk 04 - Interaction Speed
-      objectReference: {fileID: 0}
-    - target: {fileID: 5079270415433599094, guid: 9596546e1539d84479a5645819a222b4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5079270415433599095, guid: 9596546e1539d84479a5645819a222b4,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5079270415433599098, guid: 9596546e1539d84479a5645819a222b4,
         type: 3}
@@ -14300,20 +14280,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5304447663097504532, guid: 2677cf7e8e5c0d34c82ebe9e21f7080d,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5304447663097504533, guid: 2677cf7e8e5c0d34c82ebe9e21f7080d,
         type: 3}
       propertyPath: m_Name
       value: Perk 01 - Shield
-      objectReference: {fileID: 0}
-    - target: {fileID: 5304447663097504533, guid: 2677cf7e8e5c0d34c82ebe9e21f7080d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5304447663097504535, guid: 2677cf7e8e5c0d34c82ebe9e21f7080d,
         type: 3}
@@ -18803,16 +18773,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Perk 03 - Sprint
       objectReference: {fileID: 0}
-    - target: {fileID: 3313011669653219934, guid: 6ee959d6c659fd24dbabaf975ba1bdbe,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3313011669653219935, guid: 6ee959d6c659fd24dbabaf975ba1bdbe,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3313011669653219939, guid: 6ee959d6c659fd24dbabaf975ba1bdbe,
         type: 3}
       propertyPath: animator
@@ -20197,6 +20157,7 @@ GameObject:
   - component: {fileID: 1696250600105940189}
   - component: {fileID: 1696250600105940188}
   - component: {fileID: 1696250600105940190}
+  - component: {fileID: 1696250600105940191}
   m_Layer: 0
   m_Name: Trap
   m_TagString: Untagged
@@ -20340,6 +20301,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d5224e14de35764eb37d2200782b75f, type: 2}
   - {fileID: 11400000, guid: 6efd84a2f3fdd544698be1dc292eeac2, type: 2}
   positionReference: {fileID: 0}
+--- !u!114 &1696250600105940191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696250600105940176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f164e91257f9c4097d7e084ecc9a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
+  prefab: {fileID: 5846155245474157668, guid: bc87f16a21842f343b74e2b352497e7b, type: 3}
+  spawnPoint: {fileID: 1696250600105940178}
 --- !u!1 &1696250600203790161
 GameObject:
   m_ObjectHideFlags: 0

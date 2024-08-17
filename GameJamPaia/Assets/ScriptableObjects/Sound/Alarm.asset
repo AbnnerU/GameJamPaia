@@ -18,5 +18,5 @@ MonoBehaviour:
   SpatialBlend: 1
   StereoPan: 0
   minDistance: 1
-  maxDistance: 30
+  maxDistance: 50
   loop: 1

@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine;
+using TMPro;
 
 public class BuyUpgrade : MonoBehaviour
 {
@@ -23,6 +24,11 @@ public class BuyUpgrade : MonoBehaviour
     [SerializeField] private Animator upgradeAnimator;
     [SerializeField] private string onReachMaximumPurchaseAnimation;
 
+    [Header("Canvas")]
+    [SerializeField] private Canvas priceCanvas;
+    [SerializeField] private TMP_Text priceText;
+    [SerializeField] private Canvas interactCanvas;
+
     public Action OnBuyed;
 
     private int currentPurschase = 0;
@@ -33,6 +39,15 @@ public class BuyUpgrade : MonoBehaviour
             coinsManager = FindObjectOfType<CoinsManager>();
 
         inputArea.OnInteract += TryBuyUpgrade;
+        inputArea.OnTargetEnterInArea += ShowInteractCanvas;
+        priceCanvas.enabled = true;
+        interactCanvas.enabled = false;
+        priceText.text = price.ToString();
+    }
+
+    private void ShowInteractCanvas(bool show)
+    {
+        interactCanvas.enabled = show;
     }
 
     private void TryBuyUpgrade()
@@ -56,6 +71,10 @@ public class BuyUpgrade : MonoBehaviour
             if (currentPurschase >= maximumPurchases)
             {
                 upgradeAnimator.Play(onReachMaximumPurchaseAnimation, 0, 0);
+                priceCanvas.enabled = false;
+                interactCanvas.enabled = false;
+                inputArea.OnInteract -= TryBuyUpgrade;
+                inputArea.OnTargetEnterInArea -= ShowInteractCanvas;
             }
 
             OnBuyed?.Invoke();

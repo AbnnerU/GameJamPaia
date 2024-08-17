@@ -9938,6 +9938,7 @@ MonoBehaviour:
   runAfterTargetSound:
   - {fileID: 11400000, guid: 4aed74da55eb82d4288605586510e797, type: 2}
   - {fileID: 11400000, guid: 6f26fb6443754dc42bb5ed3e0f5c88c7, type: 2}
+  spawnSound: {fileID: 11400000, guid: b53f0f87f4c6987449ee325dbfd7c928, type: 2}
 --- !u!114 &1457786742534251451
 MonoBehaviour:
   m_ObjectHideFlags: 0
