@@ -5,6 +5,7 @@ using TMPro;
 using Random = UnityEngine.Random;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class GameManager : MonoBehaviour
@@ -417,11 +418,22 @@ public class GameManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        float chance = Random.Range(0f, 100f);
+        float totalWeight = 0f;
 
-        for(int i=0; i < enemySpawnConfig.spawnConfig.enemySpawnChance.Length; i++)
+        for (int i = 0; i < enemySpawnConfig.spawnConfig.enemySpawnChance.Length; i++)
         {
-            if (enemySpawnConfig.spawnConfig.enemySpawnChance[i].spawnChance >= chance)
+            totalWeight += enemySpawnConfig.spawnConfig.enemySpawnChance[i].spawnChance;
+        }
+
+        float randomValue = Random.Range(0f, totalWeight);
+
+        float cumulativeWeight = 0f;
+
+        for (int i = 0; i < enemySpawnConfig.spawnConfig.enemySpawnChance.Length; i++)
+        {
+            cumulativeWeight += enemySpawnConfig.spawnConfig.enemySpawnChance[i].spawnChance;
+
+            if (randomValue <= cumulativeWeight)
             {
                 GameObject g = PoolManager.SpawnObject(enemySpawnConfig.spawnConfig.enemySpawnChance[i].prefab);
 
@@ -431,8 +443,9 @@ public class GameManager : MonoBehaviour
 
                 g.GetComponent<IHasBehaviourTree>().StartBehaviourTree();
                 break;
-            } 
+            }
         }
+
     }
 
     public void PauseAlarmsLoop(bool pause)

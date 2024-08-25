@@ -3,7 +3,7 @@ guid: c16dc1575c8a3a346914eedfa2fc4033
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -73,10 +73,11 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
+    compressionQuality: 100
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -89,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -101,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -113,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -125,6 +129,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -505,22 +510,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Agents_SpriteSheet_15: -1616452029
       Agents_SpriteSheet_8: -784387499
+      Angel01_Body: -1394976349
+      Angel01_WingL: -1953508382
+      Angel01_WingR: -285608503
+      Angel02_Body: 1913448783
       Angel02_WingL: 1101938679
+      Angel02_WingR: -1975937232
+      Angel03_Body: 1824912001
       Angel03_Legs: 595056288
       Angel04: -1590043000
-      Angel02_WingR: -1975937232
-      Angel01_Body: -1394976349
       Girl_ArmL: -863076383
-      Angel03_Body: 1824912001
-      Angel02_Body: 1913448783
-      Agents_SpriteSheet_15: -1616452029
-      Girl_LegR: 1336205473
+      Girl_ArmR: -968272388
       Girl_Body: -1037515701
       Girl_LegL: -399707798
-      Girl_ArmR: -968272388
-      Angel01_WingR: -285608503
-      Angel01_WingL: -1953508382
+      Girl_LegR: 1336205473
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

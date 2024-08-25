@@ -15,19 +15,19 @@ MonoBehaviour:
   enemySpawnChance:
   - prefab: {fileID: 8194714875294824699, guid: b1c432078e9ca7945a6e5ec9193a1ca6,
       type: 3}
-    spawnChance: 100
+    spawnChance: 10
   - prefab: {fileID: 1457786742534251452, guid: 1ae8375fd62b6694dbea4af9ae68c168,
       type: 3}
-    spawnChance: 0
+    spawnChance: 20
   - prefab: {fileID: 13849148727128992, guid: 73f2b3c4498326c438f08a3ac51bac8c, type: 3}
-    spawnChance: 0
+    spawnChance: 30
   - prefab: {fileID: 6617581792320150919, guid: beb5e3665d915624984ae19cfbdafaf0,
       type: 3}
-    spawnChance: 0
+    spawnChance: 40
   - prefab: {fileID: 6892697019398397731, guid: 871cc251af07fa8499c19eb6986b049a,
       type: 3}
-    spawnChance: 0
+    spawnChance: 50
   - prefab: {fileID: 5932625376068725823, guid: f10e3222a8b124741967b78f8602ed2c,
       type: 3}
-    spawnChance: 0
+    spawnChance: 60
   spawnOnReachScore: c8000000f40100004c040000d0070000800c0000740e00006419000098210000f82a0000843500003c410000204e0000305c00006c6b0000

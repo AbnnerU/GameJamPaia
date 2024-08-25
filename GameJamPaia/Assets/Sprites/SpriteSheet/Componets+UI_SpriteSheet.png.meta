@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: a42f65a4dd227be4dbe30e435e8aaeb2
+guid: 3555bea5700ce1d49ba12d03926407c8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -70,13 +70,14 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
     textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
+    compressionQuality: 100
+    crunchedCompression: 1
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -89,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -101,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -113,6 +116,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -125,6 +129,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -537,8 +542,8 @@ TextureImporter:
       name: Map
       rect:
         serializedVersion: 2
-        x: 1047
-        y: 413
+        x: 929
+        y: 501
         width: 256
         height: 256
       alignment: 0
@@ -596,6 +601,237 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Face_04
+      rect:
+        serializedVersion: 2
+        x: 1762
+        y: 1726
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ef3ba7ad02279449b812ff6689fe7fa
+      internalID: 1424658550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face_03
+      rect:
+        serializedVersion: 2
+        x: 1909
+        y: 1732
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3376528541f3e27429c2558b046a5209
+      internalID: -1088245391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face_05
+      rect:
+        serializedVersion: 2
+        x: 1762
+        y: 1551
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f98bf006e45409c4d9cda5297a3a9c10
+      internalID: -151404685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face_02
+      rect:
+        serializedVersion: 2
+        x: 1909
+        y: 1552
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f696c7f1ae8f99e4dafbf9363e8e76f4
+      internalID: -1080212261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_BG
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 1438
+        width: 183
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 10, y: 10, z: 10, w: 10}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 870835d6f83749646b46b678eddb9ec5
+      internalID: -23392345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Face_01
+      rect:
+        serializedVersion: 2
+        x: 1762
+        y: 1376
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df17fab313dd2ba4e92238b83ee24329
+      internalID: -1374182339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_BG2
+      rect:
+        serializedVersion: 2
+        x: 1451
+        y: 1279
+        width: 281
+        height: 55
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05ed9bc9c504cde49bde8eefad330287
+      internalID: -1315822213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button_BG3
+      rect:
+        serializedVersion: 2
+        x: 1502
+        y: 1118
+        width: 180
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 26, y: 25, z: 25, w: 21}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca50608f00898ff43a4153f3be6806e4
+      internalID: 911816712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BarBG
+      rect:
+        serializedVersion: 2
+        x: 1356
+        y: 1016
+        width: 512
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42a7cd57363fb8d4daf52b4a3ae7fe79
+      internalID: 584898189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BarFill
+      rect:
+        serializedVersion: 2
+        x: 1369
+        y: 976
+        width: 484
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d21b71b2604bda4499e3680d0936b81
+      internalID: -2092985525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOverBG
+      rect:
+        serializedVersion: 2
+        x: 1296
+        y: 492
+        width: 661
+        height: 372
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 897fe2f3c22786445b005a17cc6537e5
+      internalID: -1549285839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -607,32 +843,43 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Componets+UI_SpriteSheet_20: -216052483
-      PowerUpBG: 1287810296
-      Componets+UI_SpriteSheet_19: -1394267575
-      RunIcon: -690518283
-      EnemyIcon: -1047855492
       Bar: 659004537
-      Componets+UI_SpriteSheet_18: -1074732420
-      Warn: 2044856113
-      MapRoomIcon: 1016475179
-      Lock03: -31016594
-      Map: 577836296
+      BarBG: 584898189
+      BarFill: -2092985525
+      Button_BG: -23392345
+      Button_BG2: -1315822213
+      Button_BG3: 911816712
+      ButtonsBG: 1512091281
+      ClockIcon: -975808129
       Coin: 459344984
-      Lock01: -1943687470
+      Componets+UI_SpriteSheet_0: -184110230
+      Componets+UI_SpriteSheet_10: -424420468
       Componets+UI_SpriteSheet_11: 1507529802
       Componets+UI_SpriteSheet_14: 841929469
-      ButtonsBG: 1512091281
-      Punch: 2046715550
-      Componets+UI_SpriteSheet_10: -424420468
-      Componets+UI_SpriteSheet_0: -184110230
+      Componets+UI_SpriteSheet_16: -1683990510
       Componets+UI_SpriteSheet_17: -461308279
+      Componets+UI_SpriteSheet_18: -1074732420
+      Componets+UI_SpriteSheet_19: -1394267575
+      Componets+UI_SpriteSheet_20: -216052483
+      EnemyIcon: -1047855492
+      Face_01: -1374182339
+      Face_02: -1080212261
+      Face_03: -1088245391
+      Face_04: 1424658550
+      Face_05: -151404685
+      GameOverBG: -1549285839
+      Hand: 1928978450
+      Lock01: -1943687470
+      Lock02: 896356802
+      Lock03: -31016594
+      Map: 577836296
+      MapRoomIcon: 1016475179
+      PowerUpBG: 1287810296
+      Punch: 2046715550
+      RunIcon: -690518283
       Shield: 1704795940
       ShieldIcon: 1971475779
-      Lock02: 896356802
-      Componets+UI_SpriteSheet_16: -1683990510
-      Hand: 1928978450
-      ClockIcon: -975808129
+      Warn: 2044856113
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
