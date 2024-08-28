@@ -6479,7 +6479,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: -2127022145, guid: c2a480eebf15981498e31c9d06409c1f, type: 3}
+    - sprite: {fileID: 1507529802, guid: 3555bea5700ce1d49ba12d03926407c8, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -9852,7 +9852,7 @@ Transform:
   m_GameObject: {fileID: 1457786742534251452}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 38.25, y: 17.36, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29893,7 +29893,7 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4638271566711136540

@@ -1555,7 +1555,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: -2127022145, guid: c2a480eebf15981498e31c9d06409c1f, type: 3}
+    - sprite: {fileID: 1507529802, guid: 3555bea5700ce1d49ba12d03926407c8, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -9879,7 +9879,7 @@ NavMeshAgent:
   m_AngularSpeed: 20
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 0
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0.5

@@ -6470,7 +6470,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: -2127022145, guid: c2a480eebf15981498e31c9d06409c1f, type: 3}
+    - sprite: {fileID: 1507529802, guid: 3555bea5700ce1d49ba12d03926407c8, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -15122,7 +15122,7 @@ MonoBehaviour:
   drawGizmos: 1
   agent: {fileID: 8194714875294824702}
   currentState: 0
-  playOnStart: 1
+  playOnStart: 0
   cameraTransform: {fileID: 0}
   agentCollider: {fileID: 8194714875294824705}
   mapManager: {fileID: 0}

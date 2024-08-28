@@ -88,8 +88,10 @@ MonoBehaviour:
   door: {fileID: 7865633206489955898}
   doorSpriteRenderer: {fileID: 4203733606836293542}
   unlockedSprite: {fileID: 0}
-  lockedSprite: {fileID: 21300000, guid: 9ae9551de69f35b438d832e66334b839, type: 3}
-  disabledSprite: {fileID: 21300000, guid: ce0ac02496fe9a149b6da5902242f84d, type: 3}
+  lockedSprite: {fileID: -1943687470, guid: 3555bea5700ce1d49ba12d03926407c8, type: 3}
+  lockedLocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  disabledSprite: {fileID: 2086736099, guid: 80413bca2ea311843bb06ff1d667f643, type: 3}
+  disabledSpriteLocalScale: {x: 1, y: 1, z: 1}
   disableIfSpriteIsNull: 1
 --- !u!61 &7424396892371247251
 BoxCollider2D:
@@ -394,7 +396,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4352949320120867236}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -908,7 +910,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ae6db83a7ec7eed4881dfdccf04d23a7, type: 3}
+  m_Sprite: {fileID: -2092985525, guid: 3555bea5700ce1d49ba12d03926407c8, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

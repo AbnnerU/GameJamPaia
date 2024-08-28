@@ -8,7 +8,9 @@ public class Door2DSpriteManager : MonoBehaviour
     [SerializeField] private SpriteRenderer doorSpriteRenderer;
     [SerializeField] private Sprite unlockedSprite;
     [SerializeField] private Sprite lockedSprite;
+    [SerializeField] private Vector3 lockedLocalScale = Vector3.one;
     [SerializeField] private Sprite disabledSprite;
+    [SerializeField] private Vector3 disabledSpriteLocalScale = Vector3.one;
     [SerializeField] private bool disableIfSpriteIsNull;
 
     private void Awake()
@@ -31,6 +33,7 @@ public class Door2DSpriteManager : MonoBehaviour
             }
 
             doorSpriteRenderer.sprite = disabledSprite;
+            doorSpriteRenderer.transform.localScale = disabledSpriteLocalScale;
         }
         else
         {
@@ -53,6 +56,7 @@ public class Door2DSpriteManager : MonoBehaviour
         }
         
         doorSpriteRenderer.sprite = unlockedSprite;
+   
     }
 
     private void Door_OnLock(Door2D d)
@@ -65,5 +69,6 @@ public class Door2DSpriteManager : MonoBehaviour
         }
 
         doorSpriteRenderer.sprite = lockedSprite;
+        doorSpriteRenderer.transform.localScale = lockedLocalScale;
     }
 }

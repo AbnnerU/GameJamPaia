@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class SetMusicAsset : MonoBehaviour
@@ -14,7 +14,9 @@ public class SetMusicAsset : MonoBehaviour
             for(int i = 0; i < AudioConfig.Length; i++)
             {
                 AudioConfig[i].audioClip = Room[i];
+#if UNITY_EDITOR
                 EditorUtility.SetDirty(AudioConfig[i]);
+#endif
             }
         }
     }

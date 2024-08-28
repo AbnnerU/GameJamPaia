@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f768ff93577acff9ff996a2229a12ea45d30f20f5b9b5d0590ce9a3ccfe45fd5
-size 566
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda78afc1d1e7164aabf4702010781bb, type: 3}
+  m_Name: Hit
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 36c96c4d33f66f04bb4342ebacb2bc62, type: 3}
+  priority: 128
+  volume: 0.3
+  SpatialBlend: 0
+  StereoPan: 0
+  minDistance: 5
+  maxDistance: 10
+  loop: 0
