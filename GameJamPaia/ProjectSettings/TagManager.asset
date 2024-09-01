@@ -1,3 +1,49 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3297fd8396a405f5f68d743b5eb8a34d05e5ab271412a0d58606f17906fa84c6
-size 461
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Door
+  - Enemy
+  - Score
+  - Coins
+  - CoinsUi
+  - Perks
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ground
+  - Distorcion
+  - Player
+  - Wall
+  - OffCamera
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

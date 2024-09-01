@@ -5,6 +5,7 @@ using UnityEngine;
 public class NegativeEffects : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private MovementSprint movementSprint;
 
     public Action<NegativeEffects> OnStuckEffectStart;
     public Action<NegativeEffects> OnStuckEffectEnd;
@@ -29,6 +30,8 @@ public class NegativeEffects : MonoBehaviour
 
         playerMovement.Disable();
 
+        movementSprint.Disable();
+
         OnStuckEffectStart?.Invoke(this);
     }
 
@@ -45,6 +48,7 @@ public class NegativeEffects : MonoBehaviour
                 if (stuckData.currentValue >= stuckData.clickAmountToRelease)
                 {
                     playerMovement.Enable();
+                    movementSprint.Enable();
 
                     OnStuckEffectEnd?.Invoke(this);
                 }
@@ -108,8 +112,10 @@ public class NegativeEffects : MonoBehaviour
     IEnumerator StunTime(float time)
     {
         playerMovement.Disable();
+        movementSprint.Disable();
         yield return new WaitForSeconds(time);
         playerMovement.Enable();
+        movementSprint.Enable();
     }
 
 

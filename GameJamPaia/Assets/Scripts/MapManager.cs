@@ -28,6 +28,8 @@ public class MapManager : MonoBehaviour
     [SerializeField] private GameObject roomsHudPrefab;
     [SerializeField] private Transform hudPrefabParent;
     [SerializeField] private GameObject[] roomsPrefabOptions;
+    [SerializeField] private int playerFirstRoomIndex;
+    [SerializeField] private GameObject firstRoomPrefab;
     [SerializeField] private Vector2 areaSize;
     [SerializeField] private Room[] mapRooms;
     [SerializeField] private List<Room> avaliableRooms;
@@ -99,9 +101,18 @@ public class MapManager : MonoBehaviour
 
         for (int i = 0; i < mapSize; i++)
         {
-            GameObject obj = Instantiate(roomsPrefabOptions[indexTemp[i]], Vector3.zero, Quaternion.identity);
+            if (i == playerFirstRoomIndex)
+            {
+                GameObject obj = Instantiate(firstRoomPrefab, Vector3.zero, Quaternion.identity);
 
-            roomsTemp.Add(obj.GetComponent<Room>());
+                roomsTemp.Add(obj.GetComponent<Room>());
+            }
+            else
+            {
+                GameObject obj = Instantiate(roomsPrefabOptions[indexTemp[i]], Vector3.zero, Quaternion.identity);
+
+                roomsTemp.Add(obj.GetComponent<Room>());
+            }
         }
 
 

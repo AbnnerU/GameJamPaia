@@ -168,6 +168,7 @@
     <Compile Include="Assets\Scripts\IA\Nodes\BTIsColliderEnabled.cs" />
     <Compile Include="Assets\Scripts\Sound\SoundInterpolation.cs" />
     <Compile Include="Assets\Scripts\VisionClamp.cs" />
+    <Compile Include="Assets\Scripts\Movement\MovementSprintInputBlock.cs" />
     <Compile Include="Assets\Scripts\SceneLoad\LoadingScene.cs" />
     <Compile Include="Assets\Scripts\HardCoded\EnemyActions.cs" />
     <Compile Include="Assets\Scripts\GameActions\Actions\RequestNewSoundArrayAction.cs" />

@@ -4,8 +4,9 @@ using System.Collections;
 
 using UnityEngine;
 
-public class MovementSprint : MonoBehaviour
+public class MovementSprint : MonoBehaviour, IHasActiveState
 {
+    [SerializeField] private bool active = true;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private InputManager inputs;
     [SerializeField] private bool percentage;
@@ -22,11 +23,13 @@ public class MovementSprint : MonoBehaviour
     private bool canUse = true;
     private void Awake()
     {
-        inputs.OnSprint += Input_OnSprint;
+        inputs.OnInteract += Input_OnSprint;
     }
 
     private void Input_OnSprint(bool pressed)
     {
+        if (!active) return;
+
         if (canUse && pressed)
         {
             StartCoroutine(SprintExecution());
@@ -86,5 +89,15 @@ public class MovementSprint : MonoBehaviour
     private void OnDestroy()
     {
         inputs.OnSprint -= Input_OnSprint;
+    }
+
+    public void Disable()
+    {
+       active = false;
+    }
+
+    public void Enable()
+    {
+        active = true;
     }
 }
