@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: 83ebae4831fb9d3418566b8467486b9f, type: 3}
   priority: 128
-  volume: 0.2
+  volume: 0.25
   SpatialBlend: 0
   StereoPan: 0
   minDistance: 2
