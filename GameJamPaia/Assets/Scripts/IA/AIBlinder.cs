@@ -13,6 +13,11 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     [SerializeField] protected Collider2D agentCollider;
     [SerializeField] protected MapManager mapManager;
     [SerializeField] private VisionClamp visionClamp;
+    [Header("Animation")]
+    [SerializeField] private Animator AIAnimator;
+    [SerializeField] private string idleAnimation;
+    [SerializeField] private string walkAnimation;
+
     [Header("Player Info")]
     [SerializeField] protected Transform target;
     [SerializeField] protected Collider2D targetCollider;
@@ -123,6 +128,9 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
 
     public void StartBehaviourTree()
     {
+        BTDoAction btIdleAnimation = new BTDoAction(() => PlayerAIAnimation(idleAnimation));
+        BTDoAction btWalkAnimation = new BTDoAction(() => PlayerAIAnimation(walkAnimation));
+
         BTDoAction btEnableAgentColliderAction = new BTDoAction(() => SetColliderActive(true));
         BTDoAction btDisableAgentColliderAction = new BTDoAction(() => SetColliderActive(false));
 
@@ -145,13 +153,14 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         BTSequence btSpawnSequence = new BTSequence(new List<BTnode>
         {
             btIsOnSpawningState,
+             btIdleAnimation,
             btDisableAgentColliderAction,
             btDisableRendersAction,
             btSpawningBehaviourAction,
             btSpawnDelay,
             btEnableRendersAction,
             btEnableAgentColliderAction,
-            btSetFollowTargetState
+            btSetFollowTargetState,
         });
         #endregion
 
@@ -163,12 +172,13 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         BTSequence btStunnedSequence = new BTSequence(new List<BTnode>
         {
             btIsOnStunnedState,
+            btIdleAnimation,
             btDisableBlindEffect,
             bTStopAgent,
             btStunEffectAction,
             btDisableAgentColliderAction,
             btStunnedTime,
-            btEnableAgentColliderAction
+            btEnableAgentColliderAction,
         });
         #endregion
 
@@ -189,7 +199,9 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
             bTIsColliderEnabled,
             btSetFollowTargetState,
             btSawTargetAction,
+            btIdleAnimation,
             btStartFollowCondicionalSequence,
+            btWalkAnimation,
             btRunAfterTargetAction,
             btEnableAgentColliderAction,
             bTFollowTargetCondicionalSequence
@@ -206,6 +218,7 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         {
             bTIsPathCompleteStatus,
             btIsOnHittedTargetState,
+            btIdleAnimation,
             btEnableBlindEffect,
             bTStickCondicionalSequence
         });
@@ -223,6 +236,7 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
             bTIsNotPathCompleteStatus,
             bTIsAIStateDifferentOfStopped,
             btDisableBlindEffect,
+            btIdleAnimation,
             btGoToRandomPointCondicionalSequence,
             btSetStoppedState,
             bTStopAgent
@@ -246,6 +260,10 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         behaviorTree.StartCoroutine(behaviorTree.Begin());
     }
 
+    private void PlayerAIAnimation(string animationName)
+    {
+        AIAnimator.Play(animationName, 0, 0);
+    }
 
     protected virtual void ChangeRendersActiveState(bool active)
     {
@@ -265,7 +283,7 @@ public class AIBlinder : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     {
         anim.Play(sawTheTargetAnimation, 0, 0);
 
-        int index = Random.Range(0,seeTargetSound.Length);
+        int index = Random.Range(0, seeTargetSound.Length);
 
         audioChannel.AudioRequest(seeTargetSound[index], _transform.position);
     }

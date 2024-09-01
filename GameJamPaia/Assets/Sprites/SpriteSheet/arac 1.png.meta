@@ -1,0 +1,404 @@
+fileFormatVersion: 2
+guid: 08564a34dcc47d147a724f00c7e0115a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 900
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: arac 1_0
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 190
+        width: 83
+        height: 834
+      alignment: 9
+      pivot: {x: 0.69828445, y: 0.9505783}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9aa8cfd70dbd0444bddaf8549ab8570
+      internalID: -1052189685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_1
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 0
+        width: 121
+        height: 1011
+      alignment: 9
+      pivot: {x: 0.62845653, y: 0.9765999}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 176316d0be2e2d94e89679c1da657c99
+      internalID: 841638333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_2
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 296
+        width: 79
+        height: 712
+      alignment: 9
+      pivot: {x: 0.592588, y: 0.9622926}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e510759f39451c94791c336c306d30a9
+      internalID: -1866795379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_3
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 213
+        width: 107
+        height: 785
+      alignment: 9
+      pivot: {x: 0.6031879, y: 0.9599279}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f103d9c1de0dc3942b82dc088be2932c
+      internalID: 1451553276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_4
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 449
+        width: 72
+        height: 549
+      alignment: 9
+      pivot: {x: 0.46932942, y: 0.95451456}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cceb6b2a06ae8b4ebab5643693a9aea
+      internalID: -664677394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_5
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 565
+        width: 78
+        height: 428
+      alignment: 9
+      pivot: {x: 0.65570617, y: 0.95402586}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b00aadbc0fe2e8488667275d86f40e6
+      internalID: -1477654448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_6
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 83
+        width: 290
+        height: 898
+      alignment: 9
+      pivot: {x: 0.8769197, y: 0.9709059}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d97379ca992f8af45b5d53e1954cddf9
+      internalID: 1779007496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_7
+      rect:
+        serializedVersion: 2
+        x: 594
+        y: 359
+        width: 75
+        height: 634
+      alignment: 9
+      pivot: {x: 0.67665774, y: 0.9632379}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe0b3d52f0b386e4f9cd915cca6e19c3
+      internalID: 358976491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_8
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 411
+        width: 64
+        height: 580
+      alignment: 9
+      pivot: {x: 0.5862589, y: 0.95116144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84f69ed8239783d4cb9754b427cac4c0
+      internalID: 573559524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_9
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 274
+        width: 98
+        height: 704
+      alignment: 9
+      pivot: {x: 0.5747525, y: 0.9557838}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f2a997a884734946b03645a434c1b6f
+      internalID: -339221432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_10
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 231
+        width: 141
+        height: 197
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6341d56f29050f4ca881035b7a9059b
+      internalID: -563221254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: arac 1_11
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 7
+        width: 165
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 672264a5db908e5498bad53ba79884e7
+      internalID: 1871260908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5f6038594ee3c0642965a1cdcb38b552
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      arac 1_0: -1052189685
+      arac 1_1: 841638333
+      arac 1_10: -563221254
+      arac 1_11: 1871260908
+      arac 1_2: -1866795379
+      arac 1_3: 1451553276
+      arac 1_4: -664677394
+      arac 1_5: -1477654448
+      arac 1_6: 1779007496
+      arac 1_7: 358976491
+      arac 1_8: 573559524
+      arac 1_9: -339221432
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

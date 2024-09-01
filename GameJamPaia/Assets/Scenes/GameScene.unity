@@ -9852,6 +9852,11 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1802191060}
+    - target: {fileID: 1009015416994854737, guid: bf3b2122d8b642c46a112dc9f4a0650f,
+        type: 3}
+      propertyPath: maximumPurchases
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1009015416994854764, guid: bf3b2122d8b642c46a112dc9f4a0650f,
         type: 3}
       propertyPath: m_Name
@@ -12344,7 +12349,7 @@ PrefabInstance:
     - target: {fileID: 5079270415433599098, guid: 9596546e1539d84479a5645819a222b4,
         type: 3}
       propertyPath: maximumPurchases
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16857,7 +16862,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 168.99997, y: -113.79999}
+  m_AnchoredPosition: {x: 169, y: -113.79999}
   m_SizeDelta: {x: 200, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1480772923
@@ -19647,6 +19652,11 @@ MonoBehaviour:
     type: 2}
   enemyBalanceOptions:
   - {fileID: 11400000, guid: f548538706a3f9d42b81fd87fcfc96c9, type: 2}
+  - {fileID: 11400000, guid: be6b766c0ac225a489bbc5a155802a84, type: 2}
+  - {fileID: 11400000, guid: 9808cab59b869604188301caf9f19185, type: 2}
+  - {fileID: 11400000, guid: 3bf782da0bc829c4db54ea154c2279e0, type: 2}
+  - {fileID: 11400000, guid: b05621e0c5dd653469b584f09cdd6ea1, type: 2}
+  - {fileID: 11400000, guid: 3e3db7622c6fd2b4faf1bd48153bd1b0, type: 2}
   roomProgressions: []
 --- !u!1 &1733369600
 GameObject:
@@ -22581,7 +22591,7 @@ PrefabInstance:
     - target: {fileID: 3313011669653219939, guid: 6ee959d6c659fd24dbabaf975ba1bdbe,
         type: 3}
       propertyPath: maximumPurchases
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23174,7 +23184,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 168.99997, y: -178.4}
+  m_AnchoredPosition: {x: 169, y: -178.4}
   m_SizeDelta: {x: 200, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2033227672

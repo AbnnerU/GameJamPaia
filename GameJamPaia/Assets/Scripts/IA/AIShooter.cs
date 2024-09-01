@@ -47,6 +47,7 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     [SerializeField] protected float passOffMeshLinkDelay;
     [SerializeField] protected Transform particlesTransform;
     [SerializeField] protected ParticleSystem particlesRef;
+    [SerializeField] private ParticleSystem dodgeParticle;
     [Header("Dodge")]
     [SerializeField] private float distanceToDodge;
     [SerializeField] private float dodgeRadius;
@@ -57,6 +58,7 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
     [SerializeField] protected AudioConfig[] passTheMeshLinkSound;
     [SerializeField] protected AudioConfig shootSound;
     [SerializeField] protected AudioConfig spawnSound;
+    [SerializeField] private AudioConfig[] laughSounds;
 
     private Transform _transform;
     protected HealthManager targetHealth;
@@ -159,13 +161,14 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         #endregion
 
 
-
+        BTDoAction btLaughAction = new BTDoAction(() => Laugh());
         BTDodge bTDodge = new BTDodge(agent.transform, agent, dodgeRadius, speed, dodgeSpeed, 0.5f, 0.01f, this);
         BTWaitForSeconds btTimeStoppedAfterDodge = new BTWaitForSeconds(timeStoppedAfterDodge);
         BTSetAIState btSetFollowTargetAIState = new BTSetAIState(this, AIState.FOLLOWTARGET);
         BTSequence btDodgeSequence = new BTSequence(new List<BTnode>
         {
             bTIsTargetNear,
+            btLaughAction,
             bTDodge,
             btTimeStoppedAfterDodge,
             btSetFollowTargetAIState
@@ -222,6 +225,11 @@ public class AIShooter : MonoBehaviour, IHasBehaviourTree, IAgentMovementState, 
         behaviorTree.StartCoroutine(behaviorTree.Begin());
     }
 
+    private void Laugh()
+    {
+        audioChannel.AudioRequest(laughSounds[Random.Range(0,laughSounds.Length)], _transform.position);
+        dodgeParticle.Play();
+    }
 
     protected virtual void ChangeRendersActiveState(bool active)
     {
