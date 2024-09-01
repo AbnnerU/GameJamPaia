@@ -12307,6 +12307,11 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1802191060}
+    - target: {fileID: 5079270415433599098, guid: 9596546e1539d84479a5645819a222b4,
+        type: 3}
+      propertyPath: maximumPurchases
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -22428,6 +22433,10 @@ PrefabInstance:
       propertyPath: movementSprint
       value: 
       objectReference: {fileID: 925350078}
+    - target: {fileID: 2029422114, guid: 6ee959d6c659fd24dbabaf975ba1bdbe, type: 3}
+      propertyPath: addDurationValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3313011669653219932, guid: 6ee959d6c659fd24dbabaf975ba1bdbe,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22503,6 +22512,11 @@ PrefabInstance:
       propertyPath: coinsManager
       value: 
       objectReference: {fileID: 1413448035}
+    - target: {fileID: 3313011669653219939, guid: 6ee959d6c659fd24dbabaf975ba1bdbe,
+        type: 3}
+      propertyPath: maximumPurchases
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
