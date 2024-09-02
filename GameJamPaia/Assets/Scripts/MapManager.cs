@@ -38,6 +38,8 @@ public class MapManager : MonoBehaviour
     private DoorsManager doorsManager;
     private AlarmsManager alarmsManager;
 
+    public Action OnMapSetupCompleted;
+
     //public Action OnMapSetupCompleted;
 
     private void Awake()
@@ -141,6 +143,8 @@ public class MapManager : MonoBehaviour
 
             mapRooms[i].SetUpRoomHud(roomHud);
         }
+
+        OnMapSetupCompleted?.Invoke();
 
     }
 
@@ -263,7 +267,7 @@ public class MapManager : MonoBehaviour
         }
         else
         {
-            print(neighborIndex + "disabled");
+            //print(neighborIndex + "disabled");
         }
     }
 

@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:43c1505af34b337fc31c17287fc24016be325705ccedb7dab971c60bd46c3530
-size 572
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda78afc1d1e7164aabf4702010781bb, type: 3}
+  m_Name: OpenDoor 1
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: 98d3130d66d937147aab714b01b26891, type: 3}
+  priority: 128
+  volume: 0.1
+  SpatialBlend: 0
+  StereoPan: 0
+  minDistance: 0
+  maxDistance: 0
+  loop: 0

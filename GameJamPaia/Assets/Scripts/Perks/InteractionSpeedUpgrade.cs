@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class InteractionSpeedUpgrade : UpgradeBase
 {
+    [SerializeField]private MapManager mapManager;
     [SerializeField] private HoldTime[] holdTimeRef;
 
     [Range(0,100)]
@@ -11,6 +12,11 @@ public class InteractionSpeedUpgrade : UpgradeBase
     [SerializeField] private float currentUpgradeValue = 0;
 
     private void Awake()
+    {
+        mapManager.OnMapSetupCompleted += MapSetupCompleted;
+    }
+
+    private void MapSetupCompleted()
     {
         holdTimeRef = FindObjectsOfType<HoldTime>();
     }
@@ -30,6 +36,8 @@ public class InteractionSpeedUpgrade : UpgradeBase
             originalValue = holdTimeRef[i].GetOriginalHoldTimeValue();
 
             newValue = originalValue - (originalValue * (currentUpgradeValue/100));
+
+            print(newValue);
 
             holdTimeRef[i].UpdateHoldTimeValue(newValue);
         }

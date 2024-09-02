@@ -21,8 +21,10 @@ public class StandInAreaActions2D :HoldTime
     public Action<bool> OnInputPerformed;
     public Action OnInteract;
 
-    private void Awake()
-    { 
+    protected override void Awake()
+    {
+        base.Awake();
+
         if (colliderRef == null)
             colliderRef = GetComponent<Collider2D>();
     }
