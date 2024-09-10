@@ -5042,7 +5042,7 @@ MonoBehaviour:
   behaviorTree: {fileID: 5932625376068725816}
   spriteObj: {fileID: 5932625375127882160}
   executionInterval: 0.1
-  speed: 1
+  speed: 0.85
   spawnParticle: {fileID: 3579002380218434629}
   spawnDelay: 3.85
   sprites:

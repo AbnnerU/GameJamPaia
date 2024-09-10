@@ -27,7 +27,8 @@ public class BuyUpgrade : MonoBehaviour
     [Header("Canvas")]
     [SerializeField] private Canvas priceCanvas;
     [SerializeField] private TMP_Text priceText;
-    [SerializeField] private Canvas interactCanvas;
+    [SerializeField] private GameObject interactCanvas;
+    [SerializeField] private SpriteRenderer enterInAreaFeedback;
 
     public Action OnBuyed;
 
@@ -41,16 +42,18 @@ public class BuyUpgrade : MonoBehaviour
         inputArea.OnInteract += TryBuyUpgrade;
         inputArea.OnTargetEnterInArea += ShowInteractCanvas;
         priceCanvas.enabled = true;
-        interactCanvas.enabled = false;
+        interactCanvas.SetActive(false);
+        enterInAreaFeedback.enabled = false;
         priceText.text = price.ToString();
     }
 
     private void ShowInteractCanvas(bool show)
     {
-        interactCanvas.enabled = show;
+        interactCanvas.SetActive(show);
+        enterInAreaFeedback.enabled = show;
     }
 
-    private void TryBuyUpgrade()
+    public void TryBuyUpgrade()
     {
         if (currentPurschase >= maximumPurchases) return;
 
@@ -72,7 +75,8 @@ public class BuyUpgrade : MonoBehaviour
             {
                 upgradeAnimator.Play(onReachMaximumPurchaseAnimation, 0, 0);
                 priceCanvas.enabled = false;
-                interactCanvas.enabled = false;
+                interactCanvas.SetActive(false);
+                enterInAreaFeedback.enabled = false;
                 inputArea.OnInteract -= TryBuyUpgrade;
                 inputArea.OnTargetEnterInArea -= ShowInteractCanvas;
             }

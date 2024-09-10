@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a210fbc9accd127448f42f5bc024f1d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdTime: 1
+  holdTime: 0.8
   canBeActive: 1
   triggerArea: {fileID: 3742386101394021771}
   anim: {fileID: 2052431950519880564}

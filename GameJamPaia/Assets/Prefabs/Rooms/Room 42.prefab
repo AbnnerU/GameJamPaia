@@ -878,6 +878,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.636444
       objectReference: {fileID: 0}
@@ -959,6 +974,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stuck Area
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
         type: 3}
@@ -1047,17 +1077,17 @@ PrefabInstance:
     - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
         type: 3}
@@ -1887,6 +1917,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.24
       objectReference: {fileID: 0}
@@ -1968,6 +2013,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stuck Area (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6918511797580090183, guid: 184bb9c96c0f2dd45a2dff474c90e392,
         type: 3}

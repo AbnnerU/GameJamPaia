@@ -26,7 +26,7 @@ public class MovementSprint : MonoBehaviour, IHasActiveState
         inputs.OnInteract += Input_OnSprint;
     }
 
-    private void Input_OnSprint(bool pressed)
+    public void Input_OnSprint(bool pressed)
     {
         if (!active) return;
 

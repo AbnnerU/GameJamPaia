@@ -1,10 +1,12 @@
 
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour, IHasActiveState
 {
     [SerializeField] private bool active = true;
-    [SerializeField] private InputManager input;
+    //[SerializeField] private InputManager input;
+    [SerializeField] private InputScript input;
     [SerializeField] private Rigidbody2D rb;
     //[SerializeField] private float speed;
     [SerializeField] private float slipFactor = 1f;
@@ -23,7 +25,7 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
         if (rb == null)
             rb = GetComponent<Rigidbody2D>();
 
-        input.OnMoveInput += Input_OnMoveInput;
+       // input.OnMoveInput += Input_OnMoveInput;
 
         defaultMaxSpeed = maxSpeed;
         defaultAcceleration = acceleration;
@@ -31,12 +33,12 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
     }
 
 
-    private void Input_OnMoveInput(Vector2 inputValue)
-    {
-        inputDirection = inputValue;
+    //private void Input_OnMoveInput(Vector2 inputValue)
+    //{
+    //    inputDirection = inputValue;
 
-        inputDirection.Normalize();
-    }
+    //    inputDirection.Normalize();
+    //}
 
     private void FixedUpdate()
     {
@@ -48,9 +50,14 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
     private void Move()
     {
         // Aplica aceleração ao jogador
-        Vector2 accelerationVector = inputDirection * (acceleration * Time.deltaTime);
-        rb.AddForce(accelerationVector, ForceMode2D.Force);
-
+        inputDirection = input.GetInputDirection().normalized;
+        print(inputDirection);
+        if (inputDirection != Vector2.zero)
+        {
+            Vector2 accelerationVector = inputDirection * (acceleration * Time.deltaTime);
+            //rb.AddForce(accelerationVector, ForceMode2D.Force);
+            rb.velocity = accelerationVector;
+        }
         // Limita a velocidade do jogador para a velocidade máxima
         if (rb.velocity.magnitude > maxSpeed)
         {
@@ -58,10 +65,12 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
         }
 
         // Aplica desaceleração se nenhuma tecla de movimento estiver sendo pressionada
-        if (inputDirection == Vector2.zero && rb.velocity.magnitude > 0.15)
+        print(rb.velocity.magnitude);
+        if (inputDirection == Vector2.zero && rb.velocity.magnitude > 0.20)
         {
-            Vector2 decelerationVector = -rb.velocity.normalized * (deceleration*Time.deltaTime);
-            rb.AddForce(decelerationVector, ForceMode2D.Force);
+            Vector2 decelerationVector =rb.velocity - ( rb.velocity.normalized * ((deceleration/100) *Time.deltaTime));
+            if (rb.velocity.magnitude < 0.20) decelerationVector = Vector2.zero;
+            rb.velocity = decelerationVector;
 
             // Garante que a velocidade não se torne negativa devido à desaceleração
            

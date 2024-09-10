@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17641d750dfbdcc409000e2364075c30, type: 3}
   m_Name: _BalanceValues
   m_EditorClassIdentifier: 
-  maxAlarmsOn: 4
+  maxAlarmsOn: 5
   minAlarmDelay: 1000000
   maxAlarmDelay: 1000000
   minLockNewDoorDelay: 1000000

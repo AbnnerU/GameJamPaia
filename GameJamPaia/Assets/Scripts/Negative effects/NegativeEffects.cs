@@ -6,7 +6,7 @@ public class NegativeEffects : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private MovementSprint movementSprint;
-
+   
     public Action<NegativeEffects> OnStuckEffectStart;
     public Action<NegativeEffects> OnStuckEffectEnd;
     public Action<int, int> StuckEffect_NewInput;
