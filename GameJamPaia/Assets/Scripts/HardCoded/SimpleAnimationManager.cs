@@ -5,9 +5,12 @@ public class SimpleAnimationManager : MonoBehaviour
 {
     [SerializeField] private bool active = true;
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private Animator anim;
     [SerializeField] private string walkAnimation;
     [SerializeField] private string idleAnimation;
+
+    private bool idle=true;
 
     private void Awake()
     {
@@ -18,16 +21,27 @@ public class SimpleAnimationManager : MonoBehaviour
 
         anim.Play(idleAnimation, 0, 0);
 
+        playerMovement.OnInputValueChange += OnMoveInput;
+
     }
 
     private void OnMoveInput(Vector2 vector)
     {
         if (!active) return;
 
+        if (idle && vector == Vector2.zero) return;
+        else if (!idle && vector != Vector2.zero) return;
+
         if (vector == Vector2.zero)
+        {
             anim.Play(idleAnimation, 0, 0);
+            idle = true;
+        }
         else
+        {
             anim.Play(walkAnimation, 0, 0);
+            idle = false;
+        }
     }
 
     public void PlayAnimation(string animationName)

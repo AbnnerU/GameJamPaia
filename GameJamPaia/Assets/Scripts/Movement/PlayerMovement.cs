@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -14,6 +15,8 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
     [SerializeField] private float acceleration = 5f; // Aceleração do jogador
     [SerializeField] private float deceleration = 5f;
     [SerializeField] private float maxSpeed = 5f; // Velocidade máxima do jogador
+
+    public Action<Vector2> OnInputValueChange;
 
     private Vector2 inputDirection;
     private float defaultMaxSpeed;
@@ -51,7 +54,9 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
     {
         // Aplica aceleração ao jogador
         inputDirection = input.GetInputDirection().normalized;
-        print(inputDirection);
+
+        OnInputValueChange?.Invoke(inputDirection);
+
         if (inputDirection != Vector2.zero)
         {
             Vector2 accelerationVector = inputDirection * (acceleration * Time.deltaTime);
@@ -65,7 +70,7 @@ public class PlayerMovement : MonoBehaviour, IHasActiveState
         }
 
         // Aplica desaceleração se nenhuma tecla de movimento estiver sendo pressionada
-        print(rb.velocity.magnitude);
+        //print(rb.velocity.magnitude);
         if (inputDirection == Vector2.zero && rb.velocity.magnitude > 0.20)
         {
             Vector2 decelerationVector =rb.velocity - ( rb.velocity.normalized * ((deceleration/100) *Time.deltaTime));

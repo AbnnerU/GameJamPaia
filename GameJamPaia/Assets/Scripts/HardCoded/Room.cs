@@ -36,6 +36,16 @@ public class Room : MonoBehaviour, IHasActiveState
     [SerializeField] private Color roomEnabledColor;
     [SerializeField] private Color roomDisableColor;
 
+    private void Awake()
+    {
+        roomTrack.audioClip.LoadAudioData();
+    }
+
+    private void OnDestroy()
+    {
+        roomTrack.audioClip.UnloadAudioData();
+    }
+
     private void Start()
     {
         for (int i = 0; i < roomDoors.Length; i++)

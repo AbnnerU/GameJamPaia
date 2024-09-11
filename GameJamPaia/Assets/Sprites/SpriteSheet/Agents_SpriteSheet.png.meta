@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 3
     compressionQuality: 100
     crunchedCompression: 1
     allowsAlphaSplitting: 0
@@ -188,7 +188,15 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -35, y: 49.5}
+        - {x: -35, y: -49.5}
+        - {x: 4, y: -49.5}
+        - {x: 18, y: -36.5}
+        - {x: 25, y: -34.5}
+        - {x: 35, y: -18.5}
+        - {x: 35, y: 49.5}
+        - {x: -1, y: 49.5}
       physicsShape: []
       tessellationDetail: 0
       bones: []
@@ -230,7 +238,16 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: 15.5, y: 46.5}
+        - {x: -31.5, y: 46.5}
+        - {x: -31.5, y: -9.5}
+        - {x: -30.5, y: -28.5}
+        - {x: -17.5, y: -31.5}
+        - {x: -8.5, y: -38.5}
+        - {x: -10.5, y: -46.5}
+        - {x: 31.5, y: -46.5}
+        - {x: 31.5, y: 46.5}
       physicsShape: []
       tessellationDetail: 0
       bones: []

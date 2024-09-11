@@ -62,7 +62,7 @@ MonoBehaviour:
   targetTag: Player
   atackDamage: 10
   fireRate: 3
-  projectileSpeed: 6
+  projectileSpeed: 5
   gravityValue: 0
   projectileRadius: 0.15
   projectileLayerMask:

@@ -14,13 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Loading.unity
     guid: f11bea3860e18e24092b3a3402c2d7d3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ADSTest.unity
     guid: 15e43531bc58a2b4bbda9efb760f17c7
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 7ebcf76c8c78a1d4595112cba78c6a22
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/New Scene.unity
     guid: c1ca3b31b10a854499431aa789c0fd77
   m_configObjects: {}
