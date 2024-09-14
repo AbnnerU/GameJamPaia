@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,6 +77,8 @@ namespace Assets.Scripts.BT
                 } while (agent.isOnNavMesh == false);
             }
 
+            if (agent.isOnOffMeshLink) agent.CompleteOffMeshLink();
+
             if (agent.remainingDistance <= distance && (pointPosition - agentTransform.position).magnitude > distance)
             {
                 float value = 5;
@@ -117,8 +120,7 @@ namespace Assets.Scripts.BT
             agent.speed = speed;
             float currentUpdateInterval;
 
-            if (agent.isOnOffMeshLink) agent.CompleteOffMeshLink();
-
+          
             while (target != null && agent != null && agent.enabled == true && agent.isStopped == false && target.gameObject.activeSelf == true)
             {
                 //Debug.Log(agent.pathStatus);
@@ -147,6 +149,16 @@ namespace Assets.Scripts.BT
                         currentUpdateInterval += Time.deltaTime;
 
                         agentMovementState.AgentIsOnNavMeshLink(agent.isOnOffMeshLink);
+
+                        if (agent.isOnOffMeshLink)
+                        {
+                            do
+                            {
+                                Debug.Log("Agent On Nav Mesh Link");
+                                yield return null;
+
+                            } while (agent.isOnOffMeshLink);
+                        }
 
                         yield return null;
                     } while (currentUpdateInterval < updateInterval);

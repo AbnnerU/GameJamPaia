@@ -5251,7 +5251,7 @@ MonoBehaviour:
   stunEffect: {fileID: 1429201853849846531}
   followTargetUpdateTime: 0.2
   minDistance: 0.5
-  passOffMeshLinkDelay: 1.25
+  passOffMeshLinkDelay: 1
   mapManager: {fileID: 0}
   gameManager: {fileID: 0}
   teleportPlayerAnimation: HandGetPlayer

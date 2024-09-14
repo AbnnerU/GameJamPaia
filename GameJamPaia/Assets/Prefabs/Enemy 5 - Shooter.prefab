@@ -25156,7 +25156,7 @@ MonoBehaviour:
   drawGizmos: 1
   agent: {fileID: 8194714875294824702}
   currentState: 0
-  playOnStart: 1
+  playOnStart: 0
   cameraTransform: {fileID: 0}
   agentCollider: {fileID: 8194714875294824705}
   mapManager: {fileID: 0}
@@ -25199,7 +25199,7 @@ MonoBehaviour:
   - {fileID: 2204641715854278832}
   followTargetUpdateTime: 0.25
   minDistance: 4.5
-  passOffMeshLinkDelay: 1.25
+  passOffMeshLinkDelay: 1
   particlesTransform: {fileID: 8843977559169710615}
   particlesRef: {fileID: 2002678545236272705}
   dodgeParticle: {fileID: 9038352190058921755}

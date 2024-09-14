@@ -348,10 +348,11 @@ public abstract class AIBasicBehaviour : MonoBehaviour, IHasBehaviourTree, IAgen
 
             yield return null;
 
-        } while (currentTime < passOffMeshLinkDelay);
+        } while (currentTime < passOffMeshLinkDelay && passingNavMeshLink);
 
         
         agent.CompleteOffMeshLink();
+        passingNavMeshLink = false;
         SetColliderActive(true);
     }
 

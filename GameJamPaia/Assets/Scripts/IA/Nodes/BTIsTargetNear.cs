@@ -28,7 +28,7 @@ namespace Assets.Scripts.BT
             }
 
             float distance = CalculateDistance(startPoint.position, target.position);
-            Debug.Log(distance + "| Ref:"+distanceRef);
+           // Debug.Log(distance + "| Ref:"+distanceRef);
             if (distance < distanceRef)
             {
                 Debug.Log("Alvo Perto");
