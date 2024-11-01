@@ -1,3 +1,47 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:01eee01bbe26f65e0acd907763c140b92d4e56270bf451410a4c143b3b2ce5e9
-size 1048
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cc62443b6e8b7a41953d3932520023b, type: 3}
+  m_Name: _EnableRoomProgression
+  m_EditorClassIdentifier: 
+  roomProgressions:
+  - onReachScore: 800
+    applied: 0
+  - onReachScore: 2500
+    applied: 0
+  - onReachScore: 4200
+    applied: 0
+  - onReachScore: 5900
+    applied: 0
+  - onReachScore: 7600
+    applied: 0
+  - onReachScore: 9300
+    applied: 0
+  - onReachScore: 11000
+    applied: 0
+  - onReachScore: 12800
+    applied: 0
+  - onReachScore: 14200
+    applied: 0
+  - onReachScore: 15900
+    applied: 0
+  - onReachScore: 17600
+    applied: 0
+  - onReachScore: 19300
+    applied: 0
+  - onReachScore: 21000
+    applied: 0
+  - onReachScore: 22700
+    applied: 0
+  - onReachScore: 24200
+    applied: 0
+  - onReachScore: 25900
+    applied: 0

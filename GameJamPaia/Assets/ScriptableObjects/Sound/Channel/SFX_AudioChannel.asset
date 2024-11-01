@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d11b9ade7916f5166c96ceb96dcd84e617f96b167cd673af0466a85dbb176e36
-size 434
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1e4102b88149549ab0e103859e1d0a, type: 3}
+  m_Name: SFX_AudioChannel
+  m_EditorClassIdentifier: Assembly-CSharp::AudioChannel

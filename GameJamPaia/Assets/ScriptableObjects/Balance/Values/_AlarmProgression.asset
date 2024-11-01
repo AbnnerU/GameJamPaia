@@ -1,3 +1,55 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a742282e6b8f8db60659647acdfa045390f37f81267407fce7cc5a55b60d21b5
-size 1150
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cff1864515569143916d9a0845b83b5, type: 3}
+  m_Name: _AlarmProgression
+  m_EditorClassIdentifier: 
+  alarmsDelayProgression:
+  - onReachScore: 100
+    minDelay: 7
+    maxDelay: 8
+    applied: 0
+  - onReachScore: 700
+    minDelay: 6.5
+    maxDelay: 7.5
+    applied: 0
+  - onReachScore: 1300
+    minDelay: 6
+    maxDelay: 7
+    applied: 0
+  - onReachScore: 1900
+    minDelay: 5.5
+    maxDelay: 6.5
+    applied: 0
+  - onReachScore: 2500
+    minDelay: 5
+    maxDelay: 6
+    applied: 0
+  - onReachScore: 3100
+    minDelay: 4.5
+    maxDelay: 5.5
+    applied: 0
+  - onReachScore: 3700
+    minDelay: 4
+    maxDelay: 5
+    applied: 0
+  - onReachScore: 4300
+    minDelay: 3.5
+    maxDelay: 4.5
+    applied: 0
+  - onReachScore: 4900
+    minDelay: 3
+    maxDelay: 4
+    applied: 0
+  - onReachScore: 5500
+    minDelay: 2.5
+    maxDelay: 3.5
+    applied: 0

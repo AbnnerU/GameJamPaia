@@ -1,3 +1,63 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:755f1c63a341be5d2749f10c5af5349141128239e16e684240bc8c8444a5abbb
-size 1300
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6587ad8a8b0291243acc486dcb8bd0e0, type: 3}
+  m_Name: _DoorsLockedProgression
+  m_EditorClassIdentifier: 
+  doorsLockedConfigs:
+  - onReachScore: 300
+    minDelay: 7
+    maxDelay: 8
+    applied: 0
+  - onReachScore: 600
+    minDelay: 6.5
+    maxDelay: 7.5
+    applied: 0
+  - onReachScore: 1200
+    minDelay: 6
+    maxDelay: 7
+    applied: 0
+  - onReachScore: 2100
+    minDelay: 5.5
+    maxDelay: 6.5
+    applied: 0
+  - onReachScore: 3300
+    minDelay: 5
+    maxDelay: 6
+    applied: 0
+  - onReachScore: 4800
+    minDelay: 4.5
+    maxDelay: 5.5
+    applied: 0
+  - onReachScore: 6600
+    minDelay: 4
+    maxDelay: 5
+    applied: 0
+  - onReachScore: 8700
+    minDelay: 3.5
+    maxDelay: 4.5
+    applied: 0
+  - onReachScore: 11100
+    minDelay: 3
+    maxDelay: 4
+    applied: 0
+  - onReachScore: 13800
+    minDelay: 2.5
+    maxDelay: 3.5
+    applied: 0
+  - onReachScore: 16800
+    minDelay: 2
+    maxDelay: 3
+    applied: 0
+  - onReachScore: 20100
+    minDelay: 1.5
+    maxDelay: 2.5
+    applied: 0
